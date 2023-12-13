@@ -1,0 +1,111 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="col">
+      <h2 class="text-center">Schema Parameters Form</h2>
+      <form [formGroup]="schemaForm">
+        <div class="mb-3">
+          <div class="row">
+            <div class="col">
+              <label class="form-label fw-bold">Schema Name<span class="text-danger">*</span></label>
+              <input type="text" formControlName="name" class="form-control form-control-sm" id="name"
+              [readonly]="isUpdate">
+              <div *ngIf="schemaForm.get('name')?.hasError('required') && schemaForm.get('name')?.touched"
+                class="text-danger">
+                <small>Schema Name is required</small>
+              </div>
+              <div *ngIf="schemaForm.get('name')?.hasError('pattern') && schemaForm.get('name')?.touched"
+                class="text-danger">
+                <small>Invalid format</small>
+              </div>
+              <div *ngIf="schemaForm.get('name')?.hasError('minlength') && schemaForm.get('name')?.touched"
+                class="text-danger">
+                <small>3 characters minimum</small>
+              </div>
+            </div>
+            <div class="col">
+              <label class="form-label fw-bold">Modified By<span class="text-danger">*</span></label>
+              <input type="text" formControlName="modifiedBy" class="form-control form-control-sm" id="modifiedBy">
+              <div *ngIf="schemaForm.get('modifiedBy')?.hasError('required') && schemaForm.get('modifiedBy')?.touched"
+                class="text-danger">
+                <small>Modified By is required</small>
+              </div>
+              <div *ngIf="schemaForm.get('modifiedBy')?.hasError('pattern') && schemaForm.get('modifiedBy')?.touched"
+                class="text-danger">
+                <small>Invalid format</small>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mb-3">
+          <div class="row">
+            <div class="col">
+              <label class="form-label fw-bold">Description</label>
+              <textarea formControlName="description" class="form-control form-control-sm" id="description"
+                placeholder="Type here..." rows="5" cols="5"></textarea>
+            </div>
+          </div>
+        </div>
+        <div formArrayName="fields">
+          <div *ngFor="let field of fields.controls; let i = index" [formGroupName]="i" class="mb-3 field-container">
+            <div class="remove-button-container">
+              <button type="button" class="btn btn-danger btn-sm rounded-circle remove-button" (click)="removeField(i)">
+                <i class="fa fa-minus"></i>
+              </button>
+            </div>
+            <div class="mb-3">
+              <label for="fieldName" class="form-label fw-bold">Field Name<span class="text-danger">*</span></label>
+              <input type="text" formControlName="fname" class="form-control form-control-sm" id="fname"
+                >
+              <div
+                *ngIf="fields.controls[i].get('fname')?.hasError('required') && fields.controls[i].get('fname')?.touched"
+                class="text-danger">
+                <small>Field Name is required.</small>
+              </div>
+              <div *ngIf="fields.controls[i].get('fname')?.hasError('pattern') && fields.controls[i].get('fname')?.touched"
+                class="text-danger">
+                <small>Invalid format</small>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="valueType" class="form-label fw-bold">Value Type<span class="text-danger">*</span></label>
+              <select formControlName="type" class="form-select form-select-sm" id="type">
+                <option value="Integer">Integer</option>
+                <option value="String">String</option>
+                <option value="Number">Number</option>
+                <option value="Boolean">Boolean</option>
+              </select>
+              <div
+                *ngIf="fields.controls[i].get('type')?.hasError('required') && fields.controls[i].get('type')?.touched"
+                class="text-danger">
+                <small>Field type is required.</small>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="fieldName" class="form-label fw-bold">Description<span class="text-danger">*</span></label>
+              <textarea type="text" formControlName="description" class="form-control form-control-sm" id="description"
+                value="field.description"></textarea>
+              <div
+                *ngIf="fields.controls[i].get('description')?.hasError('required') && fields.controls[i].get('description')?.touched"
+                class="text-danger">
+                <small>Description is required.</small>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex justify-content-between">
+          <button type="button" class="btn btn-primary rounded-circle" (click)="addField()">
+            <i class="fa fa-plus"></i>
+          </button>
+          <div class="ms-auto">
+            <button type="button" class="btn btn-primary" (click)="goBackToDetail()"
+              style="margin-right: 10px;">Back</button>
+            <button type="button" class="btn btn-primary" (click)="saveSchemaDetails()"
+              [class.disabled]="schemaForm.invalid" *ngIf="!isUpdate">Save</button>
+          </div>
+          <button type="button" class="btn btn-primary" *ngIf="isUpdate" (click)="onUpdate()"
+            [class.disabled]="schemaForm.invalid">Update</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,66 @@
+/* Style the table */
+.schemaTable {
+    width: 80%;
+    border-collapse: collapse;
+    padding: 10px;
+  }
+
+  .theading{
+    text-align: left;
+  }
+
+  .table-text{
+    text-align: left;
+  }
+
+  .icons{
+   text-align: left;
+  }
+
+
+/* Style the table header */
+.theading {
+  background-color: #007bff;
+  color: #fff;
+}
+
+/* Style table icons */
+.icons {
+  font-size: 20px;
+}
+
+/* Modal styles */
+.modal-content {
+  background-color: #ffffff;
+  border-radius: 10px;
+}
+
+.table-header{
+  background-color: #033047;
+  color: #ffffff;
+}
+
+
+.pagination-style {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 8rem;
+  list-style: none;
+}
+
+.pagination-style li {
+  margin: 0 5px;
+}
+
+.pagination-style li a {
+  text-decoration: none;
+  padding: 5px 10px;
+  border: 1px solid #007bff;
+  color: #007bff;
+  border-radius: 5px;
+}
+
+.pagination-style li.active a {
+  background-color: #007bff;
+  color: #fff;
+}

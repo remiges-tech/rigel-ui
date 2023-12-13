@@ -1,0 +1,214 @@
+{
+  "schema": [
+    {
+      "name": "Web Server",
+      "modifiedBy": "Admin",
+      "description": "The description for web server-schema",
+      "fields": [
+        {
+          "fname": "maxEmailSize",
+          "type": "Integer",
+          "description": "Maximum allowed size of an email in bytes."
+        },
+        {
+          "fname": "smtpInput",
+          "type": "Integer",
+          "description": "Identifier for the SMTP server"
+        }
+      ],
+      "modifiedDate": "2023-12-11T05:43:58.474Z",
+      "version": 3,
+      "id": 1
+    },
+    {
+      "name": "Intranet",
+      "modifiedBy": "User",
+      "description": "Description for Intranet schema",
+      "fields": [
+        {
+          "fname": "url",
+          "type": "Integer",
+          "description": "HTTP timeout in ms"
+        },
+        {
+          "fname": "port",
+          "type": "String",
+          "description": "API end point description"
+        }
+      ],
+      "modifiedDate": "2023-12-08T05:56:05.082Z",
+      "version": 3,
+      "id": 2
+    },
+    {
+      "name": "smtpInput",
+      "modifiedBy": "User",
+      "description": "Schema for SMTP input configuration",
+      "fields": [
+        {
+          "fname": "maxEmailSize",
+          "type": "Integer",
+          "description": "Maximum allowed size of an email in bytes."
+        }
+      ],
+      "modifiedDate": "2023-12-08T05:57:56.570Z",
+      "version": 3,
+      "id": 3
+    },
+    {
+      "name": "Merce ERP",
+      "modifiedBy": "User",
+      "description": "Description for merce erp configuration",
+      "fields": [
+        {
+          "fname": "smtpInputSize",
+          "type": "String",
+          "description": "Identifier for the SMTP server"
+        }
+      ],
+      "modifiedDate": "2023-12-08T05:58:56.003Z",
+      "version": 3,
+      "id": 4
+    },
+    {
+      "name": "Broadside",
+      "modifiedBy": "Admin",
+      "description": "All the schema description for broadSide",
+      "fields": [
+        {
+          "fname": "smtpInputSize",
+          "type": "Integer",
+          "description": "Description for maximum value of input size"
+        },
+        {
+          "fname": "maxEmailSize",
+          "type": "Integer",
+          "description": "Description for maximum value of email size"
+        }
+      ],
+      "modifiedDate": "2023-12-08T06:02:18.593Z",
+      "version": 3,
+      "id": 5
+    },
+    {
+      "name": "BSE",
+      "modifiedBy": "Admin",
+      "description": "Description for schema configuration",
+      "fields": [
+        {
+          "fname": "port",
+          "type": "Number",
+          "description": "description for port number"
+        },
+        {
+          "fname": "Server Name",
+          "type": "String",
+          "description": "Server name description"
+        }
+      ],
+      "modifiedDate": "2023-12-08T06:03:31.581Z",
+      "version": 3,
+      "id": 6
+    },
+    {
+      "name": "smtpInput",
+      "modifiedBy": "Admin",
+      "description": "Description for smtpInput configuration",
+      "fields": [
+        {
+          "fname": "smtpInputSize",
+          "type": "Integer",
+          "description": "maximum input size in bytes"
+        }
+      ],
+      "modifiedDate": "2023-12-08T06:04:14.460Z",
+      "version": 3,
+      "id": 7
+    },
+    {
+      "name": "Imtp",
+      "modifiedBy": "Admin",
+      "description": "Description for Imtp",
+      "fields": [
+        {
+          "fname": "url",
+          "type": "String",
+          "description": "API url  description"
+        }
+      ],
+      "modifiedDate": "2023-12-08T06:04:41.936Z",
+      "version": 3,
+      "id": 8
+    },
+    {
+      "name": "ERP",
+      "modifiedBy": "User",
+      "description": "Erp configuration details",
+      "fields": [
+        {
+          "fname": "maxEmailSize",
+          "type": "Integer",
+          "description": "Maximum allowed size of an email in bytes"
+        }
+      ],
+      "modifiedDate": "2023-12-08T06:05:55.671Z",
+      "version": 3,
+      "id": 9
+    },
+    {
+      "name": "Web Server",
+      "modifiedBy": "Admin",
+      "description": "Description",
+      "fields": [
+        {
+          "fname": "maxEmailSize",
+          "type": "Integer",
+          "description": "Description for maxInputSize in bytes"
+        },
+        {
+          "fname": "Server Name",
+          "type": "Integer",
+          "description": "Server name description"
+        }
+      ],
+      "modifiedDate": "2023-12-08T06:06:23.753Z",
+      "version": 3,
+      "id": 10
+    },
+    {
+      "name": "Web Server",
+      "modifiedBy": "Admin",
+      "description": "Description",
+      "fields": [
+        {
+          "fname": "maxEmailSize",
+          "type": "Integer",
+          "description": "Maximum email size in bytes"
+        },
+        {
+          "fname": "maxEmailSize",
+          "type": "Integer",
+          "description": "Maximum email size in bytes"
+        }
+      ],
+      "modifiedDate": "2023-12-08T09:50:48.091Z",
+      "version": 3,
+      "id": 11
+    },
+    {
+      "name": "Web Server",
+      "modifiedBy": "User",
+      "description": "The is schema configuration for web server",
+      "fields": [
+        {
+          "fname": "maxEmailSize",
+          "type": "Integer",
+          "description": "max email size should be in bytes"
+        }
+      ],
+      "modifiedDate": "2023-12-08T06:06:53.146Z",
+      "version": 3,
+      "id": 12
+    }
+  ]
+}
