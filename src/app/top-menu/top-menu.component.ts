@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-top-menu',
@@ -9,9 +8,6 @@ import { Router } from '@angular/router';
 export class TopMenuComponent {
 
 
-  constructor(private router:Router){}
+  constructor(){}
 
-  clickAddSchema(){
-    this.router.navigate(['schema-form']);
-  }
 }

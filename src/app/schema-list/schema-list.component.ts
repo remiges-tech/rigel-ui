@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { SchemaService } from '../../services/schema.service';
-
-import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { DataTableDirective } from 'angular-datatables';
+import { Subject } from 'rxjs';
+import { CommonService } from 'src/services/common.service';
 
 
 @Component({
@@ -12,62 +13,70 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./schema-list.component.scss']
 })
 export class SchemaListComponent {
-  
-  SchemaData!: any[]; 
+  SchemaData!: any[];
   formValue !: FormGroup;
   selectedRow: any;
-  p: number = 1;
-
-
+  dtElement!: DataTableDirective;
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject<any>();
+  dialogSubscription: any;
 
   constructor(
-    private router: Router,
     private api: SchemaService,
-    private toastr: ToastrService){}
+    private toastr: ToastrService, private _commonService: CommonService) { }
 
-    ngOnInit(): void {
-      this.getAllSchema();
-    }
+  ngOnInit(): void {
+    this.dtOptions = {
+      pagingType: "full_numbers",
+      pageLength: 5,
+      lengthMenu: [5, 10, 25],
+      processing: true,
+    };
 
-    getAllSchema() {
-      this.api.getSchema().subscribe((res) => {
-        this.SchemaData = res;
-      });
-    }
+  }
 
+  ngAfterViewInit() {
+    this.getAllSchema();
+  }
 
+  getAllSchema() {
+    this.api.getSchema().subscribe((res) => {
+      this.SchemaData = res;
+      this.dtTrigger.next(0);
+    });
+  }
 
-  onEdit(row: any) {
-    this.router.navigate(['schema-form', row.id]); 
+  ngOnDestroy(): void {
+    this.dtTrigger.unsubscribe();
   }
 
   onDeleteSchema(row: any) {
-    this.api.deleteSchema(row.id).subscribe(
-      () => {
-        this.getAllSchema();
-        this.toastr.success('Schema deleted successfully!', 'Success');
-      },
-      (error) => {
-        console.error('Error deleting schema:', error);
-        if (error.status === 404) {
-          this.toastr.error('Schema not found for deletion.', 'Error');
-        } else {
-          this.toastr.error('An error occurred while deleting the schema.', 'Error');
-        }
+    let obj = {
+      msgTitle: 'Confirmation',
+      msg: `Are you sure you want to delete schema "${row.name}"`,
+      okBtn: 'Delete',
+      cancelBtn: 'Cancel',
+    }
+    this._commonService.openConfirmationModal(obj).afterClosed().subscribe((confirmed: boolean) => {
+      if (confirmed) {
+        this.api.deleteSchema(row.id).subscribe(
+          (res: any) => {
+            this.dtTrigger.unsubscribe();
+            this.getAllSchema();
+            this.toastr.success('Schema deleted successfully!', 'Success');
+          },
+          (error) => {
+            console.error('Error deleting schema:', error);
+            if (error.status === 404) {
+              this.toastr.error('Schema not found for deletion.', 'Error');
+            } else {
+              this.toastr.error('An error occurred while deleting the schema.', 'Error');
+            }
+          }
+        );
       }
-    );
-  }
-  
-
-  
-
-
-  openValueTypeModal(row: any){
-  this.selectedRow = row;
+    })
   }
 
-  addConfigForm(row: any){
-  this.router.navigate(['config-form', row.id]);
-  }
 }
 

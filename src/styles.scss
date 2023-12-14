@@ -1,103 +1,494 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$RigalFrontEnd-primary: mat.define-palette(mat.$indigo-palette);
+$RigalFrontEnd-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$RigalFrontEnd-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$RigalFrontEnd-theme: mat.define-light-theme((color: (primary: $RigalFrontEnd-primary,
+        accent: $RigalFrontEnd-accent,
+        warn: $RigalFrontEnd-warn,
+      )));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($RigalFrontEnd-theme);
+
 /* You can add global styles to this file, and also import other style files */
 
 /* Importing Bootstrap SCSS file. */
 @import 'bootstrap/scss/bootstrap';
 
+:root {
+  --primary: #2F3C7E;
+  --secondary: #FBEAEB;
+}
+
+@font-face {
+  font-family: 'Gotham-Black';
+  src: url('./assets/font/Gotham-Font/Gotham-Black.otf');
+}
+
+@font-face {
+  font-family: 'Gotham-Bold';
+  src: url('./assets/font/Gotham-Font/Gotham-Bold.otf');
+}
+
+@font-face {
+  font-family: 'GothamBold';
+  src: url('./assets/font/Gotham-Font/GothamBold.ttf');
+}
+
+@font-face {
+  font-family: 'GothamBoldItalic';
+  src: url('./assets/font/Gotham-Font/GothamBoldItalic.ttf');
+}
+
+@font-face {
+  font-family: 'GothamBook';
+  src: url('./assets/font/Gotham-Font/GothamBook.ttf');
+}
+
+@font-face {
+  font-family: 'Gotham-BookItalic';
+  src: url('./assets/font/Gotham-Font/Gotham-BookItalic.otf');
+}
+
+@font-face {
+  font-family: 'GothamBookItalic';
+  src: url('./assets/font/Gotham-Font/GothamBookItalic.ttf');
+}
+
+@font-face {
+  font-family: 'Gotham-Light';
+  src: url('./assets/font/Gotham-Font/Gotham-Light.otf');
+}
+
+@font-face {
+  font-family: 'GothamLight';
+  src: url('./assets/font/Gotham-Font/GothamLight.ttf');
+}
+
+@font-face {
+  font-family: 'GothamLightItalic';
+  src: url('./assets/font/Gotham-Font/GothamLightItalic.ttf');
+}
+
+@font-face {
+  font-family: 'GothamMedium';
+  src: url('./assets/font/Gotham-Font/GothamMedium.ttf');
+}
+
+@font-face {
+  font-family: 'GothamMedium_1';
+  src: url('./assets/font/Gotham-Font/GothamMedium_1.ttf');
+}
+
+@font-face {
+  font-family: 'GothamMediumItalic';
+  src: url('./assets/font/Gotham-Font/GothamMediumItalic.ttf');
+}
+
+@font-face {
+  font-family: 'Gotham-Thin';
+  src: url('./assets/font/Gotham-Font/Gotham-Thin.otf');
+}
+
+@font-face {
+  font-family: 'Gotham-ThinItalic';
+  src: url('./assets/font/Gotham-Font/Gotham-ThinItalic.otf');
+}
+
+@font-face {
+  font-family: 'Gotham-UltraItalic';
+  src: url('./assets/font/Gotham-Font/Gotham-UltraItalic.otf');
+}
+
+@font-face {
+  font-family: 'Gotham-XLight';
+  src: url('./assets/font/Gotham-Font/Gotham-XLight.otf');
+}
+
+@font-face {
+  font-family: 'Gotham-XLightItalic';
+  src: url('./assets/font/Gotham-Font/Gotham-XLightItalic.otf');
+}
+
+/* fonts end */
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: "GothamBook", "Helvetica Neue", sans-serif;
+}
 
 .container {
-    max-width: 500px;
-    margin-top: 20px;
-    margin-left: 400px;
-    background-color: #c7c7c7; 
-    padding: 20px;
-    border-radius: 5px; 
-    box-shadow: 0px 0px 10px 0px #888888; 
-  }
-  
- 
-  .btn-add-field {
-    background-color: #007bff; 
-    color: #fff; 
-    border: none; 
-    border-radius: 50%; 
-    width: 40px; 
-    height: 40px; 
-    font-size: 20px; 
-  }
+  max-width: 1512px;
+}
 
-  
-  .btn-save {
-    background-color: #28a745; 
-    color: #fff;
-    border: none; 
-    padding: 10px 20px; 
-  }
-  
- 
-  .btn-remove {
-    background-color: #dc3545; 
-    color: #fff; 
-    border: none;
-    border-radius: 4px; 
-    margin-bottom: 1rem;
-  }
-  
+.pointer {
+  cursor: pointer;
+}
 
-  .col {
-    margin: 0 auto;
-    max-width: 400px; 
-  }
+.schemaTable {
+  border-collapse: collapse;
+  padding: 10px;
+}
 
-  .field-container {
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    border-radius: 8px;
-    background-color: #ffffff;
-    margin-bottom: 20px;
-  }
 
-  .remove-button-container {
-    position: relative;
-    display: flex;
-    justify-content: flex-end;
-  }
-  
-  .remove-button {
-    position: absolute;
-    right: -10%;
-    bottom: 2px;
-  }
-  
-  .tags-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 5px;
-    align-items: center;
-  }
-  
-  .tag {
-    margin-top: 10px;
-    background-color: #b1a9a9;
-    color: #000000;
-    border-radius: 20px;
-    padding: 2px 8px;
-    display: flex;
-    align-items: center;
-  }
-  
-  .tag i {
-    margin-left: 5px;
-    cursor: pointer;
-  }
+.form-label {
+  margin-bottom: 5px;
+}
 
-  .tags-input .d-flex {
-    justify-content: space-between;
-    gap: 10px; 
-  }
 
-  input.ng-invalid.ng-touched, 
-  textarea.ng-invalid.ng-touched,
-  select.ng-invalid.ng-touched{
-    border: red 1px solid;
-  }
+// .container {
+//     max-width: 500px;
+//     margin-top: 20px;
+//     margin-left: 400px;
+//     background-color: #c7c7c7; 
+//     padding: 20px;
+//     border-radius: 5px; 
+//     box-shadow: 0px 0px 10px 0px #888888; 
+//   }
 
+
+.btn-add-field {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 20px;
+}
+
+
+.btn-save {
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+}
+
+
+.btn-remove {
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+
+
+.col {
+  margin: 0 auto;
+  max-width: 400px;
+}
+
+.field-container {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #ffffff;
+  margin-bottom: 20px;
+}
+
+.remove-button-container {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.remove-button {
+  position: absolute;
+  right: -10%;
+  bottom: 2px;
+}
+
+.tags-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  align-items: center;
+}
+
+.tag {
+  margin-top: 10px;
+  background-color: #b1a9a9;
+  color: #000000;
+  border-radius: 20px;
+  padding: 2px 8px;
+  display: flex;
+  align-items: center;
+}
+
+.tag i {
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+.tags-input .d-flex {
+  justify-content: space-between;
+  gap: 10px;
+}
+
+input.ng-invalid.ng-touched,
+textarea.ng-invalid.ng-touched,
+select.ng-invalid.ng-touched {
+  border: red 1px solid;
+}
+
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+
+table.dataTable thead th {
+  border-bottom: 1px solid #DBDBDB !important;
+}
+
+table.dataTable tbody td {
+  border-bottom: 1px solid #DBDBDB !important;
+}
+
+.dataTables_wrapper .dataTables_filter input {
+  background-repeat: no-repeat;
+  text-align: left;
+  background-position: 5% 50% !important;
+  border-radius: 10px !important;
+  margin-left: 10px !important;
+  padding-left: 35px !important;
+  outline: none;
+}
+
+table.dataTable.no-footer {
+  border-top: 1px solid #DBDBDB;
+  border-bottom: none !important;
+  position: relative;
+  top: 10px;
+  margin-bottom: 20px !important;
+}
+
+.dataTables_length,
+.dataTables_filter,
+.dataTables_info,
+.dataTables_paginate {
+  padding: 1rem 10px !important;
+}
+
+body .dataTables_wrapper .dataTables_paginate .paginate_button {
+  min-width: initial;
+  padding: 2px 10px;
+  border-radius: 4px;
+}
+
+body .dataTables_wrapper .dataTables_paginate .paginate_button.current,
+body .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover,
+body .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+  background: var(--primary) !important;
+  min-width: initial;
+  padding: 2px 10px;
+  color: var(--secondary) !important;
+  border-radius: 4px;
+}
+
+#data-table-simple_wrapper {
+  padding: 10px 0px;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+.row {
+  position: relative;
+}
+
+.mtn-10 {
+  margin-top: -10px;
+}
+
+.mt-10 {
+  margin-top: 10px;
+}
+
+
+
+html,
+html * {
+  font-family: "GothamBook";
+}
+
+body {
+  background-color: var(--body-bg);
+  color: var(--text-color);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+p {
+  margin-bottom: 5px;
+}
+
+.fs-5 {
+  font-size: 5px !important;
+}
+
+.fs-6 {
+  font-size: 6px !important;
+}
+
+.fs-7 {
+  font-size: 7px !important;
+}
+
+.fs-8 {
+  font-size: 8px !important;
+}
+
+.fs-9 {
+  font-size: 9px !important;
+}
+
+.fs-10 {
+  font-size: 10px !important;
+}
+
+.fs-11 {
+  font-size: 11px !important;
+}
+
+.fs-12 {
+  font-size: 12px !important;
+}
+
+.fs-13 {
+  font-size: 13px !important;
+}
+
+.fs-14 {
+  font-size: 14px !important;
+}
+
+.fs-15 {
+  font-size: 15px !important;
+}
+
+.fs-16 {
+  font-size: 16px !important;
+}
+
+.fs-17 {
+  font-size: 17px !important;
+}
+
+.fs-18 {
+  font-size: 18px !important;
+}
+
+.fs-19 {
+  font-size: 19px !important;
+}
+
+.fs-20 {
+  font-size: 20px !important;
+}
+
+.fs-21 {
+  font-size: 21px !important;
+}
+
+.fs-22 {
+  font-size: 22px !important;
+}
+
+.fs-23 {
+  font-size: 23px !important;
+}
+
+.fs-24 {
+  font-size: 24px !important;
+}
+
+.fs-25 {
+  font-size: 25px !important;
+}
+
+.fs-26 {
+  font-size: 26px !important;
+}
+
+.fs-40 {
+  font-size: 40px !important;
+}
+
+.h-100vh {
+  height: 100vh;
+}
+
+.fw-400,
+.fw-normal {
+  font-weight: 400 !important;
+}
+
+.fw-500,
+.fw-bolder {
+  font-weight: 500 !important;
+}
+
+.fw-700,
+.fw-bold {
+  font-weight: 700 !important;
+}
+
+.title-height {
+  min-height: 40px;
+}
+
+.card {
+  border-radius: 15px;
+  margin-bottom: 15px;
+  box-shadow: 0px 0px 5px 0 #cfcfcf;
+  overflow: hidden;
+}
+
+.btn {
+  padding-left: 12px;
+  border-radius: 30px;
+  padding-right: 12px;
+}

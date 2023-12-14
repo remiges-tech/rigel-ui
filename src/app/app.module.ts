@@ -16,6 +16,9 @@ import { SchemaListComponent } from './schema-list/schema-list.component';
 import { SchemaFormComponent } from './schema-form/schema-form.component';
 import { ConfigFormComponent } from './config-form/config-form.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { DataTablesModule } from 'angular-datatables';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ConfirmationDialog } from 'src/utils/confirmation.modal';
 
 @NgModule({
   declarations: [
@@ -24,16 +27,19 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     SchemaListComponent,
     SchemaFormComponent,
     ConfigFormComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    ConfirmationDialog
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
+    MatDialogModule,
     ReactiveFormsModule,
     HttpClientModule,
     FormsModule,
     NgxPaginationModule,
+    DataTablesModule,
     BrowserAnimationsModule, 
     ToastrModule.forRoot(), 
   ],
