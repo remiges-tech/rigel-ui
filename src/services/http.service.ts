@@ -24,5 +24,4 @@ export class HttpService {
                 return this._httpClient.post<any>(url, data);
         }
     }
-
 }

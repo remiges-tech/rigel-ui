@@ -145,26 +145,5 @@ export class SchemaFormComponent {
         this.toastr.error('An error occurred while updating the schema.', 'Error');
       }
     );
-  }
-  
-
-  // isFormArrayComplete() {
-  //   const fields = this.schemaForm.get('fields') as FormArray;
-  
-  //   if (fields.length === 0) {
-  //     this.saveButtonDisabled = false
-  //   }
-  
-  //   for (const field of fields.controls) {
-  //     const fname = field.get('fname')?.value;
-  //     const type = field.get('type')?.value;
-  //     const description = field.get('description')?.value;
-  
-  //     if (!fname || !type || !description) {
-  //       this.saveButtonDisabled = true
-  //     }else{
-  //       this.saveButtonDisabled = false
-  //     }
-  //   }
-  // } 
+  } 
 }

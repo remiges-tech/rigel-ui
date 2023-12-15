@@ -224,33 +224,6 @@ body {
   bottom: 2px;
 }
 
-.tags-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px;
-  align-items: center;
-}
-
-.tag {
-  margin-top: 10px;
-  background-color: #b1a9a9;
-  color: #000000;
-  border-radius: 20px;
-  padding: 2px 8px;
-  display: flex;
-  align-items: center;
-}
-
-.tag i {
-  margin-left: 5px;
-  cursor: pointer;
-}
-
-.tags-input .d-flex {
-  justify-content: space-between;
-  gap: 10px;
-}
-
 input.ng-invalid.ng-touched,
 textarea.ng-invalid.ng-touched,
 select.ng-invalid.ng-touched {

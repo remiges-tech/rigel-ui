@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { SchemaService } from '../../services/schema.service';
 import { ToastrService } from 'ngx-toastr';
 import { DataTableDirective } from 'angular-datatables';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { CommonService } from 'src/services/common.service';
 
 
@@ -13,12 +13,12 @@ import { CommonService } from 'src/services/common.service';
   styleUrls: ['./schema-list.component.scss']
 })
 export class SchemaListComponent {
-  SchemaData!: any[];
-  formValue !: FormGroup;
-  selectedRow: any;
+  @ViewChild(DataTableDirective, { static: false })
   dtElement!: DataTableDirective;
+  dtTrigger: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  schemaData!: any[];
   dtOptions: DataTables.Settings = {};
-  dtTrigger: Subject<any> = new Subject<any>();
+
   dialogSubscription: any;
 
   constructor(
@@ -31,18 +31,18 @@ export class SchemaListComponent {
       pageLength: 5,
       lengthMenu: [5, 10, 25],
       processing: true,
+      language:{
+        searchPlaceholder: 'schema name'
+      }
     };
-
-  }
-
-  ngAfterViewInit() {
     this.getAllSchema();
   }
 
+
+
   getAllSchema() {
     this.api.getSchema().subscribe((res) => {
-      this.SchemaData = res;
-      this.dtTrigger.next(0);
+      this.schemaData = res;
     });
   }
 
@@ -61,8 +61,8 @@ export class SchemaListComponent {
       if (confirmed) {
         this.api.deleteSchema(row.id).subscribe(
           (res: any) => {
-            this.dtTrigger.unsubscribe();
-            this.getAllSchema();
+              this.getAllSchema()
+              this.reloadDataTable()
             this.toastr.success('Schema deleted successfully!', 'Success');
           },
           (error) => {
@@ -78,5 +78,13 @@ export class SchemaListComponent {
     })
   }
 
+  reloadDataTable(): void {
+    if (this.dtElement && this.dtElement.dtInstance) {
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.destroy();
+        this.dtTrigger.next(0);
+      });
+    }
+  }
 }
 
