@@ -1,4 +1,8 @@
-<div class="container mt-5">
+<div>
+  <h2 class="fw-500 mt-2 px-2" *ngIf="isUpdate">Schema Details</h2>
+  <h2 class="fw-500 mt-2 px-2" *ngIf="!isUpdate">Add Schema Details</h2>
+</div>
+<div class="container mt-5 schemaForm">
   <div class="row">
     <div class="col">
       <h2 class="text-center">Schema Parameters Form</h2>

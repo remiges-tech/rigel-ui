@@ -61,6 +61,30 @@
       "modifiedDate": "2023-12-15T08:51:35.527Z",
       "version": 3,
       "id": 6
+    },
+    {
+      "name": "smtpInput",
+      "modifiedBy": "Admin",
+      "description": "tdghghjgkj",
+      "fields": [],
+      "modifiedDate": "2023-12-15T12:10:15.204Z",
+      "version": 3,
+      "id": 7
+    },
+    {
+      "name": "Merce ERP",
+      "modifiedBy": "Admin",
+      "description": "Description for merce erp schema",
+      "fields": [
+        {
+          "fname": "maxEmailSize",
+          "type": "Integer",
+          "description": "email size should be in bytes"
+        }
+      ],
+      "modifiedDate": "2023-12-18T07:02:03.562Z",
+      "version": 3,
+      "id": 8
     }
   ]
 }

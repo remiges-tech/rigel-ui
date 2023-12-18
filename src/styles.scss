@@ -154,21 +154,21 @@ body {
   padding: 10px;
 }
 
-
 .form-label {
   margin-bottom: 5px;
 }
 
 
-// .container {
-//     max-width: 500px;
-//     margin-top: 20px;
-//     margin-left: 400px;
-//     background-color: #c7c7c7; 
-//     padding: 20px;
-//     border-radius: 5px; 
-//     box-shadow: 0px 0px 10px 0px #888888; 
-//   }
+.schemaForm,
+.configForm {
+    max-width: 500px;
+    margin-top: 20px;
+    margin-left: 400px;
+    background-color: #c7c7c7; 
+    padding: 20px;
+    border-radius: 5px; 
+    box-shadow: 0px 0px 10px 0px #888888; 
+  }
 
 
 .btn-add-field {

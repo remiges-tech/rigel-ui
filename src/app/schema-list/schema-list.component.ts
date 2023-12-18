@@ -1,5 +1,4 @@
 import { Component, ViewChild } from '@angular/core';
-import { FormGroup } from '@angular/forms';
 import { SchemaService } from '../../services/schema.service';
 import { ToastrService } from 'ngx-toastr';
 import { DataTableDirective } from 'angular-datatables';
