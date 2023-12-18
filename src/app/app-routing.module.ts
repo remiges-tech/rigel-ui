@@ -12,7 +12,9 @@ const routes: Routes = [
   {path: 'schema-form/:id', component: SchemaFormComponent},
   {path: 'config-form', component: ConfigFormComponent},
   {path: 'config-form/:id', component: ConfigFormComponent},
-  {path: '**', component: PageNotFoundComponent}
+  {path: 'config', loadChildren: () => import('./config/config.module').then(m => m.ConfigModule) },
+  {path: '**', component: PageNotFoundComponent},
+  
 ];
 
 @NgModule({

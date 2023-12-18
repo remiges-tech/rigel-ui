@@ -59,7 +59,7 @@
                     </button>
                   </div>
                   <div class="col-auto">
-                    <button type="button" class="btn p-0 mt-1" [routerLink]="['/config-form',row.id]">
+                    <button type="button" class="btn p-0 mt-1" [routerLink]="['/config/list']" [queryParams]="{schemaName:row.name,schemaVersion:row.version}">
                       <i class="fa fa-lg fa-eye text-primary mx-3"></i>
                     </button>
                   </div>

@@ -1,0 +1,123 @@
+<div class="container mt-5">
+  <div class="mt-2">
+    <h2 class="fw-700 secondary-text">Config Details</h2>
+  </div>
+  <div class="container mt-3">
+    <div class="d-flex-justify-content-center">
+      <div class="card mb-4 p-3">
+        <form [formGroup]="congifDetails">
+          <div class="row">
+            <div class="form-group col-md-6">
+              <label for="schemaName" class="form-label fw-bold">Schema Name</label>
+              <input type="text" class="form-control" id="schemaName" placeholder="Schema Name" name="schemaName"
+                formControlName="schemaName" readonly>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="schemaVersion" class="form-label fw-bold">Schema Version</label>
+              <input type="text" class="form-control" id="schemaVersion" placeholder="Schema Version" name="schemaVersion"
+                formControlName="schemaVersion" readonly>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="form-group col-md-6">
+              <label for="configName" class="form-label fw-bold">Config Name</label>
+              <input type="text" class="form-control" id="configName" placeholder="Config Name" name="configName"
+                formControlName="configName" readonly>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="description" class="form-label fw-bold">Description</label>
+              <textarea rows="1" type="text" class="form-control" id="description" placeholder="Description"
+                name="description" formControlName="description" readonly></textarea>
+            </div>
+          </div>
+          <div class="table-section mt-3">
+            <h2 class="fs-22 fw-700 secondary-text">
+              Config Values:
+            </h2>
+            <div class="row">
+              <div class="col">
+  
+              </div>
+              <div class="col-auto my-2">
+                <button type="button" class="btn btn-success" [class.disabled]="isReadOnly" (click)="addFields()">
+                  <i class="fa fa-plus"></i> Add Config
+                </button>
+              </div>
+            </div>
+  
+            <div class="table-responsive">
+              <table class="table" formArrayName="values" id="data-table-simple">
+                <thead>
+                  <tr class="table-head">
+                    <th>Field</th>
+                    <th>Type</th>
+                    <th>Value</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let field of values.controls; let i = index" [formGroupName]="i">
+                    <td>
+                      <div class="mb-3">
+                        <input type="text" class="form-control" id="field" formControlName="field"
+                          [readOnly]="isReadOnly" />
+                        <div *ngIf="values.controls[i].get('field')?.touched" class="text-danger">
+                          <div *ngIf="values.controls[i].get('field')?.hasError('required')">
+                            <small>Field Name is required</small>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="mb-3">
+                        <select formControlName="type" class="form-control" id="type">
+                          <option *ngFor="let option of options; let i = index" [disabled]="isReadOnly" [value]="option">
+                            {{option}}</option>
+                        </select>
+                        <div *ngIf="values.controls[i].get('type')?.touched" class="text-danger">
+                          <div *ngIf="values.controls[i].get('type')?.hasError('required')">
+                            <small>Field type is required</small>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="mb-3">
+                        <input type="text" class="form-control" id="value" formControlName="value"
+                          [readOnly]="isReadOnly" />
+                        <div *ngIf="values.controls[i].get('value')?.touched" class="text-danger">
+                          <div *ngIf="values.controls[i].get('value')?.hasError('required')">
+                            <small>Field value is required</small>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="mb-3">
+                        <button class="btn btn-danger disabled" [class.disabled]="isReadOnly" (click)="removeFields(i)">
+                          Remove
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </form>
+  
+        <div class="row mt-3">
+          <div class="col"></div>
+          <div class="col-auto">
+            <button class="btn" [routerLink]="['/config/list']"
+              [queryParams]="{schemaName:selectedSchemaName,schemaVersion:selectedSchemaVersion}">Back</button>
+            <button class="btn btn-primary" *ngIf="isReadOnly" (click)="this.isReadOnly = false;"><i
+                class="fa fa-pencil-square-o"></i> Edit</button>
+            <button class="btn btn-primary" *ngIf="!isReadOnly" [class.disabled]="congifDetails.invalid"
+              (click)="updateDetails()"><i class="fa fa-pencil-square"></i> Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

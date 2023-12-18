@@ -8,7 +8,7 @@ import { CommonService } from "./common.service";
 })
 
 export class HttpService {
-    private baseUrl = 'http://localhost:3000/'
+    private baseUrl = 'http://localhost:3000'
     constructor(private _httpClient: HttpClient, private _commonService: CommonService) { }
 
     fetchData(dataObj: any): Observable<any> {
@@ -20,8 +20,13 @@ export class HttpService {
                 return this._httpClient.post<any>(this.baseUrl + url, data);
             case dataObj.method == 'get':
                 return this._httpClient.get<any>(this.baseUrl + url, data);
+            case dataObj.method == 'delete':
+                return this._httpClient.delete<any>(this.baseUrl + url);
+            case dataObj.method == 'put':
+                return this._httpClient.put<any>(this.baseUrl + url, data);
             default:
                 return this._httpClient.post<any>(url, data);
         }
     }
+
 }

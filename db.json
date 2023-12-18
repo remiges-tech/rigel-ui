@@ -86,5 +86,26 @@
       "version": 3,
       "id": 8
     }
+  ],
+  "config": [
+    {
+      "id": 1,
+      "schemaName": "smtpInput",
+      "schemaVersion": 3,
+      "configName": "smtpInputIndia",
+      "description": "Config for SMTP input server located in India",
+      "values": [
+        {
+          "field": "maxEmailSize",
+          "type": "Integer",
+          "value": 10
+        },
+        {
+          "field": "serverName",
+          "type": "String",
+          "value": "smtp.in.emails.services"
+        }
+      ]
+    }
   ]
 }
