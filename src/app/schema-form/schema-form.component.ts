@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SchemaService } from '../../services/schema.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
+import { TYPE_OPTION } from 'src/services/constants.service';
 
 
 
@@ -16,6 +17,7 @@ import { ToastrService } from 'ngx-toastr';
 
 
 export class SchemaFormComponent {
+  options:string[] = TYPE_OPTION;
   schemaForm !: FormGroup;
   schemaId !: number;
   isUpdate: boolean = false;
@@ -66,18 +68,17 @@ export class SchemaFormComponent {
 
 
   
-  addField() {
+  addFields() {
     const fieldGroup = this.formBuilder.group({
       fname: ['', [Validators.required,Validators.pattern(/^[a-zA-Z.]+(?: [a-zA-Z]+)*$/)]], 
-      type: ['', Validators.required],
+      type: [null, Validators.required],
       description: ['', Validators.required],
     });
     this.fields.push(fieldGroup);
-    // this.isFormArrayComplete();
   }
 
   // Function to remove a field from the FormArray
-  removeField(index: number) {
+  removeFields(index: number) {
     this.fields.removeAt(index);
   }
 
@@ -120,7 +121,7 @@ export class SchemaFormComponent {
     this.api.postSchema(this.schemaForm.value).subscribe(
       () => {
         this.router.navigate(['schema-list']);
-        this.toastr.success('Schema saved successfully!', 'Success');
+        this.toastr.success('Schema saved successfully!');
       },
       (error: HttpErrorResponse) => {
         if (error.status === 404) {
@@ -138,7 +139,7 @@ export class SchemaFormComponent {
       (res) => {
         if (res) {
           this.router.navigate(['schema-list']);
-          this.toastr.success('Schema updated successfully!', 'Success');
+          this.toastr.success('Schema updated successfully!');
         }
       },
       (error) => {

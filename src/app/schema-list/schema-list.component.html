@@ -26,9 +26,9 @@
         <tbody>
           <tr *ngFor="let row of schemaData, let i = index">
             <td>{{i+1}}</td>
-            <td class=" text-primary">{{row.name}}</td>
+            <td class=" text-primary pointer" [routerLink]="['/schema-form',row.id]">{{row.name}}</td>
             <td>{{row.version}}</td>
-            <td>{{row.description}}</td>
+            <td>{{row.description.substr(0,30)}}...</td>
             <td>{{row.modifiedBy}}</td>
             <td class="align-middle position-relative">
               <div class="container">
