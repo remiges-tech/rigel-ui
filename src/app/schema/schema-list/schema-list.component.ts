@@ -1,9 +1,9 @@
 import { Component, ViewChild } from '@angular/core';
-import { SchemaService } from '../../services/schema.service';
 import { ToastrService } from 'ngx-toastr';
 import { DataTableDirective } from 'angular-datatables';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { CommonService } from 'src/services/common.service';
+import { SchemaService } from 'src/services/schema.service';
 
 
 @Component({

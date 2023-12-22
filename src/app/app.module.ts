@@ -12,8 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { TopMenuComponent } from './top-menu/top-menu.component';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { SchemaListComponent } from './schema-list/schema-list.component';
-import { SchemaFormComponent } from './schema-form/schema-form.component';
+
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { DataTablesModule } from 'angular-datatables';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -23,8 +22,6 @@ import { ConfirmationDialog } from 'src/utils/confirmation.modal';
   declarations: [
     AppComponent,
     TopMenuComponent,
-    SchemaListComponent,
-    SchemaFormComponent,
     PageNotFoundComponent,
     ConfirmationDialog
   ],

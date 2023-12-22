@@ -1,6 +1,6 @@
 <div class="container schemaTable">
   <div>
-    <h2 class="fw-500">Schema List</h2>
+    <h2 class="fw-700">Schema List</h2>
   </div>
   <div class="row my-2">
     <div class="col"></div>
@@ -46,21 +46,21 @@
                 </div>
               </div>
             </td>
-            <!-- <div class="col-auto">
-              <button type="button" class="btn btn-light btn-outline-dark" [routerLink]="['/config-form',row.id]">Add
-                Config</button>
-            </div> -->
             <td class="align-middle position-relative">
               <div class="container">
                 <div class="row flex-nowrap">
                   <div class="col-auto">
                     <button type="button" class="btn p-0 mt-1" [routerLink]="['/config-form',row.id]">
-                      <i class="fa fa-lg fa-plus text-secondary"></i>
+                      <span matTooltip="Add Config">
+                        <i class="fa fa-lg fa-plus text-secondary"></i>
+                      </span>
                     </button>
                   </div>
                   <div class="col-auto">
                     <button type="button" class="btn p-0 mt-1" [routerLink]="['/config/list']" [queryParams]="{schemaName:row.name,schemaVersion:row.version}">
-                      <i class="fa fa-lg fa-eye text-primary mx-3"></i>
+                      <span matTooltip="View Config">
+                        <i class="fa fa-lg fa-eye text-primary mx-3"></i>
+                      </span>
                     </button>
                   </div>
                 </div>

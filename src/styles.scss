@@ -270,6 +270,17 @@ body .dataTables_wrapper .dataTables_paginate .paginate_button {
   border-radius: 4px;
 }
 
+.dataTables_wrapper .dataTables_filter input {
+  background-image: url(assets/img/search-icon.svg);
+  background-repeat: no-repeat;
+  text-align: left;
+  background-position: 5% 50% !important;
+  border-radius: 10px !important;
+  margin-left: 10px !important;
+  padding-left: 35px !important;
+  outline: none;
+}
+
 body .dataTables_wrapper .dataTables_paginate .paginate_button.current,
 body .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover,
 body .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
@@ -454,3 +465,6 @@ p {
   border-radius: 30px;
   padding-right: 12px;
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
