@@ -6,7 +6,7 @@ import { ConfigDetailsComponent } from './config-details/config-details.componen
 const routes: Routes = [
   {path:'', pathMatch:'full',redirectTo:'list'},
   {path:'list', component: ConfigListComponent, title:'Rigel | Config List'},
-  {path:'details', component: ConfigDetailsComponent, title:'Rigel | Config Detail'},
+  {path:'details/:action', component: ConfigDetailsComponent, title:'Rigel | Config Detail'},
 ];
 
 @NgModule({

@@ -8,26 +8,41 @@
         <form [formGroup]="congifDetails">
           <div class="row">
             <div class="form-group col-md-6">
-              <label for="schemaName" class="form-label fw-bold">Schema Name</label>
+              <label for="schemaName" class="form-label fw-bold">Schema Name<span class="text-danger">*</span></label>
               <input type="text" class="form-control" id="schemaName" placeholder="Schema Name" name="schemaName"
-                formControlName="schemaName" readonly>
+                formControlName="schemaName" [readonly]="isAdd() || isView() || action == 'EDIT'">
+              <div *ngIf="congifDetails.get('schemaName')?.touched" class="text-danger">
+                <div *ngIf="congifDetails.get('schemaName')?.hasError('required')">
+                  <small>Schema Name is required</small>
+                </div>
+              </div>
             </div>
             <div class="form-group col-md-6">
-              <label for="schemaVersion" class="form-label fw-bold">Schema Version</label>
-              <input type="text" class="form-control" id="schemaVersion" placeholder="Schema Version" name="schemaVersion"
-                formControlName="schemaVersion" readonly>
+              <label for="schemaVersion" class="form-label fw-bold">Schema Version<span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="schemaVersion" placeholder="Schema Version"
+                name="schemaVersion" formControlName="schemaVersion" [readonly]="isAdd() || isView() || action == 'EDIT'">
+              <div *ngIf="congifDetails.get('schemaVersion')?.touched" class="text-danger">
+                <div *ngIf="congifDetails.get('schemaVersion')?.hasError('required')">
+                  <small>Schema Version is required</small>
+                </div>
+              </div>
             </div>
           </div>
           <div class="row mt-2">
             <div class="form-group col-md-6">
-              <label for="configName" class="form-label fw-bold">Config Name</label>
+              <label for="configName" class="form-label fw-bold">Config Name<span class="text-danger">*</span></label>
               <input type="text" class="form-control" id="configName" placeholder="Config Name" name="configName"
-                formControlName="configName" readonly>
+                formControlName="configName" [readonly]="isView()">
+              <div *ngIf="congifDetails.get('configName')?.touched" class="text-danger">
+                <div *ngIf="congifDetails.get('configName')?.hasError('required')">
+                  <small>Config Name is required</small>
+                </div>
+              </div>
             </div>
             <div class="form-group col-md-6">
               <label for="description" class="form-label fw-bold">Description</label>
               <textarea rows="1" type="text" class="form-control" id="description" placeholder="Description"
-                name="description" formControlName="description" readonly></textarea>
+                name="description" formControlName="description"></textarea>
             </div>
           </div>
           <div class="table-section mt-3">
@@ -36,15 +51,15 @@
             </h2>
             <div class="row">
               <div class="col">
-  
+
               </div>
               <div class="col-auto my-2">
-                <button type="button" class="btn btn-success" [class.disabled]="isReadOnly" (click)="addFields()">
+                <button type="button" class="btn btn-success" (click)="addFields()">
                   <i class="fa fa-plus"></i> Add Config
                 </button>
               </div>
             </div>
-  
+
             <div class="table-responsive">
               <table class="table" formArrayName="values" id="data-table-simple">
                 <thead>
@@ -59,8 +74,7 @@
                   <tr *ngFor="let field of values.controls; let i = index" [formGroupName]="i">
                     <td>
                       <div class="mb-3">
-                        <input type="text" class="form-control" id="field" formControlName="field"
-                          [readOnly]="isReadOnly" />
+                        <input type="text" class="form-control" id="field" formControlName="field" />
                         <div *ngIf="values.controls[i].get('field')?.touched" class="text-danger">
                           <div *ngIf="values.controls[i].get('field')?.hasError('required')">
                             <small>Field Name is required</small>
@@ -71,7 +85,7 @@
                     <td>
                       <div class="mb-3">
                         <select formControlName="type" class="form-control" id="type">
-                          <option *ngFor="let option of options; let i = index" [disabled]="isReadOnly" [value]="option">
+                          <option *ngFor="let option of options; let i = index" [value]="option">
                             {{option}}</option>
                         </select>
                         <div *ngIf="values.controls[i].get('type')?.touched" class="text-danger">
@@ -83,8 +97,7 @@
                     </td>
                     <td>
                       <div class="mb-3">
-                        <input type="text" class="form-control" id="value" formControlName="value"
-                          [readOnly]="isReadOnly" />
+                        <input type="text" class="form-control" id="value" formControlName="value" />
                         <div *ngIf="values.controls[i].get('value')?.touched" class="text-danger">
                           <div *ngIf="values.controls[i].get('value')?.hasError('required')">
                             <small>Field value is required</small>
@@ -94,7 +107,7 @@
                     </td>
                     <td>
                       <div class="mb-3">
-                        <button class="btn btn-danger disabled" [class.disabled]="isReadOnly" (click)="removeFields(i)">
+                        <button class="btn btn-danger" (click)="removeFields(i)">
                           Remove
                         </button>
                       </div>
@@ -105,16 +118,17 @@
             </div>
           </div>
         </form>
-  
+
         <div class="row mt-3">
           <div class="col"></div>
           <div class="col-auto">
-            <button class="btn" [routerLink]="['/config/list']"
+            <button class="btn" *ngIf="isView()" [routerLink]="['/config/list']"
               [queryParams]="{schemaName:selectedSchemaName,schemaVersion:selectedSchemaVersion}">Back</button>
-            <button class="btn btn-primary" *ngIf="isReadOnly" (click)="this.isReadOnly = false;"><i
-                class="fa fa-pencil-square-o"></i> Edit</button>
-            <button class="btn btn-primary" *ngIf="!isReadOnly" [class.disabled]="congifDetails.invalid"
-              (click)="updateDetails()"><i class="fa fa-pencil-square"></i> Save</button>
+            <button class="btn" *ngIf="isAdd()" [routerLink]="['']" >Back</button>
+            <button class="btn btn-primary" *ngIf="isView()" [class.disabled]="congifDetails.invalid"
+              (click)="updateDetails()"><i class="fa fa-pencil-square-o"></i> Edit</button>
+            <button class="btn btn-primary" *ngIf="isAdd()" [class.disabled]="congifDetails.invalid"
+              (click)="addDetails()"><i class="fa fa-pencil-square"></i> Save</button>
           </div>
         </div>
       </div>

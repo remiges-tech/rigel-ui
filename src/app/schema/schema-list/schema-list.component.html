@@ -50,7 +50,7 @@
               <div class="container">
                 <div class="row flex-nowrap">
                   <div class="col-auto">
-                    <button type="button" class="btn p-0 mt-1" [routerLink]="['/config-form',row.id]">
+                    <button type="button" class="btn p-0 mt-1" [routerLink]="['/config/details','01']" [queryParams]="{schemaName:row.name,schemaVersion:row.version}">
                       <span matTooltip="Add Config">
                         <i class="fa fa-lg fa-plus text-secondary"></i>
                       </span>

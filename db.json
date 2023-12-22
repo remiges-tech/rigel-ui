@@ -106,6 +106,39 @@
           "value": "smtp.in.emails.services"
         }
       ]
+    },
+    {
+      "id": 2,
+      "schemaName": "Intranet",
+      "schemaVersion": 3,
+      "configName": "MyDemoConfig",
+      "description": "",
+      "values": [
+        {
+          "field": "url",
+          "type": "Integer",
+          "value": "21"
+        },
+        {
+          "field": "port",
+          "type": "String",
+          "value": "Hello"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "schemaName": "Web Server",
+      "schemaVersion": 3,
+      "configName": "MerceConf",
+      "description": "",
+      "values": [
+        {
+          "field": "demo",
+          "type": "Boolean",
+          "value": "true"
+        }
+      ]
     }
   ]
 }

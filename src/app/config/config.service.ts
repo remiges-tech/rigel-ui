@@ -36,6 +36,31 @@ export class ConfigService {
     }
   }
 
+  addConfigData(obj: ConfigListInterface): any {
+    try {
+      let dataObj = {
+        method: 'post',
+        api_url: Enums.CONSTANTS.CONFIG_API,
+        local_json_file: '',
+        param_data: obj,
+        mapcol: false,
+      };
+      let resp = this._httpService.fetchData(dataObj);
+      this._commonService.log({
+        fileName: this.fileName,
+        functionName: 'addConfigData',
+        msg: resp
+      });
+      return resp;
+    } catch (error) {
+      this._commonService.log({
+        fileName: this.fileName,
+        functionName: 'addConfigData',
+        msg: error
+      });
+    }
+  }
+
   updateConfigData(obj: ConfigListInterface): any {
     try {
       let dataObj = {
@@ -80,6 +105,31 @@ export class ConfigService {
       this._commonService.log({
         fileName: this.fileName,
         functionName: 'deleteConfigData',
+        msg: error
+      });
+    }
+  }
+
+  getSchemaDetails(obj: any): any {
+    try {
+      let dataObj = {
+        method: 'get',
+        api_url: Enums.CONSTANTS.SCHEMA_API,
+        local_json_file: '',
+        param_data: obj,
+        mapcol: false,
+      };
+      let resp = this._httpService.fetchData(dataObj);
+      this._commonService.log({
+        fileName: this.fileName,
+        functionName: 'getSchemaDetails',
+        msg: resp
+      });
+      return resp;
+    } catch (error) {
+      this._commonService.log({
+        fileName: this.fileName,
+        functionName: 'getSchemaDetails',
         msg: error
       });
     }

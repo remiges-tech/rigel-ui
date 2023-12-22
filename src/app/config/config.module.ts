@@ -5,7 +5,7 @@ import { ConfigListComponent } from './config-list/config-list.component';
 import { DataTablesModule } from 'angular-datatables';
 import { ConfigDetailsComponent } from './config-details/config-details.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -17,7 +17,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule,
     FormsModule,
     ConfigRoutingModule,
-    DataTablesModule
+    DataTablesModule,
+    MatTooltipModule
   ]
 })
 export class ConfigModule { }

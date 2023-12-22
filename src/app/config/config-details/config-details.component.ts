@@ -1,12 +1,13 @@
 import { HttpParams } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ConfigService } from '../config.service';
 import { CommonService } from 'src/services/common.service';
 import { ConfigValuesInterface } from '../config.model';
 import { ToastrService } from 'ngx-toastr';
 import { TYPE_OPTION } from 'src/services/constants.service';
+import * as Enums from '../../../services/constants.service';
 
 @Component({
   selector: 'app-config-details',
@@ -14,46 +15,90 @@ import { TYPE_OPTION } from 'src/services/constants.service';
   styleUrls: ['./config-details.component.scss']
 })
 export class ConfigDetailsComponent {
+  action!:string;
   options:string[] = TYPE_OPTION;
-  isReadOnly: boolean = true;
   selectedSchemaName!: string;
   selectedSchemaVersion!: number;
   selectedConfigName!: string;
   congifDetails: FormGroup;
   submitted: boolean = false;
-  constructor(private _fb: FormBuilder, private _route: ActivatedRoute, private _configService: ConfigService, private _commonService: CommonService, private _toastr:ToastrService) {
+  constructor(private _fb: FormBuilder, private _router:Router, private _route: ActivatedRoute, private _configService: ConfigService, private _commonService: CommonService, private _toastr:ToastrService) {
     this.congifDetails = this._fb.group({
       id: new FormControl(''),
       schemaName: new FormControl('', [Validators.required]),
       schemaVersion: new FormControl('', [Validators.required]),
       configName: new FormControl('', [Validators.required]),
-      description: new FormControl('', [Validators.required]),
+      description: new FormControl(''),
       values: this._fb.array([])
     });
   }
 
   ngOnInit() {
+    this._route.paramMap.subscribe(({params}:any) => {
+      this.action = params['action'];
+    });
     this._route.queryParams.subscribe((params: any) => {
       this.selectedSchemaName = params['schemaName']
       this.selectedSchemaVersion = params['schemaVersion']
       this.selectedConfigName = params['configName'];
-    })
+    });
+    if(this.isAdd()){
+      this.getSchemaDetails();
+    }else{
+      this.getConfigDetails();
+    }
+  }
 
-    this.getConfigDetails();
+  isAdd() : boolean{
+    return this.action == Enums.CONSTANTS.CONFIG_ADD
+  }
+
+  isView() : boolean{
+    return this.action == Enums.CONSTANTS.CONFIG_VIEW
   }
 
   getConfigDetails() {
+    if(this.selectedSchemaName == null || this.selectedSchemaVersion == null || this.selectedConfigName == null){
+      this._router.navigate(['/']);
+      return;
+    }
     try {
       let data = {
         params: new HttpParams().append('schemaName', this.selectedSchemaName).append('schemaVersion', this.selectedSchemaVersion).append('configName', this.selectedConfigName)
       }
 
       this._configService.getConfigListForSchema(data).subscribe((res: any) => {
-        this.isReadOnly = true;
         this.congifDetails.patchValue(res[0]);
         this.values.clear();
         res[0].values.forEach((value: ConfigValuesInterface) => {
           this.addFields(value.field, value.type, value.value);
+        });
+      });
+    }
+    catch (err) {
+      this._toastr.error('Something Went Wrong!')
+      this._commonService.log(err)
+    }
+  }
+
+  getSchemaDetails() {
+    if(this.selectedSchemaName == null || this.selectedSchemaVersion == null){
+      this._router.navigate(['/'])
+      return;
+    }
+    try {
+      let data = {
+        params: new HttpParams().append('name', this.selectedSchemaName).append('version', this.selectedSchemaVersion)
+      }
+
+      this._configService.getSchemaDetails(data).subscribe((res: any) => {
+        this.congifDetails.patchValue({
+          schemaName: res[0].name,
+          schemaVersion: res[0].version
+        });
+        this.values.clear();
+        res[0].fields.forEach((value: any) => {
+          this.addFields(value.fname, value.type, value.value);
         });
       });
     }
@@ -96,6 +141,23 @@ export class ConfigDetailsComponent {
 
   removeFields(i: number) {
     this.values.removeAt(i);
+  }
+
+  addDetails(){
+    if (this.congifDetails.invalid) {
+      return;
+    }
+
+    try {
+      this._configService.addConfigData(this.congifDetails.value)?.subscribe((res: any) => {
+        if(res){
+          this._toastr.success('Successfully Added Details')
+          this._router.navigate([''])
+        }
+      })
+    } catch (err: any) {
+      this._commonService.log(err);
+    }
   }
 
   updateDetails() {
