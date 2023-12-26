@@ -1,5 +1,5 @@
 import { HttpParams } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConfigService } from '../config.service';
@@ -8,6 +8,7 @@ import { ConfigValuesInterface } from '../config.model';
 import { ToastrService } from 'ngx-toastr';
 import { TYPE_OPTION } from 'src/services/constants.service';
 import * as Enums from '../../../services/constants.service';
+import { checkValueType } from 'src/utils/customValidator';
 
 @Component({
   selector: 'app-config-details',
@@ -22,7 +23,8 @@ export class ConfigDetailsComponent {
   selectedConfigName!: string;
   congifDetails: FormGroup;
   submitted: boolean = false;
-  constructor(private _fb: FormBuilder, private _router:Router, private _route: ActivatedRoute, private _configService: ConfigService, private _commonService: CommonService, private _toastr:ToastrService) {
+  _commonService = inject(CommonService)
+  constructor(private _fb: FormBuilder, private _router:Router, private _route: ActivatedRoute, private _configService: ConfigService, private _toastr:ToastrService) {
     this.congifDetails = this._fb.group({
       id: new FormControl(''),
       schemaName: new FormControl('', [Validators.required]),
@@ -129,10 +131,10 @@ export class ConfigDetailsComponent {
 
   newFields(field?: string, type?: string, value?: any): FormGroup {
     return this._fb.group({
-      field: [field ?? '', [Validators.required]],
-      type: [type ?? '', [Validators.required]],
-      value: [value ?? '', [Validators.required]],
-    });
+      field: [field , [Validators.required]],
+      type: [type , [Validators.required]],
+      value: [value , [Validators.required]],
+    },{validators: [checkValueType()] });
   }
 
   addFields(field?: string, type?: string, value?: any) {

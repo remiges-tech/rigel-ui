@@ -97,11 +97,22 @@
                     </td>
                     <td>
                       <div class="mb-3">
-                        <input type="text" class="form-control" id="value" formControlName="value" />
+                        <input *ngIf="values.controls[i].get('type')?.value == 'String'" type="text" class="form-control" id="value" formControlName="value" />
+                        <input *ngIf="values.controls[i].get('type')?.value == 'Number' || values.controls[i].get('type')?.value == 'Integer'" type="number" class="form-control" id="value" formControlName="value" />
+                        <select *ngIf="values.controls[i].get('type')?.value == 'Boolean'" class="form-control" id="value" formControlName="value">
+                          <option value="true">True</option>
+                          <option value="false">False</option>
+                        </select>
                         <div *ngIf="values.controls[i].get('value')?.touched" class="text-danger">
                           <div *ngIf="values.controls[i].get('value')?.hasError('required')">
                             <small>Field value is required</small>
                           </div>
+                        </div>
+                        <div class="text-danger" *ngIf="values.controls[i]?.hasError('validation')">
+                          <small>Value Must be in {{values.controls[i].get('type')?.value}}</small>
+                        </div>
+                        <div class="text-danger" *ngIf="values.controls[i]?.hasError('lessThanZero')">
+                          <small>Value Must be a positive number</small>
                         </div>
                       </div>
                     </td>
