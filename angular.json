@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "RigalFrontEnd": {
+    "rigel-frontend": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/rigal-front-end",
+            "outputPath": "dist/rigel-frontend",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -30,17 +30,9 @@
               "src/assets"
             ],
             "styles": [
-              "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "src/styles.scss",
-              "node_modules/font-awesome/css/font-awesome.min.css",
-              "node_modules/ngx-toastr/toastr.css",
-              "node_modules/datatables.net-dt/css/jquery.dataTables.min.css"
+              "src/styles.scss"
             ],
-            "scripts": [
-              "node_modules/bootstrap/dist/js/bootstrap.min.js",
-              "node_modules/jquery/dist/jquery.min.js",
-              "node_modules/datatables.net/js/jquery.dataTables.min.js"
-            ]
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -73,10 +65,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "RigalFrontEnd:build:production"
+              "browserTarget": "rigel-frontend:build:production"
             },
             "development": {
-              "browserTarget": "RigalFrontEnd:build:development"
+              "browserTarget": "rigel-frontend:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -84,7 +76,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "RigalFrontEnd:build"
+            "browserTarget": "rigel-frontend:build"
           }
         },
         "test": {
@@ -101,7 +93,6 @@
               "src/assets"
             ],
             "styles": [
-              "@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss"
             ],
             "scripts": []

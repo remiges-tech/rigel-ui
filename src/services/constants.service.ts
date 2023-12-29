@@ -1,20 +1,9 @@
 export enum CONSTANTS {
-  ERROR = 'ERROR',
-  SUCCESS = 'SUCCESS',
-  SCHEMA_API = '/schema',
-  CONFIG_API = '/config',
-  CONFIG_ADD = '01',
-  CONFIG_VIEW = '02'
+  SUCCESS = 'Success',
+  FAILED = 'Failed',
+  SCHEMA_LIST_API = '/api/v1/schemalist',
+  SCHEMA_GET_API = '/api/v1/schemaget',
+  CONFIG_LIST_API = '/api/v1/configlist',
+  CONFIG_GET_API = '/api/v1/configget',
+  CONFIG_UPDATE_API = '/api/v1/configupdate',
 };
-
-export const DT_OPTIONS = {
-  pagingType: "full_numbers",
-  pageLength: 5,
-  lengthMenu: [5, 10, 25],
-  processing: true,
-  language:{
-    searchPlaceholder: 'Search here...'
-  }
-}
-
-export const TYPE_OPTION = ['Integer', 'String', 'Boolean', 'Number']
