@@ -1,9 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
 @import 'bootstrap/scss/bootstrap';
+@import "~@ng-select/ng-select/themes/default.theme.css";
 
 :root {
   --primary: #2F3C7E;
   --secondary: #FBEAEB;
+  --input-field: #292C71;
 }
 
 @font-face {
@@ -107,3 +109,30 @@ body {
   margin: 0;
   font-family: "GothamBook", "Helvetica Neue", sans-serif;
 }
+
+.ng-select  .ng-select-container{
+  background-color: white;
+  border-radius: 10px !important;
+  outline: none !important;
+  color: var(--input-field) !important;
+  font-weight: 700 !important;
+  font-size: 15px !important;
+  padding: 3px 10px;
+}
+
+
+ .ng-select .ng-select-container {
+  height: 56px;
+}
+
+ .ng-select .ng-value {
+  display: -webkit-box;
+  height: 46px;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: initial !important;
+}
+
+

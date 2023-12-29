@@ -1,144 +1,79 @@
 {
-  "schema": [
+  "schemas": [
     {
-      "name": "Intranet",
-      "modifiedBy": "User",
-      "description": "Description for Intranet schema ",
-      "fields": [
-        {
-          "fname": "url",
-          "type": "Integer",
-          "description": "HTTP timeout in ms"
-        },
-        {
-          "fname": "port",
-          "type": "String",
-          "description": "API end point description"
-        }
-      ],
-      "modifiedDate": "2023-12-20T11:43:28.126Z",
-      "version": 3,
-      "id": 2
+      "app": "FinanceApp",
+      "module": "PaymentGateway",
+      "version": 2
     },
     {
-      "name": "smtpInput",
-      "modifiedBy": "User",
-      "description": "Schema for SMTP input configuration",
-      "fields": [
-        {
-          "fname": "maxEmailSize",
-          "type": "Integer",
-          "description": "Maximum allowed size of an email in bytes."
-        }
-      ],
-      "modifiedDate": "2023-12-08T05:57:56.570Z",
-      "version": 3,
-      "id": 3
+      "app": "FinanceApp",
+      "module": "AccountingModule",
+      "version": 3
     },
     {
-      "name": "Web Server",
-      "modifiedBy": "Admin",
-      "description": "dgfgfhfhg",
-      "fields": [],
-      "modifiedDate": "2023-12-15T07:26:27.872Z",
-      "version": 3,
-      "id": 4
+      "app": "SocialApp",
+      "module": "UserProfile",
+      "version": 1
     },
     {
-      "name": "smtpInput",
-      "modifiedBy": "Admin",
-      "description": "gvghvhgf",
-      "fields": [],
-      "modifiedDate": "2023-12-15T07:26:37.127Z",
-      "version": 3,
-      "id": 5
+      "app": "ErpApp",
+      "module": "EmployeeModule",
+      "version": 2
     },
     {
-      "name": "smtpInput",
-      "modifiedBy": "Admin",
-      "description": "jhsdhskdjskdjs",
-      "fields": [],
-      "modifiedDate": "2023-12-20T06:46:32.380Z",
-      "version": 3,
-      "id": 6
+      "app": "IntranetApp",
+      "module": "SalaryModule",
+      "version": 2
     },
     {
-      "name": "smtpInput",
-      "modifiedBy": "Admin",
-      "description": "tdghghjgkj",
-      "fields": [],
-      "modifiedDate": "2023-12-15T12:10:15.204Z",
-      "version": 3,
-      "id": 7
+      "app": "IntranetApp",
+      "module": "UserModule",
+      "version": 2
     },
     {
-      "name": "Merce ERP",
-      "modifiedBy": "Admin",
-      "description": "Description for merce erp schema",
-      "fields": [
-        {
-          "fname": "maxEmailSize",
-          "type": "Integer",
-          "description": "email size should be in bytes"
-        }
-      ],
-      "modifiedDate": "2023-12-18T07:02:03.562Z",
-      "version": 3,
-      "id": 8
-    }
-  ],
-  "config": [
-    {
-      "id": 1,
-      "schemaName": "smtpInput",
-      "schemaVersion": 3,
-      "configName": "smtpInputIndia",
-      "description": "Config for SMTP input server located in India",
-      "values": [
-        {
-          "field": "maxEmailSize",
-          "type": "Integer",
-          "value": 10
-        },
-        {
-          "field": "serverName",
-          "type": "String",
-          "value": "smtp.in.emails.services"
-        }
-      ]
+      "app": "TradeApp",
+      "module": "StockModule",
+      "version": 2
     },
     {
-      "id": 2,
-      "schemaName": "Intranet",
-      "schemaVersion": 3,
-      "configName": "MyDemoConfig",
-      "description": "",
-      "values": [
-        {
-          "field": "url",
-          "type": "Integer",
-          "value": "21"
-        },
-        {
-          "field": "port",
-          "type": "String",
-          "value": "Hello"
-        }
-      ]
+      "app": "TradeApp",
+      "module": "Nifty50Module",
+      "version": 2
     },
     {
-      "id": 3,
-      "schemaName": "Web Server",
-      "schemaVersion": 3,
-      "configName": "MerceConf",
-      "description": "",
-      "values": [
-        {
-          "field": "demo",
-          "type": "Boolean",
-          "value": "true"
-        }
-      ]
+      "app": "BankingApp",
+      "module": "TransactionModule",
+      "version": 2
+    },
+    {
+      "app": "BankingApp",
+      "module": "CreditModule",
+      "version": 2
+    },
+    {
+      "app": "BankingApp",
+      "module": "DebitModule",
+      "version": 2
+    },
+    {
+      "app": "MoneyExchangeApp",
+      "module": "PaymentGateway",
+      "version": 2
+    },
+    {
+      "app": "MoneyExchangeApp",
+      "module": "CustomerModule",
+      "version": 3
+    },
+    {
+      "app": "HealthApp",
+      "module": "DoctorModule",
+      "version": 2
+    },
+    {
+      "app": "HealthApp",
+      "module": "StaffModule",
+      "version": 3
     }
   ]
 }
