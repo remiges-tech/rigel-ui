@@ -1,0 +1,4 @@
+<div *ngFor="let field of schemaData.values, let i = index">
+    <app-field-detail [isShowValue]="isShowValues" [fieldDetail]="field" (UpdateValues)="updateConfig($event,i)"></app-field-detail>
+</div>
+ 

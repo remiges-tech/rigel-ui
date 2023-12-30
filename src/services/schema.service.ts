@@ -36,4 +36,104 @@ export class SchemaService {
       });
     }
   }
+
+  getSchemaDetail(obj:any): any {
+    try {
+      let dataObj = {
+        method: 'get',
+        api_url: Enums.CONSTANTS.SCHEMA_GET_API,
+        local_json_file: '',
+        param_data: obj,
+        mapcol: false,
+      };
+      let resp = this._httpService.fetchData(dataObj);
+      this._commonService.log({
+        fileName: this.fileName,
+        functionName: 'getSchemaDetail',
+        msg: resp
+      });
+      return resp;
+    } catch (error) {
+      this._commonService.log({
+        fileName: this.fileName,
+        functionName: 'getSchemaDetail',
+        msg: error
+      });
+    }
+  }
+
+  getConfigList(obj:any): any {
+    try {
+      let dataObj = {
+        method: 'get',
+        api_url: Enums.CONSTANTS.CONFIG_LIST_API,
+        local_json_file: '',
+        param_data: obj,
+        mapcol: false,
+      };
+      let resp = this._httpService.fetchData(dataObj);
+      this._commonService.log({
+        fileName: this.fileName,
+        functionName: 'getConfigList',
+        msg: resp
+      });
+      return resp;
+    } catch (error) {
+      this._commonService.log({
+        fileName: this.fileName,
+        functionName: 'getConfigList',
+        msg: error
+      });
+    }
+  }
+
+  getConfigDetail(obj:any): any {
+    try {
+      let dataObj = {
+        method: 'get',
+        api_url: Enums.CONSTANTS.CONFIG_GET_API,
+        local_json_file: '',
+        param_data: obj,
+        mapcol: false,
+      };
+      let resp = this._httpService.fetchData(dataObj);
+      this._commonService.log({
+        fileName: this.fileName,
+        functionName: 'getConfigDetail',
+        msg: resp
+      });
+      return resp;
+    } catch (error) {
+      this._commonService.log({
+        fileName: this.fileName,
+        functionName: 'getConfigDetail',
+        msg: error
+      });
+    }
+  }
+
+  updateConfigDetails(obj:any): any {
+    try {
+      let dataObj = {
+        method: 'post',
+        api_url: Enums.CONSTANTS.CONFIG_UPDATE_API,
+        local_json_file: '',
+        param_data: obj,
+        mapcol: false,
+      };
+      let resp = this._httpService.fetchData(dataObj);
+      this._commonService.log({
+        fileName: this.fileName,
+        functionName: 'updateConfigDetails',
+        msg: resp
+      });
+      return resp;
+    } catch (error) {
+      this._commonService.log({
+        fileName: this.fileName,
+        functionName: 'updateConfigDetails',
+        msg: error
+      });
+    }
+  }
 }

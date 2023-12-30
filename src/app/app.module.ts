@@ -7,19 +7,24 @@ import { SchemaComponent } from './schema/schema.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { FieldDetailComponent } from './components/field-detail/field-detail.component';
+import { FieldslistComponent } from './components/fieldslist/fieldslist.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TopMenuComponent,
-    SchemaComponent
+    SchemaComponent,
+    FieldDetailComponent,
+    FieldslistComponent
   ],
   imports: [
     BrowserModule,
     NgSelectModule, 
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
