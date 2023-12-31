@@ -7,10 +7,19 @@
         <div *ngIf="isEdit" class="col-md-4">
           <input type="text" class="form-control" id="{{fieldDetail.name}}-input" name="{{fieldDetail.name}}-value" [value]="value" [(ngModel)]="value" (blur)="updateChanges(fieldDetail)">
         </div>
-        <div *ngIf="!isEdit" class="col-md-4 fs-20 fw-600">{{fieldDetail.value}} <button class="btn" (click)="isEdit = true; value = fieldDetail.value!">Edit</button></div>
+        <div *ngIf="!isEdit" class="col-md-4 fs-20 fw-600 text-primary">{{fieldDetail.value}} <button class="btn p-0 mt-1" (click)="isEdit = true; value = fieldDetail.value!">
+          <i class="fa-regular fa-pen-to-square text-secondary" style="margin-bottom: 20px;"></i>
+        </button></div>
       </ng-container>
     </div>
     <div class="row">
       <div class="col-md-8"><small>{{fieldDetail.description}}</small></div>
     </div>
   </div>
+
+  
+
+
+  
+
+ 

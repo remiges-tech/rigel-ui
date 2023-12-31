@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { Field } from 'src/models/common-interfaces';
 import { checkValueType } from 'src/utils/customValidator';
 
@@ -13,6 +14,7 @@ export class FieldDetailComponent {
   @Input({required: true}) fieldDetail!:Field;
   @Output() UpdateValues = new EventEmitter<Field>();
   value!:string;
+ private _toastr = inject(ToastrService)
 
   updateChanges(data:Field){
     this.isEdit = false;
@@ -22,5 +24,6 @@ export class FieldDetailComponent {
     };
     data.value = this.value;
     this.UpdateValues.emit(data)
+    this._toastr.success('Updated Successfully');
   }
 }

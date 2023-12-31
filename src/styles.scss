@@ -1,6 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 @import 'bootstrap/scss/bootstrap';
 @import "~@ng-select/ng-select/themes/default.theme.css";
+@import 'ngx-toastr/toastr';
+@import '~@fortawesome/fontawesome-free/css/all.css';
 
 :root {
   --primary: #2F3C7E;
@@ -109,6 +111,7 @@ body {
   margin: 0;
   font-family: "GothamBook", "Helvetica Neue", sans-serif;
 }
+
 
 .ng-select  .ng-select-container{
   background-color: white;

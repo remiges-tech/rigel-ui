@@ -10,7 +10,7 @@
             </div>
             <div class="row">
                 <div class="col-md-6">
-                    <div *ngIf="moduleList" class="d-flex  mt-2">
+                    <div *ngIf="moduleList" class="d-flex  mt-3 moduleName">
                         <label class="fs-20 fw-600 me-2">Select Module:</label>
                         <ng-select (change)="getSchemaDetails()" [(ngModel)]="selectedData.moduleName" style="width: 250px;" id="module"
                             placeholder="--please select--">
@@ -19,13 +19,13 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div *ngIf="selectedData.version" class="d-flex  mt-2">
-                        <label class="fs-20 fw-600 me-2">Select Version: {{selectedData.version}}</label>
+                    <div *ngIf="selectedData.version" class="d-flex  mt-3">
+                        <label class="fs-20 fw-600 me-2">Version: {{selectedData.version}}</label>
                         
                     </div>
                 </div>
             </div>
-            <div *ngIf="configList" class="d-flex mt-2">
+            <div *ngIf="configList" class="d-flex mt-3 configName">
                 <label class="fs-20 fw-600 me-2">Select Config:</label>
                 <ng-select (change)="getConfigDetail()" [(ngModel)]="selectedData.configName" style="width: 250px;" id="config"
                     placeholder="--please select--">
