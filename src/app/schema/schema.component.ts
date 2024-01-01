@@ -1,9 +1,8 @@
 import { Component, inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonService } from 'src/services/common.service';
 import { SchemaService } from 'src/services/schema.service';
 import { CONSTANTS } from 'src/services/constants.service';
-import { SchemaDetails, SchemaList } from 'src/models/common-interfaces';
+import { Field, SchemaDetails, SchemaList } from 'src/models/common-interfaces';
 import { HttpParams } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 
@@ -14,8 +13,8 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class SchemaComponent {
   fileName: string = 'SchemaComponent';
-  _schemaService = inject(SchemaService)
-  form: FormGroup;
+  private _schemaService = inject(SchemaService);
+  private _commonService = inject(CommonService);
   schemasList?:SchemaList[];
   appList?: string[];
   moduleList?: string[];
@@ -23,17 +22,14 @@ export class SchemaComponent {
   selectedData:any = {
     appName: null,
     ModuleName: null,
-    version:null
+    version:null,
+    configName: null,
   }
   isShowConfigValues:boolean = false;
   schemaDetails?: SchemaDetails 
   private _toastr = inject(ToastrService)
 
-  constructor(private fb: FormBuilder, private _commonService: CommonService) {
-    this.form = this.fb.group({
-      app: [null, Validators.required],
-      module: [null, Validators.required],
-    })
+  constructor() {
   }
 
   ngOnInit() {
@@ -58,23 +54,19 @@ export class SchemaComponent {
     }
   }
 
-  getSchemaDescription(){}
-
   getModuleList(){
+    this.resetValues();
     if(this.schemasList && this.selectedData.appName){
       this.selectedData.moduleName = null
       this.moduleList = this._commonService.getModuleNamesForSelectedApp(this.schemasList!,this.selectedData.appName)
-    }else{
-      this.moduleList = undefined;
-      this.selectedData.version = null
-      this.configList = undefined;
-      this.schemaDetails = undefined; 
     }
   }
 
   getSchemaDetails(){
     if(!this.schemasList || !this.selectedData.appName || !this.selectedData.moduleName){
-      this.selectedData.version = null
+      this.isShowConfigValues = false;
+      this.selectedData.version = null;
+      this.selectedData.configName = null;
       this.configList = undefined;
       this.schemaDetails = undefined;
       return;
@@ -89,9 +81,9 @@ export class SchemaComponent {
         if(res.status == CONSTANTS.SUCCESS){
           this.setDetails(res?.response);
         }else{
+          this.setDetails(res?.response);
           this._toastr.error(res?.message, CONSTANTS.ERROR);
         }
-        console.log(res);
       })
     } catch (error) {
       this._commonService.log({
@@ -108,7 +100,11 @@ export class SchemaComponent {
     }
     this._schemaService.getConfigList(data).subscribe((res:any) => {
       if(res.status == CONSTANTS.SUCCESS){
-        this.configList = [...res?.response?.configurations.map((config:any) => config.configName)]
+        if(res?.response?.configurations){
+          this.configList = [...res?.response?.configurations.map((config:any) => config.configName)]
+        }else{
+          //toast here
+        }
       }
     }) 
   }
@@ -126,8 +122,11 @@ export class SchemaComponent {
       this._schemaService.getConfigDetail(data).subscribe((res:any) => {
         if(res.status == CONSTANTS.SUCCESS){
           this.isShowConfigValues = true;
-          this.setDetails(res?.response);
+          if(res?.response){
+            this.updateValues(res?.response?.values)
+          }
         }else{
+          this.isShowConfigValues = false;
           this._toastr.error(res?.message, CONSTANTS.ERROR);
         }
       })
@@ -142,6 +141,23 @@ export class SchemaComponent {
 
   setDetails(response:SchemaDetails){
     this.schemaDetails = response
+  }
+
+  updateValues(values: Field[]) {
+    if(this.schemaDetails && values){
+      this.schemaDetails.values = this.schemaDetails?.values.map((schemaValues: Field) => {
+        const matchingObj = values.find((configValues: Field) => configValues.name === schemaValues.name);
+  
+        return matchingObj ? { ...schemaValues, value: matchingObj.value } : schemaValues;
+      });
+    }
+  }
+
+  resetValues(){
+    this.moduleList = undefined;
+      this.selectedData.version = null
+      this.configList = undefined;
+      this.schemaDetails = undefined; 
   }
 
 }
