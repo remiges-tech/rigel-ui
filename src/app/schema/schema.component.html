@@ -7,9 +7,12 @@
                     placeholder="--please select--">
                     <ng-option *ngFor="let app of appList" [value]="app">{{app}}</ng-option>
                 </ng-select>
+                <div class="description">
+                    <label for="">{{schemaDetails?.description}}</label>
+                </div>
             </div>
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-6 d-flex">
                     <div *ngIf="moduleList" class="d-flex  mt-3 moduleName">
                         <label class="fs-20 fw-600 me-2">Select Module:</label>
                         <ng-select (change)="getSchemaDetails()" [(ngModel)]="selectedData.moduleName" style="width: 250px;" id="module"
@@ -17,11 +20,8 @@
                             <ng-option *ngFor="let module of moduleList" [value]="module">{{module}}</ng-option>
                         </ng-select>
                     </div>
-                </div>
-                <div class="col-md-6">
-                    <div *ngIf="selectedData.version" class="d-flex  mt-3">
-                        <label class="fs-20 fw-600 me-2">Version: {{selectedData.version}}</label>
-                        
+                    <div *ngIf="selectedData.version" class="mt-3">
+                        <label class="fs-15 fw-600 m-2">Version: {{selectedData.version}}</label>
                     </div>
                 </div>
             </div>
@@ -34,7 +34,7 @@
             </div>
         </div>
     </div>
-    <div class="mt-5">
+    <div class="mt-5" style="margin-left: 8rem;">
         <app-fieldslist *ngIf="schemaDetails" [isShowValues]="isShowConfigValues"
             [schemaData]="schemaDetails"></app-fieldslist>
     </div>

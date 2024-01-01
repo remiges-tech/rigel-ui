@@ -19,11 +19,10 @@ export class FieldDetailComponent {
   updateChanges(data:Field){
     this.isEdit = false;
     if(checkValueType(data.type, this.value!) === 'INVALID'){
-      alert('invalid')
+      this._toastr.warning('Invalid Format');
       return;
     };
     data.value = this.value;
     this.UpdateValues.emit(data)
-    this._toastr.success('Updated Successfully');
   }
 }

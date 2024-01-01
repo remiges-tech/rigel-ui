@@ -5,6 +5,7 @@ import { SchemaService } from 'src/services/schema.service';
 import { CONSTANTS } from 'src/services/constants.service';
 import { SchemaDetails, SchemaList } from 'src/models/common-interfaces';
 import { HttpParams } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-schema',
@@ -26,6 +27,7 @@ export class SchemaComponent {
   }
   isShowConfigValues:boolean = false;
   schemaDetails?: SchemaDetails 
+  private _toastr = inject(ToastrService)
 
   constructor(private fb: FormBuilder, private _commonService: CommonService) {
     this.form = this.fb.group({
@@ -56,15 +58,17 @@ export class SchemaComponent {
     }
   }
 
+  getSchemaDescription(){}
+
   getModuleList(){
     if(this.schemasList && this.selectedData.appName){
+      this.selectedData.moduleName = null
       this.moduleList = this._commonService.getModuleNamesForSelectedApp(this.schemasList!,this.selectedData.appName)
     }else{
       this.moduleList = undefined;
       this.selectedData.version = null
       this.configList = undefined;
-      this.schemaDetails = undefined;
-      
+      this.schemaDetails = undefined; 
     }
   }
 
@@ -84,6 +88,8 @@ export class SchemaComponent {
       this._schemaService.getSchemaDetail(data).subscribe((res:any) => {
         if(res.status == CONSTANTS.SUCCESS){
           this.setDetails(res?.response);
+        }else{
+          this._toastr.error(res?.message, CONSTANTS.ERROR);
         }
         console.log(res);
       })
@@ -110,6 +116,7 @@ export class SchemaComponent {
   getConfigDetail(){
     if( !this.selectedData.appName || !this.selectedData.moduleName || !this.selectedData.version || !this.selectedData.configName){
       this.isShowConfigValues = false;
+      this.getSchemaDetails();
       return;
     }
     try {
@@ -120,6 +127,8 @@ export class SchemaComponent {
         if(res.status == CONSTANTS.SUCCESS){
           this.isShowConfigValues = true;
           this.setDetails(res?.response);
+        }else{
+          this._toastr.error(res?.message, CONSTANTS.ERROR);
         }
       })
     } catch (error) {

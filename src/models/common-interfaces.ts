@@ -2,6 +2,7 @@ export interface SchemaList{
     app:string,
     module:string,
     version:number,
+    description:string;
 }
 
 export interface SchemaDetails {
