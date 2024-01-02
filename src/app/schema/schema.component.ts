@@ -15,22 +15,19 @@ export class SchemaComponent {
   fileName: string = 'SchemaComponent';
   private _schemaService = inject(SchemaService);
   private _commonService = inject(CommonService);
-  schemasList?:SchemaList[];
+  private _toastr = inject(ToastrService);
+  schemasList?: SchemaList[];
   appList?: string[];
   moduleList?: string[];
-  configList?:string[];
-  selectedData:any = {
+  configList?: string[];
+  selectedData: any = {
     appName: null,
     ModuleName: null,
-    version:null,
+    version: null,
     configName: null,
   }
-  isShowConfigValues:boolean = false;
-  schemaDetails?: SchemaDetails 
-  private _toastr = inject(ToastrService)
-
-  constructor() {
-  }
+  isShowConfigValues: boolean = false;
+  schemaDetails?: SchemaDetails
 
   ngOnInit() {
     this.getSchemaList();
@@ -40,7 +37,7 @@ export class SchemaComponent {
   getSchemaList() {
     try {
       this._schemaService.getSchemaList().subscribe((res: any) => {
-        if(res?.status == CONSTANTS.SUCCESS){
+        if (res?.status == CONSTANTS.SUCCESS) {
           this.schemasList = res?.response?.schemas;
           this.appList = this._commonService.getAppNamesFromList(res?.response?.schemas);
         }
@@ -49,21 +46,21 @@ export class SchemaComponent {
       this._commonService.log({
         fileName: this.fileName,
         functionName: 'getSchemaList',
-        err:error
+        err: error
       })
     }
   }
 
-  getModuleList(){
+  getModuleList() {
     this.resetValues();
-    if(this.schemasList && this.selectedData.appName){
+    if (this.schemasList && this.selectedData.appName) {
       this.selectedData.moduleName = null
-      this.moduleList = this._commonService.getModuleNamesForSelectedApp(this.schemasList!,this.selectedData.appName)
+      this.moduleList = this._commonService.getModuleNamesForSelectedApp(this.schemasList, this.selectedData.appName)
     }
   }
 
-  getSchemaDetails(){
-    if(!this.schemasList || !this.selectedData.appName || !this.selectedData.moduleName){
+  getSchemaDetails() {
+    if (!this.schemasList || !this.selectedData.appName || !this.selectedData.moduleName) {
       this.isShowConfigValues = false;
       this.selectedData.version = null;
       this.selectedData.configName = null;
@@ -71,93 +68,94 @@ export class SchemaComponent {
       this.schemaDetails = undefined;
       return;
     }
-    this.selectedData.version = this._commonService.getVersionForSelectedSchemaData(this.schemasList!, this.selectedData.appName, this.selectedData.moduleName)
+    this.selectedData.version = this._commonService.getVersionForSelectedSchemaData(this.schemasList, this.selectedData.appName, this.selectedData.moduleName)
     try {
       this.getConfigList();
       let data = {
-        params: new HttpParams().append('app',this.selectedData.appName).append('module', this.selectedData.moduleName).append('version',this.selectedData.version)
+        params: new HttpParams().append('app', this.selectedData.appName).append('module', this.selectedData.moduleName).append('version', this.selectedData.version)
       }
-      this._schemaService.getSchemaDetail(data).subscribe((res:any) => {
-        if(res.status == CONSTANTS.SUCCESS){
+      this._schemaService.getSchemaDetail(data).subscribe((res: any) => {
+        if (res.status == CONSTANTS.SUCCESS) {
           this.setDetails(res?.response);
-        }else{
+        } else {
           this.setDetails(res?.response);
           this._toastr.error(res?.message, CONSTANTS.ERROR);
         }
       })
     } catch (error) {
       this._commonService.log({
-        fileName:this.fileName,
+        fileName: this.fileName,
         functionName: 'getSchemaDetails',
-        err:error
+        err: error
       })
     }
   }
 
-  getConfigList(){
+  getConfigList() {
     let data = {
-      params: new HttpParams().append('appName',this.selectedData.appName).append('moduleName', this.selectedData.moduleName).append('versionNumber',this.selectedData.version)
+      params: new HttpParams().append('appName', this.selectedData.appName).append('moduleName', this.selectedData.moduleName).append('versionNumber', this.selectedData.version)
     }
-    this._schemaService.getConfigList(data).subscribe((res:any) => {
-      if(res.status == CONSTANTS.SUCCESS){
-        if(res?.response?.configurations){
-          this.configList = [...res?.response?.configurations.map((config:any) => config.configName)]
-        }else{
+    this._schemaService.getConfigList(data).subscribe((res: any) => {
+      if (res.status == CONSTANTS.SUCCESS) {
+        if (res?.response?.configurations) {
+          this.configList = [...res?.response?.configurations.map((config: any) => config.configName)]
+        } else {
           //toast here
         }
       }
-    }) 
+    })
   }
 
-  getConfigDetail(){
-    if( !this.selectedData.appName || !this.selectedData.moduleName || !this.selectedData.version || !this.selectedData.configName){
+  getConfigDetail() {
+    if (!this.selectedData.appName || !this.selectedData.moduleName || !this.selectedData.version || !this.selectedData.configName) {
       this.isShowConfigValues = false;
       this.getSchemaDetails();
       return;
     }
     try {
       let data = {
-        params: new HttpParams().append('appName',this.selectedData.appName).append('moduleName', this.selectedData.moduleName).append('versionNumber',this.selectedData.version).append('configName',this.selectedData.configName)
+        params: new HttpParams().append('appName', this.selectedData.appName).append('moduleName', this.selectedData.moduleName).append('versionNumber', this.selectedData.version).append('configName', this.selectedData.configName)
       }
-      this._schemaService.getConfigDetail(data).subscribe((res:any) => {
-        if(res.status == CONSTANTS.SUCCESS){
+      this._schemaService.getConfigDetail(data).subscribe((res: any) => {
+        if (res.status == CONSTANTS.SUCCESS) {
           this.isShowConfigValues = true;
-          if(res?.response){
-            this.updateValues(res?.response?.values)
+          if (res?.response) {
+            this.updateValues(res?.response?.values, res?.response?.configName)
           }
-        }else{
+        } else {
           this.isShowConfigValues = false;
           this._toastr.error(res?.message, CONSTANTS.ERROR);
         }
       })
     } catch (error) {
       this._commonService.log({
-        fileName:this.fileName,
+        fileName: this.fileName,
         functionName: 'getSchemaDetails',
-        err:error
+        err: error
       })
     }
   }
 
-  setDetails(response:SchemaDetails){
+  setDetails(response: SchemaDetails) {
     this.schemaDetails = response
   }
 
-  updateValues(values: Field[]) {
-    if(this.schemaDetails && values){
+  updateValues(values: Field[], configName: string) {
+    if (this.schemaDetails && values) {
+      this.schemaDetails.configName = configName;
       this.schemaDetails.values = this.schemaDetails?.values.map((schemaValues: Field) => {
         const matchingObj = values.find((configValues: Field) => configValues.name === schemaValues.name);
-  
+
         return matchingObj ? { ...schemaValues, value: matchingObj.value } : schemaValues;
       });
     }
   }
 
-  resetValues(){
+  resetValues() {
     this.moduleList = undefined;
-      this.selectedData.version = null
-      this.configList = undefined;
-      this.schemaDetails = undefined; 
+    this.selectedData.version = null
+    this.configList = undefined;
+    this.schemaDetails = undefined;
   }
 
 }
