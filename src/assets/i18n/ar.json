@@ -1,0 +1,11 @@
+{
+    "app_name": "ريجل",
+    "select_app": "اختر التطبيق",
+    "select_app_placeholder": "--اختر التطبيق--",
+    "select_module": "اختر الوحدة",
+    "select_module_placeholder": "--اختر الوحدة--",
+    "version": "الإصدار",
+    "select_config": "اختر التكوين",
+    "select_config_placeholder": "--اختر التكوين--"
+}
+
