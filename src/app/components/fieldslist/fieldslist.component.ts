@@ -1,6 +1,6 @@
 import { Component, Input, inject } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { Field, SchemaDetails } from 'src/models/common-interfaces';
+import { ConfigDetails, Field, SchemaDetails } from 'src/models/common-interfaces';
 import { CONSTANTS } from 'src/services/constants.service';
 import { SchemaService } from 'src/services/schema.service';
 
@@ -14,7 +14,7 @@ export class FieldslistComponent {
   private _schemaService = inject(SchemaService)
   private _toastr = inject(ToastrService)
   @Input({required:true}) isShowValues: boolean = false;
-  @Input({required: true}) schemaData!: SchemaDetails;
+  @Input({required: true}) schemaData!: ConfigDetails;
 
   updateConfig(data: Field, index: number) {
     this.schemaData.values[index] = data;
@@ -25,7 +25,6 @@ export class FieldslistComponent {
 
     try{
       this._schemaService.updateConfigDetails(modifiedObject).subscribe((res:any) => {
-        console.log(res)
         this._toastr.success(res?.message, CONSTANTS.SUCCESS)
       })
     }catch(err){

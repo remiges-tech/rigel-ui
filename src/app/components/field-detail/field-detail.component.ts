@@ -9,17 +9,18 @@ import { checkValueType } from 'src/utils/customValidator';
   styleUrls: ['./field-detail.component.scss']
 })
 export class FieldDetailComponent {
-  isEdit:boolean = false;
-  @Input({required:true}) isShowValue:boolean=false;
-  @Input({required: true}) fieldDetail!:Field;
+  private _toastr = inject(ToastrService)
+  isEdit: boolean = false;
+  @Input({ required: true }) isShowValue: boolean = false;
+  @Input({ required: true }) fieldDetail!: Field;
   @Output() UpdateValues = new EventEmitter<Field>();
-  value!:string;
- private _toastr = inject(ToastrService)
+  value!: string;
 
-  updateChanges(data:Field){
+  updateChanges(data: Field) {
     this.isEdit = false;
-    if(checkValueType(data.type, this.value!) === 'INVALID'){
-      this._toastr.warning('Invalid Format');
+    let verification = checkValueType(data.type, this.value!, data.constraints);
+    if (verification?.status === 'INVALID') {
+      this._toastr.warning(verification.msg);
       return;
     };
     data.value = this.value;

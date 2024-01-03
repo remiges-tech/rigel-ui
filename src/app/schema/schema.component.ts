@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { CommonService } from 'src/services/common.service';
 import { SchemaService } from 'src/services/schema.service';
 import { CONSTANTS } from 'src/services/constants.service';
-import { Field, SchemaDetails, SchemaList } from 'src/models/common-interfaces';
+import { ConfigDetails, Field, SchemaDetails, SchemaList } from 'src/models/common-interfaces';
 import { HttpParams } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 
@@ -27,13 +27,14 @@ export class SchemaComponent {
     configName: null,
   }
   isShowConfigValues: boolean = false;
-  schemaDetails?: SchemaDetails
+  schemaDetails?: ConfigDetails
 
   ngOnInit() {
     this.getSchemaList();
   }
 
-
+  // get the list of schemas
+  // from that schema list filter out the app's list
   getSchemaList() {
     try {
       this._schemaService.getSchemaList().subscribe((res: any) => {
@@ -51,21 +52,23 @@ export class SchemaComponent {
     }
   }
 
+  // from this schema list filter's out the module's for selected schema
   getModuleList() {
-    this.resetValues();
+    this.clearCache();
     if (this.schemasList && this.selectedData.appName) {
       this.selectedData.moduleName = null
       this.moduleList = this._commonService.getModuleNamesForSelectedApp(this.schemasList, this.selectedData.appName)
     }
   }
 
+  // get the schema details for the selected schema(appName and ModuleName)
   getSchemaDetails() {
+    this.isShowConfigValues = false;
+    this.selectedData.version = null;
+    this.selectedData.configName = null;
+    this.configList = undefined;
+    this.schemaDetails = undefined;
     if (!this.schemasList || !this.selectedData.appName || !this.selectedData.moduleName) {
-      this.isShowConfigValues = false;
-      this.selectedData.version = null;
-      this.selectedData.configName = null;
-      this.configList = undefined;
-      this.schemaDetails = undefined;
       return;
     }
     this.selectedData.version = this._commonService.getVersionForSelectedSchemaData(this.schemasList, this.selectedData.appName, this.selectedData.moduleName)
@@ -76,9 +79,9 @@ export class SchemaComponent {
       }
       this._schemaService.getSchemaDetail(data).subscribe((res: any) => {
         if (res.status == CONSTANTS.SUCCESS) {
-          this.setDetails(res?.response);
+          this.restructureAndUpdateSchemaDetails(res?.response);
         } else {
-          this.setDetails(res?.response);
+          this.restructureAndUpdateSchemaDetails(res?.response);
           this._toastr.error(res?.message, CONSTANTS.ERROR);
         }
       })
@@ -91,6 +94,7 @@ export class SchemaComponent {
     }
   }
 
+  // Gets the lists of config for selected schema(appName and ModuleName)
   getConfigList() {
     let data = {
       params: new HttpParams().append('appName', this.selectedData.appName).append('moduleName', this.selectedData.moduleName).append('versionNumber', this.selectedData.version)
@@ -99,13 +103,12 @@ export class SchemaComponent {
       if (res.status == CONSTANTS.SUCCESS) {
         if (res?.response?.configurations) {
           this.configList = [...res?.response?.configurations.map((config: any) => config.configName)]
-        } else {
-          //toast here
         }
       }
     })
   }
 
+  // get's the details and values of selected configName
   getConfigDetail() {
     if (!this.selectedData.appName || !this.selectedData.moduleName || !this.selectedData.version || !this.selectedData.configName) {
       this.isShowConfigValues = false;
@@ -120,7 +123,7 @@ export class SchemaComponent {
         if (res.status == CONSTANTS.SUCCESS) {
           this.isShowConfigValues = true;
           if (res?.response) {
-            this.updateValues(res?.response?.values, res?.response?.configName)
+            this.setValuesOfSelectedConfigName(res?.response?.values, res?.response?.configName)
           }
         } else {
           this.isShowConfigValues = false;
@@ -136,22 +139,29 @@ export class SchemaComponent {
     }
   }
 
-  setDetails(response: SchemaDetails) {
-    this.schemaDetails = response
+  // get's data in type of schemaDetails
+  // restructure it in type of configDetails
+  // schemaDetails 'fields' replaced by configDetails 'values'
+  restructureAndUpdateSchemaDetails(response: SchemaDetails) {
+    const modifiedData: ConfigDetails = { ...response, values: response.fields };
+    this.schemaDetails = modifiedData;
   }
 
-  updateValues(values: Field[], configName: string) {
+  // update the schemaDetails values and config name
+  // find the field name and set its value received from configDetails
+  setValuesOfSelectedConfigName(values: Field[], configName: string) {
     if (this.schemaDetails && values) {
       this.schemaDetails.configName = configName;
       this.schemaDetails.values = this.schemaDetails?.values.map((schemaValues: Field) => {
-        const matchingObj = values.find((configValues: Field) => configValues.name === schemaValues.name);
+        const resultingValues = values.find((configValues: Field) => configValues.name === schemaValues.name);
 
-        return matchingObj ? { ...schemaValues, value: matchingObj.value } : schemaValues;
+        return resultingValues ? { ...schemaValues, value: resultingValues.value } : schemaValues;
       });
     }
   }
 
-  resetValues() {
+  // reset the selected values on clear of moduleName
+  clearCache() {
     this.moduleList = undefined;
     this.selectedData.version = null
     this.configList = undefined;
