@@ -1,0 +1,14 @@
+{
+  "locale": "ar-US",
+  "translations": {
+    "selectApp": "حدد التطبيق:",
+    "placeholderApp": "--اختر التطبيق--",
+    "selectModule": "حدد الوحدة:",
+    "placeholderModule": "--اختر الوحدة النمطية--",
+    "version": "إصدار:",
+    "selectConfig": "حدد التكوين:",
+    "placeholderConfig": "--اختر التكوين--",
+    "rigelHeading": "{$TAG_IMG} ريجيل",
+    "remigesLogo": "ريميجيس أيقونة الأعمال"
+  }
+}
