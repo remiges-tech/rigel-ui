@@ -25,14 +25,14 @@ export class CommonService {
         return [...new Set(list.map((item:SchemaList) => item.app))];
     }
 
-    getModuleNamesForSelectedApp(list:SchemaList[],appName:string):any[]{
-        const data = list.filter((item:SchemaList) => item.app.toUpperCase() == appName.toUpperCase()) ?? null
+    getModuleNamesForSelectedApp(list:SchemaList[],app:string):any[]{
+        const data = list.filter((item:SchemaList) => item.app.toUpperCase() == app.toUpperCase()) ?? null
         return [...data.map((item:SchemaList) => item.module)];
     }
 
-    getVersionForSelectedSchemaData(list:SchemaList[],appName:string, moduleName:string){
-        const data = list.filter((item:SchemaList) => item.app.toUpperCase() == appName.toUpperCase() && item.module.toUpperCase() == moduleName.toUpperCase()) ?? null;
-        return [...data.map((item:SchemaList) => item.version)];
+    getVersionForSelectedSchemaData(list:SchemaList[],app:string, module:string){
+        const data = list.filter((item:SchemaList) => item.app.toUpperCase() == app.toUpperCase() && item.module.toUpperCase() == module.toUpperCase()) ?? null;
+        return [...data.map((item:SchemaList) => item.ver)];
     }
 
     getChangeEvent(): Observable<any> {

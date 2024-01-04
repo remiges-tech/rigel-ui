@@ -21,10 +21,10 @@ export class SchemaComponent {
   moduleList?: string[];
   configList?: string[];
   selectedData: any = {
-    appName: null,
-    ModuleName: null,
-    version: null,
-    configName: null,
+    app: null,
+    module: null,
+    ver: null,
+    config: null,
   }
   isShowConfigValues: boolean = false;
   schemaDetails?: ConfigDetails
@@ -55,27 +55,27 @@ export class SchemaComponent {
   // from this schema list filter's out the module's for selected schema
   getModuleList() {
     this.clearCache();
-    if (this.schemasList && this.selectedData.appName) {
-      this.selectedData.moduleName = null
-      this.moduleList = this._commonService.getModuleNamesForSelectedApp(this.schemasList, this.selectedData.appName)
+    if (this.schemasList && this.selectedData.app) {
+      this.selectedData.module = null
+      this.moduleList = this._commonService.getModuleNamesForSelectedApp(this.schemasList, this.selectedData.app)
     }
   }
 
-  // get the schema details for the selected schema(appName and ModuleName)
+  // get the schema details for the selected schema(app and module)
   getSchemaDetails() {
     this.isShowConfigValues = false;
-    this.selectedData.version = null;
-    this.selectedData.configName = null;
+    this.selectedData.ver = null;
+    this.selectedData.config = null;
     this.configList = undefined;
     this.schemaDetails = undefined;
-    if (!this.schemasList || !this.selectedData.appName || !this.selectedData.moduleName) {
+    if (!this.schemasList || !this.selectedData.app || !this.selectedData.module) {
       return;
     }
-    this.selectedData.version = this._commonService.getVersionForSelectedSchemaData(this.schemasList, this.selectedData.appName, this.selectedData.moduleName)
+    this.selectedData.ver = this._commonService.getVersionForSelectedSchemaData(this.schemasList, this.selectedData.app, this.selectedData.module)
     try {
       this.getConfigList();
       let data = {
-        params: new HttpParams().append('app', this.selectedData.appName).append('module', this.selectedData.moduleName).append('version', this.selectedData.version)
+        params: new HttpParams().append('app', this.selectedData.app).append('module', this.selectedData.module).append('ver', this.selectedData.ver)
       }
       this._schemaService.getSchemaDetail(data).subscribe((res: any) => {
         if (res.status == CONSTANTS.SUCCESS) {
@@ -94,36 +94,36 @@ export class SchemaComponent {
     }
   }
 
-  // Gets the lists of config for selected schema(appName and ModuleName)
+  // Gets the lists of config for selected schema(app and module)
   getConfigList() {
     let data = {
-      params: new HttpParams().append('appName', this.selectedData.appName).append('moduleName', this.selectedData.moduleName).append('versionNumber', this.selectedData.version)
+      params: new HttpParams().append('app', this.selectedData.app).append('module', this.selectedData.module).append('ver', this.selectedData.ver)
     }
     this._schemaService.getConfigList(data).subscribe((res: any) => {
       if (res.status == CONSTANTS.SUCCESS) {
         if (res?.response?.configurations) {
-          this.configList = [...res?.response?.configurations.map((config: any) => config.configName)]
+          this.configList = [...res?.response?.configurations.map((confign: any) => confign.config)]
         }
       }
     })
   }
 
-  // get's the details and values of selected configName
+  // get's the details and values of selected config
   getConfigDetail() {
-    if (!this.selectedData.appName || !this.selectedData.moduleName || !this.selectedData.version || !this.selectedData.configName) {
+    if (!this.selectedData.app || !this.selectedData.module || !this.selectedData.ver || !this.selectedData.config) {
       this.isShowConfigValues = false;
       this.getSchemaDetails();
       return;
     }
     try {
       let data = {
-        params: new HttpParams().append('appName', this.selectedData.appName).append('moduleName', this.selectedData.moduleName).append('versionNumber', this.selectedData.version).append('configName', this.selectedData.configName)
+        params: new HttpParams().append('app', this.selectedData.app).append('module', this.selectedData.module).append('ver', this.selectedData.ver).append('config', this.selectedData.config)
       }
       this._schemaService.getConfigDetail(data).subscribe((res: any) => {
         if (res.status == CONSTANTS.SUCCESS) {
           this.isShowConfigValues = true;
           if (res?.response) {
-            this.setValuesOfSelectedConfigName(res?.response?.values, res?.response?.configName)
+            this.setValuesOfSelectedConfigName(res?.response?.values, res?.response?.config)
           }
         } else {
           this.isShowConfigValues = false;
@@ -149,9 +149,9 @@ export class SchemaComponent {
 
   // update the schemaDetails values and config name
   // find the field name and set its value received from configDetails
-  setValuesOfSelectedConfigName(values: Field[], configName: string) {
+  setValuesOfSelectedConfigName(values: Field[], config: string) {
     if (this.schemaDetails && values) {
-      this.schemaDetails.configName = configName;
+      this.schemaDetails.config = config;
       this.schemaDetails.values = this.schemaDetails?.values.map((schemaValues: Field) => {
         const resultingValues = values.find((configValues: Field) => configValues.name === schemaValues.name);
 
@@ -163,7 +163,7 @@ export class SchemaComponent {
   // reset the selected values on clear of moduleName
   clearCache() {
     this.moduleList = undefined;
-    this.selectedData.version = null
+    this.selectedData.ver = null
     this.configList = undefined;
     this.schemaDetails = undefined;
   }

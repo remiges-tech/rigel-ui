@@ -1,24 +1,24 @@
 export interface SchemaList{
     app:string,
     module:string,
-    version:number,
+    ver:number,
     description:string;
 }
 
 export interface SchemaDetails {
-    appName: string,
-    moduleName: string,
-    versionNumber: number,
-    configName?: string,
+    app: string,
+    module: string,
+    ver: number,
+    config?: string,
     description: string,
     fields: Field[]
 }
 
 export interface ConfigDetails {
-    appName: string,
-    moduleName: string,
-    versionNumber: number,
-    configName?: string,
+    app: string,
+    module: string,
+    ver: number,
+    config?: string,
     description: string,
     values: Field[]
 }
