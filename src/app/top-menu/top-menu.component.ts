@@ -10,6 +10,7 @@ import { CommonService } from 'src/services/common.service';
 export class TopMenuComponent {
   private _commonService = inject(CommonService);
   private _translate = inject(TranslateService);
+  isDarkTheme:boolean=false;
   languageList: any;
   selectedLang: any = this._commonService.getLocalLanguage() != null ? this._commonService.getLocalLanguage()! : 'en';
 
@@ -25,13 +26,33 @@ export class TopMenuComponent {
     this.languageList = this._commonService.getLanguage();
     this.selectedLang = this._commonService.getLocalLanguage() != null ? this._commonService.getLocalLanguage()! : 'en';
     this._translate.setDefaultLang(this.selectedLang);
-
+    this.currentTheme();
   }
 
   onChange(event: any) {
     this.selectedLang = event?.value;
     this._commonService.setLocalLanguage(event?.value);
     this._translate.setDefaultLang(event?.value);
+  }
+
+  currentTheme(){
+    let currentTheme = localStorage.getItem('THEME') || 'light';
+
+    this.isDarkTheme = currentTheme == 'dark';
+    document.documentElement.setAttribute('data-theme',currentTheme)
+  }
+
+  changeTheme(){
+    let theme = localStorage.getItem('THEME') || 'light';
+    if(theme == 'dark'){
+      this.isDarkTheme = false;
+      localStorage.setItem('THEME','light')
+      document.documentElement.setAttribute('data-theme','light')
+    }else{
+      this.isDarkTheme = true;
+      localStorage.setItem('THEME','dark')
+      document.documentElement.setAttribute('data-theme','dark')
+    }
   }
 
 }

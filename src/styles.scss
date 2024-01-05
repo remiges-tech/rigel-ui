@@ -5,9 +5,21 @@
 @import '~@fortawesome/fontawesome-free/css/all.css';
 
 :root {
-  --primary: #2F3C7E;
-  --secondary: #FBEAEB;
-  --input-field: #292C71;
+  --primary: #254764;
+  --primary-text: #fff;
+  --white: #fff;
+  --background: #DEE4E7;
+  --text-color: #000;
+  --disabled-color: #777;
+}
+
+[data-theme="dark"] {
+  --primary: rgb(255, 0, 217);
+  --primary-text: #fff;
+  --white: #fff;
+  --background: #052a3c;
+  --text-color: #fff;
+  --disabled-color: #777;
 }
 
 @font-face {
@@ -105,7 +117,7 @@
 html,
 body {
   height: 100%;
-  background-color: #E8E8E8;
+  background-color: var(--background);
 }
 
 body {
@@ -113,20 +125,67 @@ body {
   font-family: "GothamBook", "Helvetica Neue", sans-serif;
 }
 
+.navHeading{
+  color: var(--primary-text);
+}
+
+.fa-sun{
+  font-size: 2rem;
+  color: var(--white);
+}
+
+.text-color{
+  color: var(--text-color);
+}
+
+.fa-moon{
+  font-size: 2rem;
+  color: var(--white);
+}
+
+.table-text{
+  text-align: middle;
+}
+
+.top-menu{
+  background-color: var(--primary);
+}
+
+.moduleName{
+  margin-left: 20px;
+}
+
+.configName{
+  margin-left: 60px;
+}
+
+.description{
+  padding: 10px 0px 0px 10px;
+}
+
+small {
+  font-size: 14px;
+  color: var(--disabled-color); 
+}
+
+.form-switch .form-check-input {
+  width: 4rem;
+  height: 2rem;
+}
 
 .ng-select  .ng-select-container{
-  background-color: white;
+  background-color: var(--white);
   border-radius: 10px !important;
   outline: none !important;
   color: var(--input-field) !important;
   font-weight: 700 !important;
   font-size: 15px !important;
   padding: 3px 10px;
+  height: 56px;
 }
 
-
- .ng-select .ng-select-container {
-  height: 56px;
+.ng-select-dropdown{
+  width: 18rem;
 }
 
  .ng-select .ng-value {
@@ -144,6 +203,10 @@ body {
 
 .fw-600{
   font-weight: 600;
+}
+
+.mb-20{
+  margin-bottom: 20px;
 }
 
 
