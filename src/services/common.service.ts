@@ -34,28 +34,4 @@ export class CommonService {
         const data = list.filter((item:SchemaList) => item.app.toUpperCase() == app.toUpperCase() && item.module.toUpperCase() == module.toUpperCase()) ?? null;
         return [...data.map((item:SchemaList) => item.ver)];
     }
-
-    getChangeEvent(): Observable<any> {
-        return this.subject.asObservable();
-      }
-
-      setLocalLanguage(authToken: any) {
-        localStorage.setItem("language", authToken);
-      }
-    
-      getLocalLanguage() {
-        return (localStorage.getItem("language") !== null) ? localStorage.getItem("language") : null;
-      }
-      getLanguage() {
-        return [{
-          label: "English",
-          value: "en"
-        }, {
-          label: "Hindi",
-          value: "hi"
-        }, {
-            label: "Arabic",
-            value: "ar"
-        }]
-      }
 }
