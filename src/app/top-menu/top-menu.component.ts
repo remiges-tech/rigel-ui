@@ -1,6 +1,10 @@
-import { Component, inject } from '@angular/core';
-import { TranslateService} from '@ngx-translate/core';
-import { CommonService } from 'src/services/common.service';
+import { Component, LOCALE_ID, Inject } from '@angular/core';
+
+
+interface Locale {
+  localeCode: string;
+  label: string;
+}
 
 @Component({
   selector: 'app-top-menu',
@@ -8,31 +12,25 @@ import { CommonService } from 'src/services/common.service';
   styleUrls: ['./top-menu.component.scss']
 })
 export class TopMenuComponent {
-  private _commonService = inject(CommonService);
-  private _translate = inject(TranslateService);
-  isDarkTheme:boolean=false;
-  languageList: any;
-  selectedLang: any = this._commonService.getLocalLanguage() != null ? this._commonService.getLocalLanguage()! : 'en';
 
- 
-  constructor(){
-    this._commonService.getChangeEvent().subscribe(() => {
-      this.languageList = this._commonService.getLanguage();
-      this.selectedLang = this._commonService.getLocalLanguage() != null ? this._commonService.getLocalLanguage()! : 'en';
-    })
-  }
+  constructor(@Inject(LOCALE_ID) public locale: string) {}
 
-  ngOnInit() {
-    this.languageList = this._commonService.getLanguage();
-    this.selectedLang = this._commonService.getLocalLanguage() != null ? this._commonService.getLocalLanguage()! : 'en';
-    this._translate.setDefaultLang(this.selectedLang);
-    this.currentTheme();
-  }
+  
+  selectedLocale: string = this.locale;
+  isDarkTheme:any;
+ // array of locales
+  locales: Locale[] = [
+    { localeCode: "en-US", label: "English" },
+    { localeCode: "hi", label: "Hindi" },
+    { localeCode: "gu", label: "Gujrati" },
+    { localeCode: "mr", label: "Marathi" },
+    { localeCode: "ar", label: "Arabic" },
+  ];
 
-  onChange(event: any) {
-    this.selectedLang = event?.value;
-    this._commonService.setLocalLanguage(event?.value);
-    this._translate.setDefaultLang(event?.value);
+  navigateToLocale(localeCode: string): void {
+    this.selectedLocale = this.locale;
+    const url = `/${localeCode}`; 
+    window.location.href = url;  // Change the window location directly
   }
 
   currentTheme(){

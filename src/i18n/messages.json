@@ -1,0 +1,14 @@
+{
+  "locale": "en-US",
+  "translations": {
+    "selectApp": "Select App:",
+    "placeholderApp": "--Select App--",
+    "selectModule": "Select Module:",
+    "placeholderModule": "--Select Module--",
+    "version": "Version:",
+    "selectConfig": "Select Config:",
+    "placeholderConfig": "--Select Config--",
+    "rigelHeading": "{$TAG_IMG}Rigel",
+    "remigesLogo": "Remiges Business Icon"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "locale": "एन अमेरिका",
+  "translations": {
+    "selectApp": "ऐप चुनें:",
+    "placeholderApp": "-- ऐप चुनें--",
+    "selectModule": "मॉड्यूल चुनें:",
+    "placeholderModule": "--मॉड्यूल चुनें--",
+    "version": "संस्करण:",
+    "selectConfig": "कॉन्फ़िग का चयन करें:",
+    "placeholderConfig": "--कॉन्फ़िगर चुनें--",
+    "rigelHeading": "{$TAG_IMG}रिगेल",
+    "remigesLogo": "रेमिजेस बिजनेस आइकन"
+  }
+}

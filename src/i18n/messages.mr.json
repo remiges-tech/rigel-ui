@@ -1,0 +1,14 @@
+{
+  "locale": "mr",
+  "translations": {
+    "selectApp": "अॅप निवडा:",
+    "placeholderApp": "--अॅप निवडा--",
+    "selectModule": "मॉड्यूल निवडा:",
+    "placeholderModule": "--मॉड्युल निवडा--",
+    "version": "आवृत्ती:",
+    "selectConfig": "कॉन्फिग निवडा:",
+    "placeholderConfig": "--कॉन्फिग निवडा--",
+    "rigelHeading": "{$TAG_IMG}रिगेल",
+    "remigesLogo": "Remiges व्यवसाय चिन्ह"
+  }
+}

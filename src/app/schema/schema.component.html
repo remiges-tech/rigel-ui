@@ -2,9 +2,9 @@
     <div class="row">
         <div class="col-12">
             <div class="d-flex">
-                <label class="fs-20 fw-600 me-2 text-color">{{ "select_app" | translate }}</label>
-                <ng-select class="ng-select-dropdown" (change)="getModuleList()" [(ngModel)]="selectedData.app" id="app"
-                placeholder='{{ "select_app_placeholder" | translate }}'>
+                <label i18n="@@selectApp" class="fs-20 fw-600 me-2">Select App:</label>
+                <ng-select (change)="getModuleList()" [(ngModel)]="selectedData.app" style="width: 250px;" id="app"
+                    i18n-placeholder="@@placeholderApp" placeholder="--Select App--">
                     <ng-option *ngFor="let app of appList" [value]="app">{{app}}</ng-option>
                 </ng-select>
                 <div class="description">
@@ -14,21 +14,21 @@
             <div class="row">
                 <div class="col-md-6 d-flex">
                     <div *ngIf="moduleList" class="d-flex  mt-3 moduleName">
-                        <label class="fs-20 fw-600 me-2 text-color">{{ "select_module" | translate }}</label>
-                        <ng-select class="ng-select-dropdown" (change)="getSchemaDetails()" [(ngModel)]="selectedData.module" id="module"
-                        placeholder='{{ "select_module_placeholder" | translate }}'>
+                        <label i18n="@@selectModule" class="fs-20 fw-600 me-2">Select Module:</label>
+                        <ng-select (change)="getSchemaDetails()" [(ngModel)]="selectedData.module" style="width: 250px;" id="module"
+                        i18n-placeholder="@@placeholderModule" placeholder="--Select Module--">
                             <ng-option *ngFor="let module of moduleList" [value]="module">{{module}}</ng-option>
                         </ng-select>
                     </div>
                     <div *ngIf="selectedData.ver" class="mt-3">
-                        <label class="fs-15 fw-600 m-2 text-color">{{"version" | translate}}: {{selectedData.ver}}</label>
+                        <label i18n="@@version" class="fs-15 fw-600 m-2">Version:</label>{{selectedData?.ver}}
                     </div>
                 </div>
             </div>
             <div *ngIf="configList" class="d-flex mt-3 configName">
-                <label class="fs-20 fw-600 me-2 text-color">{{"select_config" | translate}}</label>
-                <ng-select class="ng-select-dropdown" (change)="getConfigDetail()" [(ngModel)]="selectedData.config" id="config"
-                placeholder='{{ "select_config_placeholder" | translate }}'>
+                <label i18n="@@selectConfig" class="fs-20 fw-600 me-2">Select Config:</label>
+                <ng-select (change)="getConfigDetail()" [(ngModel)]="selectedData.config" style="width: 250px;" id="config"
+                i18n-placeholder="@@placeholderConfig" placeholder="--Select Config--">
                     <ng-option *ngFor="let config of configList" [value]="config">{{config}}</ng-option>
                 </ng-select>
             </div>

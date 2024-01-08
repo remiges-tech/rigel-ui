@@ -1,0 +1,14 @@
+{
+  "locale": "gu",
+  "translations": {
+    "selectApp": "એપ્લિકેશન પસંદ કરો:",
+    "placeholderApp": "--એપ પસંદ કરો--",
+    "selectModule": "મોડ્યુલ પસંદ કરો:",
+    "placeholderModule": "-- મોડ્યુલ પસંદ કરો --",
+    "version": "સંસ્કરણ:",
+    "selectConfig": "રૂપરેખા પસંદ કરો:",
+    "placeholderConfig": "--રૂપરેખા પસંદ કરો--",
+    "rigelHeading": "{$TAG_IMG}રિગેલ",
+    "remigesLogo": "Remiges બિઝનેસ આઇકન"
+  }
+}

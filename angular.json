@@ -10,11 +10,21 @@
           "style": "scss"
         }
       },
-      "i18n":{
-        "sourceLocale":"en",
-        "locales": {
-          "hi": "src/assests/i18n/hi.json",
-          "ar": "src/assests/i18n/ar.json"
+      "i18n": { 
+        "sourceLocale": "en-US", 
+        "locales": { 
+          "ar": { 
+            "translation": "src/i18n/messages.ar.json" 
+          },
+          "hi":{
+             "translation": "src/i18n/messages.hi.json" 
+          },
+          "mr":{
+            "translation": "src/i18n/messages.mr.json" 
+         },
+         "gu":{
+          "translation": "src/i18n/messages.gu.json" 
+       }
         }
       },
       "root": "",
@@ -24,6 +34,8 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "localize": false, 
+            "i18nMissingTranslation": "error",
             "outputPath": "dist/rigel-frontend",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -83,7 +95,9 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "rigel-frontend:build"
+            "browserTarget": "rigel-frontend:build",
+            "format": "json",
+            "outputPath": "src/i18n"
           }
         },
         "test": {
