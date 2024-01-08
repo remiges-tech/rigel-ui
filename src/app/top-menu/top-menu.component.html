@@ -1,20 +1,20 @@
 <nav class="navbar navbar-light top-menu sticky-top">
   <div class="container-fluid p-2">
- <h2 i18n="@@rigelHeading" class="navHeading"><img i18n-alt="@@remigesLogo" alt="Remiges Business Icon" src="assets/img/logo.svg" /> Rigel</h2>
-   <div class="d-flex">
+    <h2 i18n="@@rigelHeading" class="navHeading"><img i18n-alt="@@remigesLogo" alt="Remiges Business Icon"
+        src="assets/img/logo.svg" /> Rigel</h2>
+    <div class="d-flex">
       <div class="mx-3">
         <button class="btn" (click)="changeTheme()">
           <i *ngIf="isDarkTheme" class="fa-regular fa-sun"></i>
           <i *ngIf="!isDarkTheme" class="fa-solid fa-moon"></i>
         </button>
       </div>
-        <div class="gradient-box">
-          <select class="form-select language-select" [(ngModel)]="selectedLocale"
-            (change)="navigateToLocale(selectedLocale)">
-            <option *ngFor="let locale of locales" [value]="locale.localeCode">{{ locale.label }}</option>
-          </select>
-        </div>
-  
-  </div>
+      <div class="gradient-box">
+        <select class="form-select language-select" [(ngModel)]="selectedLocale"
+          (change)="navigateToLocale(selectedLocale)">
+          <option *ngFor="let locale of locales" [value]="locale.localeCode">{{ locale.label }}</option>
+        </select>
+      </div>
+    </div>
   </div>
 </nav>
