@@ -11,6 +11,17 @@ export function checkValueType(type: string, value: string, constraints?:Constra
     return {status:'INVALID',msg: 'Value should not be empty'};
   }
 
+  if (type.toLowerCase() == 'float') {
+    if (isNaN(parseFloat(value))) {
+      return { status: 'INVALID', msg: 'Value is not a valid floating-point number' };
+    } else if (constraints && constraints.min && parseFloat(value) < constraints.min) {
+      return { status: 'INVALID', msg: `Value is less than ${constraints.min}` };
+    } else if (constraints && constraints.max && parseFloat(value) > constraints.max) {
+      return { status: 'INVALID', msg: `Value is greater than ${constraints.max}` };
+    }
+    return null;
+  }
+
   if (type.toLowerCase() == 'integer' || type.toLowerCase() == 'int') {
     if(isNaN(parseInt(value))){
       return {status:'INVALID',msg: 'Value is not a integer'};

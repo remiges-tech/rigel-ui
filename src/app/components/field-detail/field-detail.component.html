@@ -14,6 +14,9 @@
                   <input class="form-check-input" type="checkbox" role="switch" (change)="updateChanges(fieldDetail)" id="{{fieldDetail.name}}-input" [(ngModel)]="value" name="{{fieldDetail.name}}-value">
                 </div>
               </div>
+              <div *ngSwitchCase="'float'">
+                <input type="number" class="form-control" id="{{fieldDetail.name}}-input" name="{{fieldDetail.name}}-value" [value]="value" [(ngModel)]="value" (blur)="updateChanges(fieldDetail)">
+              </div>
               <div *ngSwitchDefault>
                 <div *ngIf="fieldDetail.constraints?.enum">
                   <ng-select (blur)="updateChanges(fieldDetail)" id="{{fieldDetail.name}}-input" style="width: 250px;" [(ngModel)]="value">
