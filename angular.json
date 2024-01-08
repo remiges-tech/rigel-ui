@@ -18,7 +18,13 @@
           },
           "hi":{
              "translation": "src/i18n/messages.hi.json" 
-          }
+          },
+          "mr":{
+            "translation": "src/i18n/messages.mr.json" 
+         },
+         "gu":{
+          "translation": "src/i18n/messages.gu.json" 
+       }
         }
       },
       "root": "",
