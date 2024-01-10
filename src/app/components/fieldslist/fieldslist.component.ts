@@ -19,8 +19,12 @@ export class FieldslistComponent {
   updateConfig(data: Field, index: number) {
     this.schemaData.values[index] = data;
     const modifiedObject = {
-      ...this.schemaData,
-      values: this.schemaData.values.map(({ name, value }) => ({ name, value })),
+      app: this.schemaData.app,
+      module: this.schemaData.module,
+      ver: this.schemaData.ver,
+      config: this.schemaData.config,
+      key: data.name,
+      value: data.value
     };
 
     try{

@@ -34,7 +34,9 @@ export class FieldDetailComponent {
   cursorFocus(id: any) {
     setTimeout(()=>{
       const inputElement = this.el.nativeElement.querySelector('#'+id);
+      if(inputElement){
         this.renderer.selectRootElement(inputElement).focus();
+      }
     },50)
   }
 }

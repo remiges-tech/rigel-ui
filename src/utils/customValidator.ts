@@ -7,12 +7,15 @@ import { Constraints } from "src/models/common-interfaces";
 // if value is string then is should not accpet integer or number
 export function checkValueType(type: string, value: string, constraints?:Constraints): {status:'INVALID', msg:string} | null {
 
+  const intRegex = /^[0-9]+$/;
+  const floatRegex = /^[0-9]+[.][0-9]+$/;
+
   if(type !== 'bool' && !value){
     return {status:'INVALID',msg: 'Value should not be empty'};
   }
 
   if (type.toLowerCase() == 'float') {
-    if (isNaN(parseFloat(value))) {
+    if (!floatRegex.test(value)) {
       return { status: 'INVALID', msg: 'Value is not a valid floating-point number' };
     } else if (constraints && constraints.min && parseFloat(value) < constraints.min) {
       return { status: 'INVALID', msg: `Value is less than ${constraints.min}` };
@@ -23,7 +26,7 @@ export function checkValueType(type: string, value: string, constraints?:Constra
   }
 
   if (type.toLowerCase() == 'integer' || type.toLowerCase() == 'int') {
-    if(isNaN(parseInt(value))){
+    if(!intRegex.test(value)){
       return {status:'INVALID',msg: 'Value is not a integer'};
     }else if(parseInt(value) < 0){
       return {status:'INVALID',msg: 'Value should not be negative'};

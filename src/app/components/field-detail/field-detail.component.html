@@ -8,7 +8,7 @@
     <ng-container *ngIf="isShowValue">
       <div *ngIf="isEdit" class="col-md-2">
         <ng-container [ngSwitch]="fieldDetail.type">
-          <div *ngSwitchCase="'bool' || 'boolean'">
+          <div *ngSwitchCase="'bool'">
             <div class="form-check form-switch">
               <input class="form-check-input" type="checkbox" role="switch" (change)="updateChanges(fieldDetail)"
                 id="{{fieldDetail.name}}-input" [(ngModel)]="value" name="{{fieldDetail.name}}-value">
@@ -16,7 +16,7 @@
           </div>
           <div *ngSwitchCase="'float'">
             <input type="number" class="form-control" id="{{fieldDetail.name}}-input" name="{{fieldDetail.name}}-value"
-              [value]="value" [(ngModel)]="value" (blur)="updateChanges(fieldDetail)" >
+              [value]="value" [(ngModel)]="value" (blur)="updateChanges(fieldDetail)">
           </div>
           <div *ngSwitchDefault>
             <div *ngIf="fieldDetail.constraints?.enum">
@@ -33,7 +33,8 @@
         </ng-container>
       </div>
       <div *ngIf="!isEdit" class="col-md-2 fs-20 fw-600 text-primary">{{fieldDetail.value}}
-        <button class="btn p-0 mt-1 text-color" (click)="isEdit = true; value = fieldDetail.value!;cursorFocus(fieldDetail.name+'-input')">
+        <button class="btn p-0 mt-1 text-color"
+          (click)="isEdit = true; value = fieldDetail.value!;cursorFocus(fieldDetail.name+'-input')">
           <i class="fa-regular fa-pen-to-square mt-2 mb-20"></i>
         </button>
       </div>

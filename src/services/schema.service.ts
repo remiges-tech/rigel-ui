@@ -116,7 +116,7 @@ export class SchemaService {
     try {
       let dataObj = {
         method: 'post',
-        api_url: Enums.CONSTANTS.CONFIG_UPDATE_API,
+        api_url: Enums.CONSTANTS.CONFIG_SET_API,
         local_json_file: '',
         param_data: obj,
         mapcol: false,

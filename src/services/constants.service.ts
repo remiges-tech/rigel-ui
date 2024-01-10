@@ -9,4 +9,5 @@ export enum CONSTANTS {
   CONFIG_LIST_API = '/api/v1/configlist',
   CONFIG_GET_API = '/api/v1/configget',
   CONFIG_UPDATE_API = '/api/v1/configupdate',
+  CONFIG_SET_API = '/api/v1/configset',
 };
