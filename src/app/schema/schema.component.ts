@@ -167,5 +167,5 @@ export class SchemaComponent {
     this.configList = undefined;
     this.schemaDetails = undefined;
   }
-
+  
 }

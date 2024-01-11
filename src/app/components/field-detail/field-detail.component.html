@@ -15,8 +15,8 @@
             </div>
           </div>
           <div *ngSwitchCase="'float'">
-            <input type="number" class="form-control" id="{{fieldDetail.name}}-input" name="{{fieldDetail.name}}-value"
-              [value]="value" [(ngModel)]="value" (blur)="updateChanges(fieldDetail)">
+            <input type="text" class="form-control" id="{{fieldDetail.name}}-input" name="{{fieldDetail.name}}-value"
+              [value]="value" [(ngModel)]="value" (blur)="updateChanges(fieldDetail)" (keypress)="decimalFilter($event)" step="0.01">
           </div>
           <div *ngSwitchDefault>
             <div *ngIf="fieldDetail.constraints?.enum">
