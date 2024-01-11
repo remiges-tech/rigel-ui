@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output, inject, ElementRef, Renderer2 } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Field } from 'src/models/common-interfaces';
+import { CONSTANTS } from 'src/services/constants.service';
 import { checkValueType } from 'src/utils/customValidator';
 
 @Component({
@@ -45,6 +46,8 @@ export class FieldDetailComponent {
     let input = event.target.value + String.fromCharCode(event.charCode);
     if (!reg.test(input)) {
         event.preventDefault();
+    }else if(input.length > CONSTANTS.MAX_INPUT_LENGTH){
+      event.preventDefault();
     }
   }
 }

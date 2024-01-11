@@ -1,6 +1,11 @@
 {
   "locale": "mr",
   "translations": {
+    "101": "मूल्य रिक्त नसावे",
+    "102": "मूल्य वैध नाही {$PH}",
+    "103": "मूल्य {$PH} पेक्षा कमी आहे",
+    "104": "मूल्य {$PH} पेक्षा मोठे आहे",
+    "105": "मूल्य नकारात्मक असू नये",
     "selectApp": "अॅप निवडा:",
     "placeholderApp": "--अॅप निवडा--",
     "selectModule": "मॉड्यूल निवडा:",
@@ -8,7 +13,7 @@
     "version": "आवृत्ती:",
     "selectConfig": "कॉन्फिग निवडा:",
     "placeholderConfig": "--कॉन्फिग निवडा--",
-    "rigelHeading": "{$TAG_IMG}रिगेल",
+    "rigelHeading": "{$TAG_IMG} रिगेल",
     "remigesLogo": "Remiges व्यवसाय चिन्ह"
   }
 }

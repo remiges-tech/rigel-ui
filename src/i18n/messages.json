@@ -1,6 +1,11 @@
 {
   "locale": "en-US",
   "translations": {
+    "101": "Value should not be empty",
+    "102": "Value is not a valid {$PH}",
+    "103": "Value is less than {$PH}",
+    "104": "Value is greater than {$PH}",
+    "105": "Value should not be negative",
     "selectApp": "Select App:",
     "placeholderApp": "--Select App--",
     "selectModule": "Select Module:",
@@ -8,7 +13,7 @@
     "version": "Version:",
     "selectConfig": "Select Config:",
     "placeholderConfig": "--Select Config--",
-    "rigelHeading": "{$TAG_IMG}Rigel",
+    "rigelHeading": "{$TAG_IMG} Rigel",
     "remigesLogo": "Remiges Business Icon"
   }
 }

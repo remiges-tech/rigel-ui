@@ -34,7 +34,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "localize": false, 
+            "localize": true, 
             "i18nMissingTranslation": "error",
             "outputPath": "dist/rigel-frontend",
             "index": "src/index.html",
