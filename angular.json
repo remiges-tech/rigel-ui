@@ -10,21 +10,21 @@
           "style": "scss"
         }
       },
-      "i18n": { 
-        "sourceLocale": "en-US", 
-        "locales": { 
-          "ar": { 
-            "translation": "src/i18n/messages.ar.json" 
+      "i18n": {
+        "sourceLocale": "en-US",
+        "locales": {
+          "ar": {
+            "translation": "src/i18n/messages.ar.json"
           },
-          "hi":{
-             "translation": "src/i18n/messages.hi.json" 
+          "hi": {
+            "translation": "src/i18n/messages.hi.json"
           },
-          "mr":{
-            "translation": "src/i18n/messages.mr.json" 
-         },
-         "gu":{
-          "translation": "src/i18n/messages.gu.json" 
-       }
+          "mr": {
+            "translation": "src/i18n/messages.mr.json"
+          },
+          "gu": {
+            "translation": "src/i18n/messages.gu.json"
+          }
         }
       },
       "root": "",
@@ -34,7 +34,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "localize": true, 
+            "localize": true,
             "i18nMissingTranslation": "error",
             "outputPath": "dist/rigel-frontend",
             "index": "src/index.html",
@@ -118,17 +118,65 @@
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/ngx-toastr/toastr.css",
               "src/styles.scss"
-              
             ],
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.min.js"
             ]
+          }
+        },
+        "cypress-run": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "rigel-frontend:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "rigel-frontend:serve:production"
+            }
+          }
+        },
+        "cypress-open": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "watch": true,
+            "headless": false
+          }
+        },
+        "ct": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "rigel-frontend:serve",
+            "watch": true,
+            "headless": false,
+            "testingType": "component"
+          },
+          "configurations": {
+            "development": {
+              "devServerTarget": "rigel-frontend:serve:development"
+            }
+          }
+        },
+        "e2e": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "rigel-frontend:serve",
+            "watch": true,
+            "headless": false
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "rigel-frontend:serve:production"
+            }
           }
         }
       }
     }
   },
   "cli": {
-    "analytics": false
+    "analytics": false,
+    "schematicCollections": [
+      "@cypress/schematic",
+      "@schematics/angular"
+    ]
   }
 }
