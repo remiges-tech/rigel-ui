@@ -33,6 +33,10 @@ export class TopMenuComponent {
     window.location.href = url;  // Change the window location directly
   }
 
+  ngOnInit(){
+    this.currentTheme();
+  }
+
   currentTheme(){
     let currentTheme = localStorage.getItem('THEME') || 'light';
 

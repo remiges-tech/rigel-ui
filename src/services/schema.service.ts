@@ -16,7 +16,7 @@ export class SchemaService {
     try {
       let dataObj = {
         method: 'get',
-        api_url: Enums.CONSTANTS.SCHEMA_LIST_API,
+        api_url: 'http://localhost:3002' + Enums.CONSTANTS.SCHEMA_LIST_API,
         local_json_file: '',
         param_data: {},
         mapcol: false,
@@ -41,7 +41,7 @@ export class SchemaService {
     try {
       let dataObj = {
         method: 'get',
-        api_url: Enums.CONSTANTS.SCHEMA_GET_API,
+        api_url: 'http://localhost:3002' +Enums.CONSTANTS.SCHEMA_GET_API,
         local_json_file: '',
         param_data: obj,
         mapcol: false,
@@ -66,7 +66,7 @@ export class SchemaService {
     try {
       let dataObj = {
         method: 'get',
-        api_url: Enums.CONSTANTS.CONFIG_LIST_API,
+        api_url: 'http://localhost:3002' +Enums.CONSTANTS.CONFIG_LIST_API,
         local_json_file: '',
         param_data: obj,
         mapcol: false,
@@ -91,7 +91,7 @@ export class SchemaService {
     try {
       let dataObj = {
         method: 'get',
-        api_url: Enums.CONSTANTS.CONFIG_GET_API,
+        api_url: 'http://localhost:3002' + Enums.CONSTANTS.CONFIG_GET_API,
         local_json_file: '',
         param_data: obj,
         mapcol: false,
@@ -116,7 +116,7 @@ export class SchemaService {
     try {
       let dataObj = {
         method: 'post',
-        api_url: Enums.CONSTANTS.CONFIG_SET_API,
+        api_url: 'http://192.168.0.187:8083' +Enums.CONSTANTS.CONFIG_SET_API,
         local_json_file: '',
         param_data: obj,
         mapcol: false,

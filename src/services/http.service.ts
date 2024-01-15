@@ -8,7 +8,7 @@ import { CommonService } from "./common.service";
 })
 
 export class HttpService {
-    private baseUrl = 'http://localhost:3002'
+    private baseUrl = 'http://192.168.0.219:8090'
     constructor(private _httpClient: HttpClient, private _commonService: CommonService) { }
 
     fetchData(dataObj: any): Observable<any> {
@@ -17,9 +17,9 @@ export class HttpService {
         switch (true) {
             case dataObj.method == 'post':
                 this._commonService.log(data);
-                return this._httpClient.post<any>(this.baseUrl + url, data);
+                return this._httpClient.post<any>( url, data);
             case dataObj.method == 'get':
-                return this._httpClient.get<any>(this.baseUrl + url, data);
+                return this._httpClient.get<any>(url, data);
             default:
                 return this._httpClient.post<any>(url, data);
         }

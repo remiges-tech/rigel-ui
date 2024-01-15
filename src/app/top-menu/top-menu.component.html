@@ -4,7 +4,7 @@
         src="assets/img/logo.svg" /> Rigel</h2>
     <div class="d-flex">
       <div class="mx-3">
-        <button class="btn" (click)="changeTheme()">
+        <button class="btn" id="themeBtn" (click)="changeTheme()">
           <i *ngIf="isDarkTheme" class="fa-regular fa-sun"></i>
           <i *ngIf="!isDarkTheme" class="fa-solid fa-moon"></i>
         </button>

@@ -1,10 +1,10 @@
 <div class="mt-2">
   <div class="row">
     <div class="col-md-6">
-      <span class="fs-20 fw-600 text-color">{{fieldDetail.name}}</span>
-      <div><small>{{fieldDetail.description}}</small></div>
+      <span class="fs-20 fw-600 text-color" id="{{fieldDetail.name}}">{{fieldDetail.name}}</span>
+      <div><small id="{{fieldDetail.name}}-description">{{fieldDetail.description}}</small></div>
     </div>
-    <div class="col-md-2 fs-20 fw-400 text-color">{{fieldDetail.type}}</div>
+    <div class="col-md-2 fs-20 fw-400 text-color" id="{{fieldDetail.name}}-type">{{fieldDetail.type}}</div>
     <ng-container *ngIf="isShowValue">
       <div *ngIf="isEdit" class="col-md-2">
         <ng-container [ngSwitch]="fieldDetail.type">
@@ -32,8 +32,8 @@
           </div>
         </ng-container>
       </div>
-      <div *ngIf="!isEdit" class="col-md-2 fs-20 fw-600 text-primary">{{fieldDetail.value}}
-        <button class="btn p-0 mt-1 text-color" name="edit-button"
+      <div *ngIf="!isEdit" class="col-md-2 fs-20 fw-600 text-primary" id="{{fieldDetail.name}}-value">{{fieldDetail.value}}
+        <button class="btn p-0 mt-1 text-color" name="{{fieldDetail.name}}-edit-button"
           (click)="isEdit = true; value = fieldDetail.value!;cursorFocus(fieldDetail.name+'-input')">
           <i class="fa-regular fa-pen-to-square mt-2 mb-20"></i>
         </button>
