@@ -12,10 +12,6 @@ interface Locale {
   styleUrls: ['./top-menu.component.scss']
 })
 export class TopMenuComponent {
-
-  constructor(@Inject(LOCALE_ID) public locale: string) {}
-
-  
   selectedLocale: string = this.locale;
   isDarkTheme:any;
  // array of locales
@@ -27,15 +23,18 @@ export class TopMenuComponent {
     { localeCode: "ar", label: "Arabic" },
   ];
 
+  constructor(@Inject(LOCALE_ID) public locale: string) {}
+
+  ngOnInit(){
+    this.currentTheme();
+  }
+  
   navigateToLocale(localeCode: string): void {
     this.selectedLocale = this.locale;
     const url = `/${localeCode}`; 
     window.location.href = url;  // Change the window location directly
   }
 
-  ngOnInit(){
-    this.currentTheme();
-  }
 
   currentTheme(){
     let currentTheme = localStorage.getItem('THEME') || 'light';

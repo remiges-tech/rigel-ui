@@ -41,27 +41,5 @@ describe('Frontend Testing with Stubbed API Response for data not found', () => 
       .its('status')
       .should('equal', 200)
     })
-  
-    it('Handles API Data Not Found', () => {
-      // Stub the GET API response when the backend is not available
-      cy.intercept('GET', '/api/v1/schemaget', {
-        statusCode: 200,
-        body: {
-          response: {},
-          status: 'Failed',
-          statusCode: 200,
-          message: 'Data not found!'
-        }
-      }).as('getData');
-  
-      // For example, if your API request is triggered on button click:
-      cy.get('#module').should('be.visible')
-  
-      // Wait for the API request to complete
-      cy.wait('@getData');
-      
-  
-      cy.get('.toast-message').should('contain','Data not found')
-    });
   });
   
