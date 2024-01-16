@@ -44,6 +44,7 @@ export class TopMenuComponent {
     document.documentElement.setAttribute('data-theme',currentTheme)
   }
 
+  //function for changing theme accordingly
   changeTheme(){
     let theme = localStorage.getItem('THEME') || 'light';
     if(theme == 'dark'){

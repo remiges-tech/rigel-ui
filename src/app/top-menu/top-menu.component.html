@@ -3,12 +3,14 @@
     <h2 i18n="@@rigelHeading" class="navHeading"><img i18n-alt="@@remigesLogo" alt="Remiges Business Icon"
         src="assets/img/logo.svg" /> Rigel</h2>
     <div class="d-flex">
+      <!--Theme change-->
       <div class="mx-3">
         <button class="btn" id="themeBtn" (click)="changeTheme()">
           <i *ngIf="isDarkTheme" class="fa-regular fa-sun"></i>
           <i *ngIf="!isDarkTheme" class="fa-solid fa-moon"></i>
         </button>
       </div>
+      <!--Language change dropdown-->
       <div class="gradient-box">
         <select class="form-select language-select" [(ngModel)]="selectedLocale"
           (change)="navigateToLocale(selectedLocale)">

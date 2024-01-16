@@ -21,6 +21,8 @@ export class FieldDetailComponent {
     private renderer: Renderer2,
     private el: ElementRef) { }
 
+
+  //Validation and updation of values
   updateChanges(data: Field) {
     this.isEdit = false;
     let verification = checkValueType(data.type, this.value!, data.constraints);
@@ -32,6 +34,7 @@ export class FieldDetailComponent {
     this.UpdateValues.emit(data)
   }
 
+  //cursorFocs function called when clicked on edit icon
   cursorFocus(id: any) {
     setTimeout(()=>{
       const inputElement = this.el.nativeElement.querySelector('#'+id);
@@ -41,6 +44,7 @@ export class FieldDetailComponent {
     },50)
   }
 
+  //value restricted to 2 digits after decimal point for float datatype
   decimalFilter(event: any) {
     const reg = /^-?\d*(\.\d{0,2})?$/;
     let input = event.target.value + String.fromCharCode(event.charCode);

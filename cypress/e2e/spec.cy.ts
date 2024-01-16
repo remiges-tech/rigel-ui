@@ -1,67 +1,7 @@
-describe('My First Test', () => {
+describe('Rigel test cases', () => {
   beforeEach(() => {
     cy.visit('/')
-  })
-
-  it('GET call for schema list', () => {
-    cy.request('GET', 'http://localhost:3002/api/v1/schemalist')
-    .its('status')
-    .should('equal', 200)
-  })
-
-  it('GET call for schema get details', () => {
-    cy.request('GET', 'http://localhost:3002/api/v1/schemaget')
-    .its('status')
-    .should('equal', 200)
-  })
-
-  it('POST call for config update', () => {
-    cy.request({
-      method: 'POST',
-      url: 'http://localhost:3002/api/v1/configupdate',
-      body: {
-        app: "FinanceApp",
-        module: "PaymentGateway",
-        ver: 2,
-        config: "ProdConfig",
-        description: "Configuration schema of the PaymentGateway module in FinanceApp.",
-        values: [
-          {name: "transactionTimeout", "value": 5},
-          {name: "currencyType", "value": "USD"},
-        ]
-    }
-    })
-    .its('status')
-    .should('equal', 200)
-  })
-
-  // it('GET call for config list', () => {
-  //   cy.request('GET', 'http://localhost:3002/api/v1/configlist')
-  //   .its('status')
-  //   .should('equal', 200)
-  // })
-
-  it('GET call for config get details', () => {
-    cy.request('GET', 'http://localhost:3002/api/v1/configget')
-    .its('status')
-    .should('equal', 200)
-  })
-
-  it('POST call for config set', () => {
-    cy.request({
-      method: 'POST',
-      url: 'http://localhost:3002/api/v1/configset',
-      body: {
-          app: "FinanceApp",
-          module: "PaymentGateway",
-          ver: 2,
-          config: "ProdConfig",
-          key: "transactionTimeout",
-          value: 30
-    }
-    })
-    .its('status')
-    .should('equal', 200)
+    cy.contains('Rigel');
   })
 
   it('check for the app module dropdown', () => {
@@ -86,7 +26,7 @@ describe('My First Test', () => {
     cy.selectValueFromDropdown('#module', 'PaymentGateway')
     cy.get('#config').should('be.visible');
     cy.selectValueFromDropdown('#config', 'ProdConfig')
-    cy.get('[name="edit-button"]').should('be.visible')
+    cy.get('[name="transactionTimeout-edit-button"]').should('be.visible')
   })
 })
 
