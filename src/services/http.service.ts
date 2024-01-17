@@ -8,7 +8,6 @@ import { CommonService } from "./common.service";
 })
 
 export class HttpService {
-    private baseUrl = 'http://192.168.0.219:8090'
     constructor(private _httpClient: HttpClient, private _commonService: CommonService) { }
 
     fetchData(dataObj: any): Observable<any> {

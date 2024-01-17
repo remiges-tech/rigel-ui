@@ -39,8 +39,8 @@ export class SchemaComponent {
     try {
       this._schemaService.getSchemaList().subscribe((res: any) => {
         if (res?.status == CONSTANTS.SUCCESS) {
-          this.schemasList = res?.response?.schemas;
-          this.appList = this._commonService.getAppNamesFromList(res?.response?.schemas);
+          this.schemasList = res?.data;
+          this.appList = this._commonService.getAppNamesFromList(res?.data);
         }
       })
     } catch (error) {
@@ -79,9 +79,9 @@ export class SchemaComponent {
       }
       this._schemaService.getSchemaDetail(data).subscribe((res: any) => {
         if (res.status == CONSTANTS.SUCCESS) {
-          this.restructureAndUpdateSchemaDetails(res?.response);
+          this.restructureAndUpdateSchemaDetails(res?.data);
         } else {
-          this.restructureAndUpdateSchemaDetails(res?.response);
+          this.restructureAndUpdateSchemaDetails(res?.data);
           this._toastr.error(res?.message, CONSTANTS.ERROR);
         }
       })
@@ -101,8 +101,8 @@ export class SchemaComponent {
     }
     this._schemaService.getConfigList(data).subscribe((res: any) => {
       if (res.status == CONSTANTS.SUCCESS) {
-        if (res?.response?.configurations) {
-          this.configList = [...res?.response?.configurations.map((confign: any) => confign.config)]
+        if (res?.data?.configurations) {
+          this.configList = [...res?.data?.configurations.map((confign: any) => confign.config)]
         }
       }
     })
@@ -122,8 +122,8 @@ export class SchemaComponent {
       this._schemaService.getConfigDetail(data).subscribe((res: any) => {
         if (res.status == CONSTANTS.SUCCESS) {
           this.isShowConfigValues = true;
-          if (res?.response) {
-            this.setValuesOfSelectedConfigName(res?.response?.values, res?.response?.config)
+          if (res?.data) {
+            this.setValuesOfSelectedConfigName(res?.data?.values, res?.data?.config)
           }
         } else {
           this.isShowConfigValues = false;
@@ -143,6 +143,7 @@ export class SchemaComponent {
   // restructure it in type of configDetails
   // schemaDetails 'fields' replaced by configDetails 'values'
   restructureAndUpdateSchemaDetails(response: SchemaDetails) {
+    // alert(JSON.stringify(response))
     const modifiedData: ConfigDetails = { ...response, values: response.fields };
     this.schemaDetails = modifiedData;
   }

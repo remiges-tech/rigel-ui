@@ -19,17 +19,19 @@ export class FieldslistComponent {
   updateConfig(data: Field, index: number) {
     this.schemaData.values[index] = data;
     const modifiedObject = {
+      data : {
         app: this.schemaData.app,
         module: this.schemaData.module,
         ver: this.schemaData.ver,
         config: this.schemaData.config,
         key: data.name,
         value: data.value
+      }
     };
 
     try{
       this._schemaService.updateConfigDetails(modifiedObject).subscribe((res:any) => {
-        this._toastr.success(`"${data.name}" `+res?.message, CONSTANTS.SUCCESS)
+        this._toastr.success(`"${data.name}" `+res?.data, CONSTANTS.SUCCESS)
       })
     }catch(err){
       this._schemaService._commonService.log({
