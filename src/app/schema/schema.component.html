@@ -38,12 +38,20 @@
                     id="config" i18n-placeholder="@@placeholderConfig" placeholder="--Select Config--">
                     <ng-option *ngFor="let config of configList" [value]="config">{{config}}</ng-option>
                 </ng-select>
+                <div  style="margin-left: auto;" *ngIf="configList">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text" id="basic-addon1">&#61442;</span>
+                        </div>
+                        <input type="text" [(ngModel)]="searchInput" name="search" autocomplete="off" class="form-control" placeholder="Search" aria-label="Username" aria-describedby="basic-addon1">
+                      </div>
+                </div>
             </div>
         </div>
     </div>
     <div class="mt-5" style="margin-left: 8rem;">
         <!-- Display FieldsList -->
         <app-fieldslist *ngIf="schemaDetails" [isShowValues]="isShowConfigValues"
-            [schemaData]="schemaDetails"></app-fieldslist>
+            [schemaData]="schemaDetails" [searchText]="searchInput"></app-fieldslist>
     </div>
 </div>

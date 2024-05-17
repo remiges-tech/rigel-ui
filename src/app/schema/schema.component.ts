@@ -27,7 +27,8 @@ export class SchemaComponent {
     config: null,
   }
   isShowConfigValues: boolean = false;
-  schemaDetails?: ConfigDetails
+  schemaDetails?: ConfigDetails;
+  searchInput:string = '';
 
   ngOnInit() {
     this.getSchemaList();

@@ -1,4 +1,10 @@
-<div id="fields-list" *ngFor="let field of schemaData.values, let i = index">
-    <app-field-detail [isShowValue]="isShowValues" [fieldDetail]="field" (UpdateValues)="updateConfig($event,i)"></app-field-detail>
-</div>
+<ng-container *ngIf="filterData().length > 0">
+    <div id="fields-list" *ngFor="let field of filterData(), let i = index">
+        <app-field-detail [isShowValue]="isShowValues" [fieldDetail]="field" (UpdateValues)="updateConfig($event,i)"></app-field-detail>
+    </div>
+</ng-container>
+
+<ng-container *ngIf="filterData().length == 0">
+    <div class="fields-list"><h3>No record found!</h3></div>
+</ng-container>
  

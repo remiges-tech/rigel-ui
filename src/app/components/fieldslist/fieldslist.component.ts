@@ -15,6 +15,7 @@ export class FieldslistComponent {
   private _toastr = inject(ToastrService)
   @Input({required:true}) isShowValues: boolean = false;
   @Input({required: true}) schemaData!: ConfigDetails;
+  @Input() searchText: string = '';
 
   updateConfig(data: Field, index: number) {
     this.schemaData.values[index] = data;
@@ -40,5 +41,13 @@ export class FieldslistComponent {
         err
       })
     }
+  }
+
+  ngOnInit(){
+    console.log(this.filterData())
+  }
+
+  filterData(){
+    return this.schemaData.values.filter((value:Field) => value.name.toLowerCase().includes(this.searchText.toLowerCase()) || value.description.toLowerCase().includes(this.searchText.toLowerCase()) ||value.type.toLowerCase().includes(this.searchText.toLowerCase()))
   }
 }
