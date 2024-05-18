@@ -1,6 +1,7 @@
 import { Component, Input, inject } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { ConfigDetails, Field, SchemaDetails } from 'src/models/common-interfaces';
+import { ConfigDetails, Field } from 'src/models/common-interfaces';
+import { ConfigSetResp } from 'src/models/response-interfaces';
 import { CONSTANTS } from 'src/services/constants.service';
 import { SchemaService } from 'src/services/schema.service';
 
@@ -15,7 +16,7 @@ export class FieldslistComponent {
   private _toastr = inject(ToastrService)
   @Input({required:true}) isShowValues: boolean = false;
   @Input({required: true}) schemaData!: ConfigDetails;
-  @Input() searchText: string = '';
+  @Input({required: true}) searchText: string = '';
 
   updateConfig(data: Field, index: number) {
     this.schemaData.values[index] = data;
@@ -31,8 +32,13 @@ export class FieldslistComponent {
     };
 
     try{
-      this._schemaService.updateConfigDetails(modifiedObject).subscribe((res:any) => {
-        this._toastr.success(`"${data.name}" `+res?.data, CONSTANTS.SUCCESS)
+      this._schemaService.updateConfigDetails(modifiedObject).subscribe((res:ConfigSetResp
+      ) => {
+        if(res.status == CONSTANTS.SUCCESS){
+          this._toastr.success(`"${data.name}" `+res.data, CONSTANTS.SUCCESS)
+        }else{
+          this._toastr.success(`"${data.name}" `+res.data, CONSTANTS.ERROR)
+        }
       })
     }catch(err){
       this._schemaService._commonService.log({
@@ -43,11 +49,8 @@ export class FieldslistComponent {
     }
   }
 
-  ngOnInit(){
-    console.log(this.filterData())
-  }
-
   filterData(){
-    return this.schemaData.values.filter((value:Field) => value.name.toLowerCase().includes(this.searchText.toLowerCase()) || value.description.toLowerCase().includes(this.searchText.toLowerCase()) ||value.type.toLowerCase().includes(this.searchText.toLowerCase()))
+    let text = this.searchText.toLowerCase();
+    return this.schemaData.values.filter((value:Field) => value.name.toLowerCase().includes(text) || value.description.toLowerCase().includes(text) ||value.type.toLowerCase().includes(text))
   }
 }

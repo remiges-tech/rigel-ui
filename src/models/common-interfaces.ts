@@ -14,6 +14,13 @@ export interface SchemaDetails {
     fields: Field[]
 }
 
+export interface ConfigList{
+    app:string,
+    module:string,
+    ver:number,
+    config: string,
+    description:string;
+}
 export interface ConfigDetails {
     app: string,
     module: string,

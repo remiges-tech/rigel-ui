@@ -2,9 +2,10 @@ import { Component, inject } from '@angular/core';
 import { CommonService } from 'src/services/common.service';
 import { SchemaService } from 'src/services/schema.service';
 import { CONSTANTS } from 'src/services/constants.service';
-import { ConfigDetails, Field, SchemaDetails, SchemaList } from 'src/models/common-interfaces';
+import { ConfigDetails, ConfigList, Field, SchemaDetails, SchemaList } from 'src/models/common-interfaces';
 import { HttpParams } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
+import { ConfigDetailResp, ConfigListResp, SchemaDetailResp, SchemaListResp } from 'src/models/response-interfaces';
 
 @Component({
   selector: 'app-schema',
@@ -38,10 +39,10 @@ export class SchemaComponent {
   // from that schema list filter out the app's list
   getSchemaList() {
     try {
-      this._schemaService.getSchemaList().subscribe((res: any) => {
-        if (res?.status == CONSTANTS.SUCCESS) {
-          this.schemasList = res?.data;
-          this.appList = this._commonService.getAppNamesFromList(res?.data);
+      this._schemaService.getSchemaList().subscribe((res: SchemaListResp) => {
+        if (res.status == CONSTANTS.SUCCESS) {
+          this.schemasList = res.data;
+          this.appList = this._commonService.getAppNamesFromList(res.data);
         }
       })
     } catch (error) {
@@ -78,12 +79,12 @@ export class SchemaComponent {
       let data = {
         params: new HttpParams().append('app', this.selectedData.app).append('module', this.selectedData.module).append('ver', this.selectedData.ver)
       }
-      this._schemaService.getSchemaDetail(data).subscribe((res: any) => {
+      this._schemaService.getSchemaDetail(data).subscribe((res: SchemaDetailResp) => {
         if (res.status == CONSTANTS.SUCCESS) {
-          this.restructureAndUpdateSchemaDetails(res?.data);
+          this.restructureAndUpdateSchemaDetails(res.data);
         } else {
-          this.restructureAndUpdateSchemaDetails(res?.data);
-          this._toastr.error(res?.message, CONSTANTS.ERROR);
+          this.restructureAndUpdateSchemaDetails(res.data);
+          this._toastr.error(res.message, CONSTANTS.ERROR);
         }
       })
     } catch (error) {
@@ -100,10 +101,10 @@ export class SchemaComponent {
     let data = {
       params: new HttpParams().append('app', this.selectedData.app).append('module', this.selectedData.module).append('ver', this.selectedData.ver)
     }
-    this._schemaService.getConfigList(data).subscribe((res: any) => {
+    this._schemaService.getConfigList(data).subscribe((res: ConfigListResp) => {
       if (res.status == CONSTANTS.SUCCESS) {
-        if (res?.data?.configurations) {
-          this.configList = [...res?.data?.configurations.map((confign: any) => confign.config)]
+        if (res.data.configurations) {
+          this.configList = [...res.data.configurations.map((config: ConfigList) => config.config)]
         }
       }
     })
@@ -120,15 +121,15 @@ export class SchemaComponent {
       let data = {
         params: new HttpParams().append('app', this.selectedData.app).append('module', this.selectedData.module).append('ver', this.selectedData.ver).append('config', this.selectedData.config)
       }
-      this._schemaService.getConfigDetail(data).subscribe((res: any) => {
+      this._schemaService.getConfigDetail(data).subscribe((res: ConfigDetailResp) => {
         if (res.status == CONSTANTS.SUCCESS) {
           this.isShowConfigValues = true;
-          if (res?.data) {
-            this.setValuesOfSelectedConfigName(res?.data?.values, res?.data?.config)
+          if (res.data.values && res.data.config) {
+            this.setValuesOfSelectedConfigName(res.data.values, res.data.config)
           }
         } else {
           this.isShowConfigValues = false;
-          this._toastr.error(res?.message, CONSTANTS.ERROR);
+          this._toastr.error(res.message, CONSTANTS.ERROR);
         }
       })
     } catch (error) {
@@ -144,7 +145,6 @@ export class SchemaComponent {
   // restructure it in type of configDetails
   // schemaDetails 'fields' replaced by configDetails 'values'
   restructureAndUpdateSchemaDetails(response: SchemaDetails) {
-    // alert(JSON.stringify(response))
     const modifiedData: ConfigDetails = { ...response, values: response.fields };
     this.schemaDetails = modifiedData;
   }

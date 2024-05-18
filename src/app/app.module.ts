@@ -11,16 +11,6 @@ import { FieldDetailComponent } from './components/field-detail/field-detail.com
 import { FieldslistComponent } from './components/fieldslist/fieldslist.component';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { StoreModule } from '@ngrx/store';
-
-export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
-}
-
-
-
 
 @NgModule({
   declarations: [
@@ -39,15 +29,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     FormsModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
-    }),
-    TranslateModule,
-    StoreModule.forRoot({}, {}),
   ],
   providers: [],
   bootstrap: [AppComponent]
