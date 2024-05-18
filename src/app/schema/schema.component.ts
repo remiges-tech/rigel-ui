@@ -44,6 +44,8 @@ export class SchemaComponent {
           this.schemasList = res.data;
           this.appList = this._commonService.getAppNamesFromList(res.data);
         }
+      }, (err: any) => {
+        this._toastr.error(err, CONSTANTS.ERROR)
       })
     } catch (error) {
       this._commonService.log({
@@ -86,6 +88,8 @@ export class SchemaComponent {
           this.restructureAndUpdateSchemaDetails(res.data);
           this._toastr.error(res.message, CONSTANTS.ERROR);
         }
+      }, (err: any) => {
+        this._toastr.error(err, CONSTANTS.ERROR)
       })
     } catch (error) {
       this._commonService.log({
@@ -98,6 +102,7 @@ export class SchemaComponent {
 
   // Gets the lists of config for selected schema(app and module)
   getConfigList() {
+    try {
     let data = {
       params: new HttpParams().append('app', this.selectedData.app).append('module', this.selectedData.module).append('ver', this.selectedData.ver)
     }
@@ -107,7 +112,16 @@ export class SchemaComponent {
           this.configList = [...res.data.configurations.map((config: ConfigList) => config.config)]
         }
       }
+    }, (err: any) => {
+      this._toastr.error(err, CONSTANTS.ERROR)
     })
+  } catch (error) {
+    this._commonService.log({
+      fileName: this.fileName,
+      functionName: 'getConfigList',
+      err: error
+    })
+  }
   }
 
   // get's the details and values of selected config
@@ -131,6 +145,8 @@ export class SchemaComponent {
           this.isShowConfigValues = false;
           this._toastr.error(res.message, CONSTANTS.ERROR);
         }
+      }, (err: any) => {
+        this._toastr.error(err, CONSTANTS.ERROR)
       })
     } catch (error) {
       this._commonService.log({

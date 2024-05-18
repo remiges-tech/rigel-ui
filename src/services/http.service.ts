@@ -1,26 +1,43 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
-import { CommonService } from "./common.service";
-
+import { Observable, catchError, throwError, timeout } from "rxjs";
+import { environment } from "src/environments/environment";
 @Injectable({
     providedIn: 'root',
 })
 
 export class HttpService {
-    constructor(private _httpClient: HttpClient, private _commonService: CommonService) { }
+    constructor(private _httpClient: HttpClient) { }
 
     fetchData(dataObj: any): Observable<any> {
         let url = dataObj.api_url;
         let data = dataObj.param_data;
-        switch (true) {
-            case dataObj.method == 'post':
-                this._commonService.log(data);
-                return this._httpClient.post<any>( url, data);
-            case dataObj.method == 'get':
-                return this._httpClient.get<any>(url, data);
+        switch (dataObj.method) {
+            case 'get':
+                return this._httpClient.get<any>(url, data).pipe(
+                    timeout(environment.api_resp_time), catchError(this.handleError)
+                );
             default:
-                return this._httpClient.post<any>(url, data);
+                return this._httpClient.post<any>(url, data).pipe(
+                    timeout(environment.api_resp_time), catchError(this.handleError)
+                );
         }
+    }
+
+    handleError(error: HttpErrorResponse) {
+        if (error.status === 0) {
+            return throwError(() => new Error('Connection Refused!'))
+        } else if (error.status === 400) {
+            return throwError(() => new Error('Bad Request.'));
+        } else if (error.status === 401) {
+            return throwError(() => new Error('Unauthorised User.'));
+        } else if (error.status === 403) {
+            return throwError(() => new Error('Forbidden Error'));
+        } else if (error.status === 404) {
+            return throwError(() => new Error('Data not available.'));
+        } else if (error.message == 'Timeout has occurred') {
+            return throwError(() => new Error('API connection timeout.'));
+        }
+        return throwError(() => new Error('Something went wrong, please try again later.'));
     }
 }

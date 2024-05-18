@@ -39,6 +39,8 @@ export class FieldslistComponent {
         }else{
           this._toastr.success(`"${data.name}" `+res.data, CONSTANTS.ERROR)
         }
+      }, (err: any) => {
+        this._toastr.error(err, CONSTANTS.ERROR)
       })
     }catch(err){
       this._schemaService._commonService.log({

@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { HttpService } from './http.service';
 import * as Enums from './constants.service';
 import { CommonService } from './common.service';
-import { environment } from 'src/environments/environment.development';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -24,11 +24,6 @@ export class SchemaService {
         mapcol: false,
       };
       let resp = this._httpService.fetchData(dataObj);
-      this._commonService.log({
-        fileName: this.fileName,
-        functionName: 'getSchemaList',
-        msg: resp
-      });
       return resp;
     } catch (error) {
       this._commonService.log({
@@ -49,11 +44,6 @@ export class SchemaService {
         mapcol: false,
       };
       let resp = this._httpService.fetchData(dataObj);
-      this._commonService.log({
-        fileName: this.fileName,
-        functionName: 'getSchemaDetail',
-        msg: resp
-      });
       return resp;
     } catch (error) {
       this._commonService.log({
@@ -74,11 +64,6 @@ export class SchemaService {
         mapcol: false,
       };
       let resp = this._httpService.fetchData(dataObj);
-      this._commonService.log({
-        fileName: this.fileName,
-        functionName: 'getConfigList',
-        msg: resp
-      });
       return resp;
     } catch (error) {
       this._commonService.log({
@@ -99,11 +84,6 @@ export class SchemaService {
         mapcol: false,
       };
       let resp = this._httpService.fetchData(dataObj);
-      this._commonService.log({
-        fileName: this.fileName,
-        functionName: 'getConfigDetail',
-        msg: resp
-      });
       return resp;
     } catch (error) {
       this._commonService.log({
@@ -124,11 +104,6 @@ export class SchemaService {
         mapcol: false,
       };
       let resp = this._httpService.fetchData(dataObj);
-      this._commonService.log({
-        fileName: this.fileName,
-        functionName: 'updateConfigDetails',
-        msg: resp
-      });
       return resp;
     } catch (error) {
       this._commonService.log({

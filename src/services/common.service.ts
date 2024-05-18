@@ -1,13 +1,14 @@
 import { Injectable } from "@angular/core";
 import { SchemaList } from "src/models/common-interfaces";
-import { Observable, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
+import { environment } from "src/environments/environment";
 
 @Injectable({
     providedIn: 'root'
 })
 
 export class CommonService {
-    private production: boolean = false;
+    private production: boolean = environment.production;
     subject = new Subject<any>();
 
     log(value: any, type?: string) {
