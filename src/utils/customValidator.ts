@@ -1,4 +1,4 @@
-import { Constraints } from "src/models/common-interfaces";
+import { Constraints } from "src/interfaces/common-interfaces";
 
 
 // Function to validate the values enter by user

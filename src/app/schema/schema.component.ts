@@ -2,10 +2,11 @@ import { Component, inject } from '@angular/core';
 import { CommonService } from 'src/services/common.service';
 import { SchemaService } from 'src/services/schema.service';
 import { CONSTANTS } from 'src/services/constants.service';
-import { ConfigDetails, ConfigList, Field, SchemaDetails, SchemaList } from 'src/models/common-interfaces';
+import { ConfigDetails, ConfigList, Field, SchemaDetails, SchemaList } from 'src/interfaces/common-interfaces';
 import { HttpParams } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
-import { ConfigDetailResp, ConfigListResp, SchemaDetailResp, SchemaListResp } from 'src/models/response-interfaces';
+import { ConfigDetailResp, ConfigListResp, SchemaDetailResp, SchemaListResp } from 'src/interfaces/response-interfaces';
+import { schemaDetailsModel, schemaListModel } from 'src/models/data.model';
 
 @Component({
   selector: 'app-schema',
@@ -41,8 +42,26 @@ export class SchemaComponent {
     try {
       this._schemaService.getSchemaList().subscribe((res: SchemaListResp) => {
         if (res.status == CONSTANTS.SUCCESS) {
-          this.schemasList = res.data;
-          this.appList = this._commonService.getAppNamesFromList(res.data);
+          let typeCheck:string[] = [];
+
+          // For each array element check for the response structure.
+          for(let i=0;i<res.data.length;i++){
+            let resp =  this._commonService.compareWithInterfaceModel(res.data[i],schemaListModel);
+            if(resp != null){
+              let str = resp.split("||join||")
+              typeCheck = [...typeCheck,...str];
+            }
+          }
+
+          // check is there is any type error then show the toast else assign data to variables
+          if(typeCheck.length>0){
+            typeCheck.forEach((msg:string) => {
+              this._toastr.error(msg, CONSTANTS.ERROR)
+            })
+          }else{
+            this.schemasList = res.data;
+            this.appList = this._commonService.getAppNamesFromList(res.data);
+          }
         }
       }, (err: any) => {
         this._toastr.error(err, CONSTANTS.ERROR)
@@ -83,7 +102,24 @@ export class SchemaComponent {
       }
       this._schemaService.getSchemaDetail(data).subscribe((res: SchemaDetailResp) => {
         if (res.status == CONSTANTS.SUCCESS) {
-          this.restructureAndUpdateSchemaDetails(res.data);
+          let typeCheck:string[] = [];
+
+          let resp =  this._commonService.compareWithInterfaceModel(res.data,schemaDetailsModel);
+            if(resp != null || resp){
+              console.log(resp)
+              let str = resp.split("||join||")
+              typeCheck = [...typeCheck,...str];
+            }
+
+          // check is there is any type error then show the toast else assign data to variables
+          if(typeCheck.length>0){
+            typeCheck.forEach((msg:string) => {
+              this._toastr.error(msg, CONSTANTS.ERROR)
+            })
+          }else{
+            this.restructureAndUpdateSchemaDetails(res.data);
+          }
+          
         } else {
           this.restructureAndUpdateSchemaDetails(res.data);
           this._toastr.error(res.message, CONSTANTS.ERROR);

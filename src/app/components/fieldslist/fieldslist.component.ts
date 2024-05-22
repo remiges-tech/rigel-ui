@@ -1,7 +1,7 @@
 import { Component, Input, inject } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { ConfigDetails, Field } from 'src/models/common-interfaces';
-import { ConfigSetResp } from 'src/models/response-interfaces';
+import { ConfigDetails, Field } from 'src/interfaces/common-interfaces';
+import { ConfigSetResp } from 'src/interfaces/response-interfaces';
 import { CONSTANTS } from 'src/services/constants.service';
 import { SchemaService } from 'src/services/schema.service';
 

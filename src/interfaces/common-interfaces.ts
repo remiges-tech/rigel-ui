@@ -3,6 +3,7 @@ export interface SchemaList{
     module:string,
     ver:number,
     description:string;
+    something:string;
 }
 
 export interface SchemaDetails {

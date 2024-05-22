@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output, inject, ElementRef, Renderer2 } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { Field } from 'src/models/common-interfaces';
+import { Field } from 'src/interfaces/common-interfaces';
 import { CONSTANTS } from 'src/services/constants.service';
 import { checkValueType } from 'src/utils/customValidator';
 
