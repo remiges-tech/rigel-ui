@@ -6,7 +6,7 @@ import { ConfigDetails, ConfigList, Field, SchemaDetails, SchemaList } from 'src
 import { HttpParams } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { ConfigDetailResp, ConfigListResp, SchemaDetailResp, SchemaListResp } from 'src/interfaces/response-interfaces';
-import { schemaDetailsModel, schemaListModel } from 'src/models/data.model';
+import { configListmodel, schemaDetailsModel, schemaListModel, schemaModel } from 'src/models/data.model';
 
 @Component({
   selector: 'app-schema',
@@ -30,7 +30,7 @@ export class SchemaComponent {
   }
   isShowConfigValues: boolean = false;
   schemaDetails?: ConfigDetails;
-  searchInput:string = '';
+  searchInput: string = '';
 
   ngOnInit() {
     this.getSchemaList();
@@ -42,23 +42,9 @@ export class SchemaComponent {
     try {
       this._schemaService.getSchemaList().subscribe((res: SchemaListResp) => {
         if (res.status == CONSTANTS.SUCCESS) {
-          let typeCheck:string[] = [];
+          let valid = this._commonService.checkValidJsonSchema(res, schemaListModel);
 
-          // For each array element check for the response structure.
-          for(let i=0;i<res.data.length;i++){
-            let resp =  this._commonService.compareWithInterfaceModel(res.data[i],schemaListModel);
-            if(resp != null){
-              let str = resp.split("||join||")
-              typeCheck = [...typeCheck,...str];
-            }
-          }
-
-          // check is there is any type error then show the toast else assign data to variables
-          if(typeCheck.length>0){
-            typeCheck.forEach((msg:string) => {
-              this._toastr.error(msg, CONSTANTS.ERROR)
-            })
-          }else{
+          if (valid) {
             this.schemasList = res.data;
             this.appList = this._commonService.getAppNamesFromList(res.data);
           }
@@ -102,24 +88,11 @@ export class SchemaComponent {
       }
       this._schemaService.getSchemaDetail(data).subscribe((res: SchemaDetailResp) => {
         if (res.status == CONSTANTS.SUCCESS) {
-          let typeCheck:string[] = [];
-
-          let resp =  this._commonService.compareWithInterfaceModel(res.data,schemaDetailsModel);
-            if(resp != null || resp){
-              console.log(resp)
-              let str = resp.split("||join||")
-              typeCheck = [...typeCheck,...str];
-            }
-
-          // check is there is any type error then show the toast else assign data to variables
-          if(typeCheck.length>0){
-            typeCheck.forEach((msg:string) => {
-              this._toastr.error(msg, CONSTANTS.ERROR)
-            })
-          }else{
+          let valid = this._commonService.checkValidJsonSchema(res.data, schemaDetailsModel);
+          if (valid) {
             this.restructureAndUpdateSchemaDetails(res.data);
           }
-          
+
         } else {
           this.restructureAndUpdateSchemaDetails(res.data);
           this._toastr.error(res.message, CONSTANTS.ERROR);
@@ -138,26 +111,30 @@ export class SchemaComponent {
 
   // Gets the lists of config for selected schema(app and module)
   getConfigList() {
+    let valid
     try {
-    let data = {
-      params: new HttpParams().append('app', this.selectedData.app).append('module', this.selectedData.module).append('ver', this.selectedData.ver)
-    }
-    this._schemaService.getConfigList(data).subscribe((res: ConfigListResp) => {
-      if (res.status == CONSTANTS.SUCCESS) {
-        if (res.data.configurations) {
-          this.configList = [...res.data.configurations.map((config: ConfigList) => config.config)]
-        }
+      let data = {
+        params: new HttpParams().append('app', this.selectedData.app).append('module', this.selectedData.module).append('ver', this.selectedData.ver)
       }
-    }, (err: any) => {
-      this._toastr.error(err, CONSTANTS.ERROR)
-    })
-  } catch (error) {
-    this._commonService.log({
-      fileName: this.fileName,
-      functionName: 'getConfigList',
-      err: error
-    })
-  }
+      this._schemaService.getConfigList(data).subscribe((res: ConfigListResp) => {
+        if (res.status == CONSTANTS.SUCCESS) {
+          let valid = this._commonService.checkValidJsonSchema(res.data, configListmodel);
+          if (valid) {
+            if (res.data.configurations) {
+              this.configList = [...res.data.configurations.map((config: ConfigList) => config.config)]
+            }
+          }
+        }
+      }, (err: any) => {
+        this._toastr.error(err, CONSTANTS.ERROR)
+      })
+    } catch (error) {
+      this._commonService.log({
+        fileName: this.fileName,
+        functionName: 'getConfigList',
+        err: error
+      })
+    }
   }
 
   // get's the details and values of selected config
@@ -221,5 +198,5 @@ export class SchemaComponent {
     this.configList = undefined;
     this.schemaDetails = undefined;
   }
-  
+
 }

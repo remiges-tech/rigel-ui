@@ -1,7 +1,10 @@
-import { Injectable } from "@angular/core";
+import { Injectable, inject } from "@angular/core";
 import { SchemaList } from "src/interfaces/common-interfaces";
-import { Subject, throwError, throwIfEmpty } from 'rxjs';
+import { Subject } from 'rxjs';
 import { environment } from "src/environments/environment";
+import AJV from 'ajv';
+import { ToastrService } from "ngx-toastr";
+const ajv = new AJV({allErrors: true});
 
 @Injectable({
     providedIn: 'root'
@@ -10,6 +13,7 @@ import { environment } from "src/environments/environment";
 export class CommonService {
     private production: boolean = environment.production;
     subject = new Subject<any>();
+    private _toastr = inject(ToastrService);
 
     log(value: any, type?: string) {
         if (!this.production) {
@@ -36,51 +40,65 @@ export class CommonService {
         return [...data.map((item: SchemaList) => item.ver)];
     }
 
-    // 
-    compareWithInterfaceModel(data: any, model: any): string | null {
-        if (data == null) {
-            return `Data is empty`;
+    // JSON schema validation code to compare and match API response with model.
+    checkValidJsonSchema(data: any, model: any): boolean {
+        let errorStr:string[]=[];
+
+        if (data == null || data.length == 0 || data == undefined) {
+            this._toastr.error('Data is empty.','ERROR');
+            return false;
         }
     
         for (let key in model) {
             if (model[key].isRequired) {
                 if (!data.hasOwnProperty(key)) {
-                    return `Required field '${key}' not there in response`;
+                    errorStr.push(`Data must have required property '${key}'.`);
                 }
-
-                if (model[key].type === 'object') {
-                    const nestedResponse = this.compareWithInterfaceModel(data[key], model[key].nestedData);
-                    if (nestedResponse) {
-                        return nestedResponse;
-                    }
-                } else if (model[key].type === 'array') {
+                else if (model[key].type === 'object') {
+                    return this.checkValidJsonSchema(data[key], model[key].nestedData);
+                }else if (model[key].type === 'array') {
                     if (!Array.isArray(data[key])) {
-                        return `Required field '${key}' is not an array`;
+                        errorStr.push(`Required field '${key}' is not an array`);
+                    }else{
+                        let valid = true;
+                        data[key].forEach((subData: any) => {
+                            if (!this.checkValidJsonSchema(subData, model[key].nestedData)){
+                                valid = false;
+                            }
+                        });
+                        return valid;
                     }
-
-                    let errorMsg: string[] = [];
-                    data[key].forEach((subData: any) => {
-                        const resp = this.compareWithInterfaceModel(subData, model[key].nestedData);
-                        if (resp) {
-                            errorMsg.push(resp);
-                        }
-                    });
-
-                    if (errorMsg.length > 0) {
-                        return errorMsg.join('||join||');
-                    }
-                } else {
+                }else {
                     if (typeof data[key] !== model[key].type) {
-                        return `Required field '${key}' type mismatched: expected '${model[key].type}' but got '${typeof data[key]}'`;
-                    }
-
-                    if (model[key].type !== 'array' && !data[key]) {
-                        return `Required field '${key}' has empty data`;
+                        errorStr.push(`Data property '${key}' must be '${model[key].type}' but got '${typeof data[key]}'`);
+                    }else if (model[key].type !== 'array' && !data[key]) {
+                        errorStr.push(`Data property '${key}' has empty data`);
                     }
                 }
             }
         }
-        return null;
+
+        // Display error msg on the screen.
+        if(errorStr.length > 0) {
+            errorStr.forEach((msg:string) => {
+                this._toastr.error(msg,'ERROR');
+            })
+            return false;
+        }
+
+        return true;
+    }
+
+    // AJV method to check and compare API data with schema.
+    checkValidJson(data:any,schema:any){
+        const validate = ajv.compile(schema)
+        let valid = validate(data);
+        if(!valid){
+            let errMsg = ajv.errorsText(validate.errors).split(',')
+            errMsg.forEach((err:string) => {
+                this._toastr.error(err,'ERROR')
+            })
+        }
     }
     
 }
