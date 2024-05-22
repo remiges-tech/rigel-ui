@@ -4,7 +4,7 @@ import { Subject } from 'rxjs';
 import { environment } from "src/environments/environment";
 import AJV from 'ajv';
 import { ToastrService } from "ngx-toastr";
-const ajv = new AJV({allErrors: true});
+const ajv = new AJV({ allErrors: true });
 
 @Injectable({
     providedIn: 'root'
@@ -12,6 +12,7 @@ const ajv = new AJV({allErrors: true});
 
 export class CommonService {
     private production: boolean = environment.production;
+    isLoading: boolean = false;
     subject = new Subject<any>();
     private _toastr = inject(ToastrService);
 
@@ -42,13 +43,13 @@ export class CommonService {
 
     // JSON schema validation code to compare and match API response with model.
     checkValidJsonSchema(data: any, model: any): boolean {
-        let errorStr:string[]=[];
+        let errorStr: string[] = [];
 
         if (data == null || data.length == 0 || data == undefined) {
-            this._toastr.error('Data is empty.','ERROR');
+            this._toastr.error('Data is empty.', 'ERROR');
             return false;
         }
-    
+
         for (let key in model) {
             if (model[key].isRequired) {
                 if (!data.hasOwnProperty(key)) {
@@ -56,22 +57,22 @@ export class CommonService {
                 }
                 else if (model[key].type === 'object') {
                     return this.checkValidJsonSchema(data[key], model[key].nestedData);
-                }else if (model[key].type === 'array') {
+                } else if (model[key].type === 'array') {
                     if (!Array.isArray(data[key])) {
                         errorStr.push(`Required field '${key}' is not an array`);
-                    }else{
+                    } else {
                         let valid = true;
                         data[key].forEach((subData: any) => {
-                            if (!this.checkValidJsonSchema(subData, model[key].nestedData)){
+                            if (!this.checkValidJsonSchema(subData, model[key].nestedData)) {
                                 valid = false;
                             }
                         });
                         return valid;
                     }
-                }else {
+                } else {
                     if (typeof data[key] !== model[key].type) {
                         errorStr.push(`Data property '${key}' must be '${model[key].type}' but got '${typeof data[key]}'`);
-                    }else if (model[key].type !== 'array' && !data[key]) {
+                    } else if (model[key].type !== 'array' && !data[key]) {
                         errorStr.push(`Data property '${key}' has empty data`);
                     }
                 }
@@ -79,9 +80,9 @@ export class CommonService {
         }
 
         // Display error msg on the screen.
-        if(errorStr.length > 0) {
-            errorStr.forEach((msg:string) => {
-                this._toastr.error(msg,'ERROR');
+        if (errorStr.length > 0) {
+            errorStr.forEach((msg: string) => {
+                this._toastr.error(msg, 'ERROR');
             })
             return false;
         }
@@ -90,15 +91,23 @@ export class CommonService {
     }
 
     // AJV method to check and compare API data with schema.
-    checkValidJson(data:any,schema:any){
+    checkValidJson(data: any, schema: any) {
         const validate = ajv.compile(schema)
         let valid = validate(data);
-        if(!valid){
+        if (!valid) {
             let errMsg = ajv.errorsText(validate.errors).split(',')
-            errMsg.forEach((err:string) => {
-                this._toastr.error(err,'ERROR')
+            errMsg.forEach((err: string) => {
+                this._toastr.error(err, 'ERROR')
             })
         }
     }
-    
+
+    showLoader() {
+        this.isLoading = true;
+    }
+
+    hideLoader() {
+        this.isLoading = false;
+    }
+
 }

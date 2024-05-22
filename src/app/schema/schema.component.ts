@@ -40,7 +40,9 @@ export class SchemaComponent {
   // from that schema list filter out the app's list
   getSchemaList() {
     try {
+      this._commonService.showLoader()
       this._schemaService.getSchemaList().subscribe((res: SchemaListResp) => {
+        this._commonService.hideLoader();
         if (res.status == CONSTANTS.SUCCESS) {
           let valid = this._commonService.checkValidJsonSchema(res, schemaListModel);
 
@@ -86,7 +88,9 @@ export class SchemaComponent {
       let data = {
         params: new HttpParams().append('app', this.selectedData.app).append('module', this.selectedData.module).append('ver', this.selectedData.ver)
       }
+      this._commonService.showLoader()
       this._schemaService.getSchemaDetail(data).subscribe((res: SchemaDetailResp) => {
+        this._commonService.hideLoader()
         if (res.status == CONSTANTS.SUCCESS) {
           let valid = this._commonService.checkValidJsonSchema(res.data, schemaDetailsModel);
           if (valid) {
@@ -111,12 +115,13 @@ export class SchemaComponent {
 
   // Gets the lists of config for selected schema(app and module)
   getConfigList() {
-    let valid
     try {
       let data = {
         params: new HttpParams().append('app', this.selectedData.app).append('module', this.selectedData.module).append('ver', this.selectedData.ver)
       }
+      this._commonService.showLoader()
       this._schemaService.getConfigList(data).subscribe((res: ConfigListResp) => {
+        this._commonService.hideLoader()
         if (res.status == CONSTANTS.SUCCESS) {
           let valid = this._commonService.checkValidJsonSchema(res.data, configListmodel);
           if (valid) {
@@ -148,7 +153,9 @@ export class SchemaComponent {
       let data = {
         params: new HttpParams().append('app', this.selectedData.app).append('module', this.selectedData.module).append('ver', this.selectedData.ver).append('config', this.selectedData.config)
       }
+      this._commonService.showLoader()
       this._schemaService.getConfigDetail(data).subscribe((res: ConfigDetailResp) => {
+        this._commonService.hideLoader()
         if (res.status == CONSTANTS.SUCCESS) {
           this.isShowConfigValues = true;
           if (res.data.values && res.data.config) {

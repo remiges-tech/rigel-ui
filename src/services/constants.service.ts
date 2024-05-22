@@ -5,6 +5,7 @@ export enum CONSTANTS {
   WARNING = 'Warning',
   INFO = 'Info',
   MAX_INPUT_LENGTH = 10,
+  PLEASE_WAIT_PROCESSING_YOUR_DATA = 'Please wait, processing your data',
   SCHEMA_LIST_API = '/api/v1/schemalist',
   SCHEMA_GET_API = '/api/v1/getschema',
   CONFIG_LIST_API = '/api/v1/configlist',
