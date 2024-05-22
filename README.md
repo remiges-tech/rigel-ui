@@ -16,9 +16,12 @@ If you want to run application with different locale set `localize : ['<Locale_c
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
 
-## Make Build
+## Make Production Build
 
 Run `npm install` to install all the dependency packages first.
+
+
+Update backend endpoint url in `apiUrl: 'http://endpoint'` in `src/environments/environment.ts` file.
 
 
 Run `npm run build:i18n` to build the project with localization files. The build files will be stored in the `dist/` directory.
