@@ -1,47 +1,52 @@
 <div class="mt-2">
   <div class="row">
     <div class="col-md-6">
-       <!-- Field Name -->
+      <!-- Field Name -->
       <span class="fs-20 fw-600 text-color" id="{{fieldDetail.name}}">{{fieldDetail.name}}</span>
       <div><small id="{{fieldDetail.name}}-description">{{fieldDetail.description}}</small></div>
     </div>
     <div class="col-md-2 fs-20 fw-400 text-color" id="{{fieldDetail.name}}-type">{{fieldDetail.type}}</div>
-     <!-- Show Value Container -->
+    <!-- Show Value Container -->
     <ng-container *ngIf="isShowValue">
-       <!-- Edit Mode -->
+      <!-- Edit Mode -->
       <div *ngIf="isEdit" class="col-md-2">
         <ng-container [ngSwitch]="fieldDetail.type">
           <div *ngSwitchCase="'bool'">
             <!-- Boolean Input -->
             <div class="form-check form-switch">
               <input class="form-check-input" type="checkbox" role="switch" (change)="updateChanges(fieldDetail)"
-                id="{{fieldDetail.name}}-input" [(ngModel)]="value" name="{{fieldDetail.name}}-value">
+                (keydown.enter)="updateChanges(fieldDetail)" id="{{fieldDetail.name}}-input" [(ngModel)]="value"
+                name="{{fieldDetail.name}}-value">
             </div>
           </div>
-          <div *ngSwitchCase="fieldDetail.type === 'float' || fieldDetail.type === 'int' || fieldDetail.type === 'integer' ? fieldDetail.type : ''">
+          <div
+            *ngSwitchCase="fieldDetail.type === 'float' || fieldDetail.type === 'int' || fieldDetail.type === 'integer' ? fieldDetail.type : ''">
             <!-- Number Input -->
-            <input type="text" class="form-control" id="{{fieldDetail.name}}-input" name="{{fieldDetail.name}}-value" name="field-type"
-              [value]="value" [(ngModel)]="value" (blur)="updateChanges(fieldDetail)" (keypress)="decimalFilter($event)" step="0.01">
+            <input type="text" class="form-control" id="{{fieldDetail.name}}-input" name="{{fieldDetail.name}}-value"
+              name="field-type" [value]="value" [(ngModel)]="value" (blur)="updateChanges(fieldDetail)"
+              (keydown.enter)="updateChanges(fieldDetail)" (keypress)="decimalFilter($event)" step="0.01">
           </div>
           <div *ngSwitchDefault>
-             <!-- Default Input -->
+            <!-- Default Input -->
             <div *ngIf="fieldDetail.constraints?.enum">
-               <!-- Enum Selection -->
-              <ng-select (blur)="updateChanges(fieldDetail)" id="{{fieldDetail.name}}" style="width: 250px;"
-                [(ngModel)]="value" autofocus>
+              <!-- Enum Selection -->
+              <ng-select (blur)="updateChanges(fieldDetail)" (keydown.enter)="updateChanges(fieldDetail)"
+                id="{{fieldDetail.name}}" style="width: 250px;" [(ngModel)]="value" autofocus>
                 <ng-option *ngFor="let option of fieldDetail.constraints?.enum" [value]="option">{{option}}</ng-option>
               </ng-select>
             </div>
             <div *ngIf="!fieldDetail.constraints?.enum">
-               <!-- Text Input -->
-              <input type="text" class="form-control" id="{{fieldDetail.name}}-input" name="{{fieldDetail.name}}-value" maxlength="255"
-                [value]="value" [(ngModel)]="value" (blur)="updateChanges(fieldDetail)">
+              <!-- Text Input -->
+              <input type="text" class="form-control" id="{{fieldDetail.name}}-input" name="{{fieldDetail.name}}-value"
+                maxlength="255" [value]="value" [(ngModel)]="value" (blur)="updateChanges(fieldDetail)"
+                (keydown.enter)="updateChanges(fieldDetail)">
             </div>
           </div>
         </ng-container>
       </div>
-       <!-- Display Mode -->
-      <div *ngIf="!isEdit" class="col-md-2 fs-20 fw-600 text-primary" id="{{fieldDetail.name}}-value">{{fieldDetail.value}}
+      <!-- Display Mode -->
+      <div *ngIf="!isEdit" class="col-md-2 fs-20 fw-600 text-primary" id="{{fieldDetail.name}}-value">
+        {{fieldDetail.value}}
         <button class="btn p-0 mt-1 text-color" name="{{fieldDetail.name}}-edit-button"
           (click)="isEdit = true; value = fieldDetail.value!;cursorFocus(fieldDetail.name+'-input')">
           <i class="fa-regular fa-pen-to-square mt-2 mb-20"></i>
