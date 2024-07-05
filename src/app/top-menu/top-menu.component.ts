@@ -16,11 +16,11 @@ export class TopMenuComponent {
   isDarkTheme:any;
  // array of locales
   locales: Locale[] = [
-    { localeCode: "en-US", label: "English" },
-    { localeCode: "hi", label: "Hindi" },
-    { localeCode: "gu", label: "Gujrati" },
-    { localeCode: "mr", label: "Marathi" },
-    { localeCode: "ar", label: "Arabic" },
+    { localeCode: "en-US", label: "En" },
+    { localeCode: "hi", label: "Hi" },
+    { localeCode: "gu", label: "Gu" },
+    { localeCode: "mr", label: "Mr" },
+    { localeCode: "ar", label: "Ar" },
   ];
 
   constructor(@Inject(LOCALE_ID) public locale: string) {}

@@ -5,21 +5,29 @@
 @import '~@fortawesome/fontawesome-free/css/all.css';
 
 :root {
-  --primary: #254764;
+  --primary: #00bdf2;
   --primary-text: #fff;
   --white: #fff;
-  --background: #DEE4E7;
+  --background: #FFFFFF;
   --text-color: #000;
   --disabled-color: #777;
+  --sidebar-color: #f9f9f9;
+  --sidebar-descr: #a5a5a5;
+  --ngselect-input: #ffffff;
+  --ngselect-selected-value: #000;
 }
 
 [data-theme="dark"] {
-  --primary: rgb(255, 0, 217);
+  --primary: #139ABF;
   --primary-text: #fff;
   --white: #fff;
-  --background: #052a3c;
+  --background: #151515;
   --text-color: #fff;
   --disabled-color: #777;
+  --sidebar-color: #1a1a1a;
+  --sidebar-descr: #999999;
+  --ngselect-input: #151515;
+  --ngselect-selected-value: #fff;
 }
 
 @font-face {
@@ -125,8 +133,15 @@ body {
   font-family: "GothamBook", "Helvetica Neue", sans-serif;
 }
 
+
 .navHeading{
   color: var(--primary-text);
+}
+
+.sidebar {
+  height: 864px; 
+  width: 240px;
+  background-color: var(--sidebar-color);
 }
 
 .fa-sun{
@@ -175,17 +190,22 @@ small {
 
 .ng-select  .ng-select-container{
   background-color: var(--white);
-  border-radius: 10px !important;
-  outline: none !important;
+  // border-radius: 10px !important;
+  // outline: none !important;
   color: var(--input-field) !important;
-  font-weight: 700 !important;
-  font-size: 15px !important;
-  padding: 3px 10px;
-  height: 56px;
+  font-weight: 900 !important;
+  // font-size: 18px !important;
+  // padding: 3px 10px;
+  height: 16px !important;
+  background-color: var(--ngselect-input);
 }
 
 .ng-select-dropdown{
   width: 18rem;
+}
+
+.ng-select .ng-value .ng-value-label {
+  color: var(--ngselect-selected-value);
 }
 
  .ng-select .ng-value {

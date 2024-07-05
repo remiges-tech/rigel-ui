@@ -72,6 +72,28 @@ export class SchemaComponent {
     }
   }
 
+  handleAppChange() {
+    if (!this.selectedData.app) {
+      this.clearAllFields();
+    } else {
+      this.getModuleList();
+    }
+  }
+  
+  // Clear all fields when app is deselected
+  clearAllFields() {
+    this.selectedData = {
+      app: null,
+      module: null,
+      ver: null,
+      config: null,
+    };
+    this.moduleList = undefined;
+    this.configList = undefined;
+    this.schemaDetails = undefined;
+    this.isShowConfigValues = false;
+  }
+
   // get the schema details for the selected schema(app and module)
   getSchemaDetails() {
     this.isShowConfigValues = false;

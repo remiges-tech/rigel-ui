@@ -1,21 +1,24 @@
 <nav class="navbar navbar-light top-menu sticky-top">
-  <div class="container-fluid p-2">
-    <h2 i18n="@@rigelHeading" class="navHeading"><img i18n-alt="@@remigesLogo" alt="Remiges Business Icon"
-        src="assets/img/logo.svg" /> Rigel</h2>
+  <div class="container-fluid d-flex align-items-center justify-content-between ">
+    <h2 i18n="@@rigelHeading" class="navHeading mb-0">
+      <span class="small-text" style="font-size: 20px;">remiges</span><br>
+      <span class="large-text" style="font-size: 40px; font-weight: bold;">Rigel</span>
+    </h2>
     <div class="d-flex">
-      <!--Theme change-->
-      <div class="mx-3">
-        <button class="btn" id="themeBtn" (click)="changeTheme()">
-          <i *ngIf="isDarkTheme" class="fa-regular fa-sun"></i>
-          <i *ngIf="!isDarkTheme" class="fa-solid fa-moon"></i>
-        </button>
-      </div>
-      <!--Language change dropdown-->
+      <!-- Language change dropdown -->
       <div class="gradient-box">
         <select class="form-select language-select" [(ngModel)]="selectedLocale"
           (change)="navigateToLocale(selectedLocale)">
           <option *ngFor="let locale of locales" [value]="locale.localeCode">{{ locale.label }}</option>
         </select>
+      </div>
+       <!-- Theme change -->
+      <div class="mx-4">
+        <button class="btn" id="themeBtn" (click)="changeTheme()">
+          <!-- <i *ngIf="isDarkTheme" class="fa-regular fa-sun"></i>
+          <i *ngIf="!isDarkTheme" class="fa-solid fa-moon"></i> -->
+          <i [ngClass]="isDarkTheme ? 'fa-regular fa-sun' : 'fa-solid fa-moon'"></i>
+        </button>
       </div>
     </div>
   </div>
