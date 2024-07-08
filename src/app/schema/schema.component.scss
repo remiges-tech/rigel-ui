@@ -1,21 +1,36 @@
-  .input-group-text{
+  .input-group-text {
     font-family: FontAwesome;
   }
 
-  .app{
-    padding: 50px 0 0 10px;
+  .app-text {
+    padding: 3.125rem 0 0 0.625rem;
   }
 
-  .sidebar-descr{
+  .module-text,
+  .config-text {
+    padding: 1.875rem 0 0 0.625rem;
+  }
+
+  .app-text,
+  .module-text,
+  .config-text {
+    text-align: center;
+    color: var(--form-label-text);
+  }
+
+  .sidebar-descr {
     color: var(--sidebar-descr);
   }
 
-  .small-icon{
-    padding: 100px 0px 0px 15px;
+  .small-icon {
+    padding: 6.25rem 0px 0px 0.938rem;
     font-size: 16px;
   }
 
+  .schema-container {
+    display: flex;
+  }
 
-  
-  
-  
+  .main-content {
+    width: calc(100% - 15rem);
+  }

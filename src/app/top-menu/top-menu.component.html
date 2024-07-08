@@ -1,23 +1,34 @@
-<nav class="navbar navbar-light top-menu sticky-top">
-  <div class="container-fluid d-flex align-items-center justify-content-between ">
+<nav class="navbar top-menu sticky-top">
+  <div
+    class="container-fluid d-flex align-items-center justify-content-between"
+  >
     <h2 i18n="@@rigelHeading" class="navHeading mb-0">
-      <span class="small-text" style="font-size: 20px;">remiges</span><br>
-      <span class="large-text" style="font-size: 40px; font-weight: bold;">Rigel</span>
+      <span class="small-text" style="font-size: 1.25rem">remiges</span><br />
+      <span class="large-text" style="font-size: 2.5rem; font-weight: bold"
+        >Rigel</span
+      >
     </h2>
     <div class="d-flex">
       <!-- Language change dropdown -->
       <div class="gradient-box">
-        <select class="form-select language-select" [(ngModel)]="selectedLocale"
-          (change)="navigateToLocale(selectedLocale)">
-          <option *ngFor="let locale of locales" [value]="locale.localeCode">{{ locale.label }}</option>
+        <select
+          class="form-select language-select"
+          [(ngModel)]="selectedLocale"
+          (change)="navigateToLocale(selectedLocale)"
+        >
+          <option *ngFor="let locale of locales" [value]="locale.localeCode">
+            {{ locale.label }}
+          </option>
         </select>
       </div>
-       <!-- Theme change -->
+      <!-- Theme change -->
       <div class="mx-4">
         <button class="btn" id="themeBtn" (click)="changeTheme()">
           <!-- <i *ngIf="isDarkTheme" class="fa-regular fa-sun"></i>
           <i *ngIf="!isDarkTheme" class="fa-solid fa-moon"></i> -->
-          <i [ngClass]="isDarkTheme ? 'fa-regular fa-sun' : 'fa-solid fa-moon'"></i>
+          <i
+            [ngClass]="isDarkTheme ? 'fa-regular fa-sun' : 'fa-solid fa-moon'"
+          ></i>
         </button>
       </div>
     </div>
