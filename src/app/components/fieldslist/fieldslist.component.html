@@ -1,50 +1,73 @@
 <div class="breadcrumps-container">
   <h4 class="breadcrumps-text">{{schemaData.config ?? ''}}</h4>
   <div class="search-input-container">
-      <input class="form-control" type="text" [(ngModel)]="searchText" name="search" />
+      <input class="form-control" type="text" [(ngModel)]="searchText" name="search" placeholder="Search" />
   </div>
 </div>
-<hr>
+<hr class="hr-line">
 
 <ng-container *ngIf="filterData().length > 0">
-    <div class="main-container">
-        <table class="table">
-            <thead>
-              <tr>
-                <th class="fs-20 fw-600 text-color" scope="col">Configurable Parameter</th>
-                <th class="fs-20 fw-600 text-color" scope="col">Value type</th>
-                <th class="fs-20 fw-600 text-color" scope="col">value</th>
-                <th class="fs-20 fw-600 text-color" scope="col"></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let field of filterData(), let i = index">
-                <td class="fs-18 fw-400 text-color" id="{{field.name}}-config-parameter">
-                  <span>{{field.name}}</span>
-                  <div><small>{{field.description}}</small></div>
-                </td>
-                <td class="col-md-2 fs-18 fw-400 text-color" id="{{field.name}}-type">
-                  {{field.type}}
-                </td>
-                <td class="col-md-2 fs-18 fw-400 text-color" id="{{field.name}}-value">
-                  {{field.value}}
-                </td>
-                <td>
-                  <div class="action-btns">
-                    <button class="btn edit-icon"></button>
-                    <button class="btn history-icon"></button>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        <!-- <div id="fields-list" *ngFor="let field of filterData(), let i = index">
-            <app-field-detail [isShowValue]="isShowValues" [fieldDetail]="field" (UpdateValues)="updateConfig($event,i)"></app-field-detail>
-        </div> -->
+  <div class="row">
+    <div class="col-lg-8">
+      <div class="main-container">
+        <div class="table-responsive">
+          <table class="table">
+              <thead>
+                <tr>
+                  <th class="fs-20 fw-600 text-color" >Configurable Settings</th>
+                  <th class="fs-20 fw-600 text-color" >Value Type</th>
+                  <th class="fs-20 fw-600 text-color" >Value</th>
+                  <th class="fs-20 fw-600 text-color" width="20%"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let field of filterData(), let i = index">
+                  <td class="fs-18 fw-400 text-color" id="{{field.name}}-config-parameter">
+                    <span>{{field.name}}</span>
+                    <div><small>{{field.description}}</small></div>
+                  </td>
+                  <td class="fs-18 fw-400 text-color" id="{{field.name}}-type">
+                    {{field.type}}
+                  </td>
+                  <td class="fs-18 fw-400 text-color" id="{{field.name}}-value">
+                    {{field.value}}
+                  </td>
+                  <td class="fs-18 fw-400 text-color">
+                    <div class="action-btns" *ngIf="field.value">
+                      <button class="btn edit-icon"></button>
+                      <button class="btn history-icon"></button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          <!-- <div id="fields-list" *ngFor="let field of filterData(), let i = index">
+              <app-field-detail [isShowValue]="isShowValues" [fieldDetail]="field" (UpdateValues)="updateConfig($event,i)"></app-field-detail>
+          </div> -->
+          <!--Pagination-->
+          <div class="pagination-container d-flex align-items-center justify-content-between">
+            <div class="pagination-info text-color">
+              <label for="pageSize" class="fw-400 fs-15">Number of rows</label>
+              <select id="pageSize" [(ngModel)]="pageSize" (change)="onPageSizeChange($event)">
+                <option *ngFor="let size of pageSizeOptions" [value]="size">{{size}}</option>
+              </select>
+              <span class="fs-15 fw-400">Total Entries: {{totalEntities}}</span>
+            </div>
+            <div class="pagination-controls">
+              <button (click)="goToFirstPage()" [disabled]="currentPage === 1">&laquo;</button>
+              <button (click)="goToPreviousPage()" [disabled]="currentPage === 1">&lsaquo;</button>
+              <span>{{currentPage | number:'2.0-0'}} / {{totalPages | number:'2.0-0'}}</span>
+              <button (click)="goToNextPage()" [disabled]="currentPage === totalPages">&rsaquo;</button>
+              <button (click)="goToLastPage()" [disabled]="currentPage === totalPages">&raquo;</button>
+            </div>
+          </div>
+      </div>
     </div>
+    </div>
+  </div>
 </ng-container>
 
 <ng-container *ngIf="filterData().length == 0">
-    <div class="fields-list"><h3>No record found!</h3></div>
+    <div class="fields-list text-color"><h3>No record found!</h3></div>
 </ng-container>
  

@@ -18,6 +18,55 @@ export class FieldslistComponent {
   @Input({required: true}) schemaData!: ConfigDetails;
   @Input({required: true}) searchText: string = '';
 
+  data: any[] = Array.from({ length: 150 }, (_, k) => ({ position: k + 1 }));
+  paginatedData?: any[];
+  totalEntities = 150;
+  pageSize = 20;
+  pageSizeOptions: number[] = [10, 20, 50, 100];
+  currentPage = 1;
+  totalPages: number = 1;
+
+  ngOnInit() {
+    this.updatePaginatedData();
+  }
+
+  onPageSizeChange(event: any) {
+    this.pageSize = +event.target.value;
+    this.currentPage = 1;
+    this.updatePaginatedData();
+  }
+
+  updatePaginatedData() {
+    this.totalPages = Math.ceil(this.totalEntities / this.pageSize);
+    const start = (this.currentPage - 1) * this.pageSize;
+    const end = start + this.pageSize;
+    this.paginatedData = this.data.slice(start, end);
+  }
+
+  goToFirstPage() {
+    this.currentPage = 1;
+    this.updatePaginatedData();
+  }
+
+  goToPreviousPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.updatePaginatedData();
+    }
+  }
+
+  goToNextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.updatePaginatedData();
+    }
+  }
+
+  goToLastPage() {
+    this.currentPage = this.totalPages;
+    this.updatePaginatedData();
+  }
+
   updateConfig(data: Field, index: number) {
     this.schemaData.values[index] = data;
     const modifiedObject = {

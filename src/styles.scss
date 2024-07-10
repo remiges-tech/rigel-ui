@@ -10,6 +10,7 @@
   --white: #fff;
   --background: #FFFFFF;
   --text-color: #000;
+  --hr-line: #777;
   --form-label-text: #5A6169;
   --disabled-color: #777;
   --sidebar-color: #f9f9f9;
@@ -27,6 +28,7 @@
   --white: #fff;
   --background: #151515;
   --text-color: #fff;
+  --hr-line: #ffffff;
   --form-label-text: #E6E6E6;
   --disabled-color: #777;
   --sidebar-color: #1a1a1a;
@@ -133,6 +135,8 @@
 html,
 body {
   height: 100%;
+  width: 100%;
+  overflow: hidden;
   background-color: var(--background);
 }
 
@@ -236,6 +240,11 @@ small {
 
 .mb-20 {
   margin-bottom: 20px;
+}
+
+.hr-line{
+  color: var(--hr-line);
+  border: 1px solid;
 }
 
 .loader-overlay {
