@@ -8,7 +8,10 @@
         >Rigel</span
       >
     </h2>
-    <div class="d-flex">
+    <div
+      class="d-flex"
+      [ngClass]="{ disabled: _commonService.getEditMode().isValueChange }"
+    >
       <!-- Language change dropdown -->
       <div class="gradient-box">
         <select
@@ -24,8 +27,6 @@
       <!-- Theme change -->
       <div class="mx-4">
         <button class="btn" id="themeBtn" (click)="changeTheme()">
-          <!-- <i *ngIf="isDarkTheme" class="fa-regular fa-sun"></i>
-          <i *ngIf="!isDarkTheme" class="fa-solid fa-moon"></i> -->
           <i
             [ngClass]="isDarkTheme ? 'fa-regular fa-sun' : 'fa-solid fa-moon'"
           ></i>

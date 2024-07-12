@@ -18,8 +18,11 @@
   --ngselect-input: #ffffff;
   --ngselect-selected-value: #000;
   --table-hover-color: #F5FDFFF5;
+  --search-icon: url('/assets/img/search-icon.svg');
   --edit-icon: url('/assets/img/edit-icon.svg');
   --history-icon: url('/assets/img/history-icon.svg');
+  --approve-icon: url('/assets/img/approve-icon.svg');
+  --reject-icon: url('/assets/img/reject-icon.svg');
 }
 
 [data-theme="dark"] {
@@ -36,8 +39,11 @@
   --ngselect-input: #151515;
   --ngselect-selected-value: #fff;
   --table-hover-color: #1A1A1A;
+  --search-icon: url('/assets/img/search-icon.svg');
   --edit-icon: url('/assets/img/edit-dark.svg');
   --history-icon: url('/assets/img/history-dark.svg');
+  --approve-icon: url('/assets/img/approve-icon.svg');
+  --reject-icon: url('/assets/img/reject-icon.svg');
 }
 
 @font-face {
@@ -136,7 +142,6 @@ html,
 body {
   height: 100%;
   width: 100%;
-  overflow: hidden;
   background-color: var(--background);
 }
 
@@ -145,13 +150,17 @@ body {
   font-family: "GothamBook", "Helvetica Neue", sans-serif;
 }
 
+.navbar{
+  --bs-navbar-padding-y: 0.2rem !important;
+  max-height: 6rem;
+}
 
 .navHeading {
   color: var(--primary-text);
 }
 
 .sidebar {
-  min-height: 100vh;
+  min-height: calc(100vh - 6rem);
   width: 15rem;
   background-color: var(--sidebar-color);
 }
@@ -195,19 +204,152 @@ small {
   color: var(--disabled-color);
 }
 
+.commit-nav-container{
+  background-color: #E2E7ED;
+  padding: 0px 24px 0px 42px;
+  width: 100%;
+  height: 3.438rem;
+  gap: 1rem;
+}
+
+.commit-nav{
+  display: flex;
+  padding:12px 0px 12px 0px;
+  justify-content: end;
+  align-items: baseline;
+  width: 100%;
+  height: 100%;
+  gap: 1rem;
+}
+
+.commit-msg{
+  margin: 0;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 15.41px;
+  text-align: left;
+}
+
+.commit-btn, .discard-btn{
+  width: 6rem;
+  height: 1.938rem;
+  padding: 6px 18px 6px 18px;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.commit-btn{
+  color: var(--primary-text);
+  background-color: var(--primary) !important;
+}
+
+.discard-btn{
+  color: var(--form-label-text);
+  background-color: var(--background) !important;
+}
+
+.breadcrumps-container {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  padding: 12px 42px 12px 42px;
+  gap: 0px;
+  align-items: center;
+}
+
+.breadcrumps-text {
+  font-size: 22px;
+  font-weight: 400;
+  color: var(--form-label-text);
+  font-weight: 400;
+  text-align: left;
+}
+
+.search-box {
+  border-radius: 4px;
+  width: 26.625rem;
+  max-height: 1.875rem;
+  box-sizing: border-box;
+  background-image: var(--search-icon);
+  background-position: 10px;
+  background-repeat: no-repeat;
+  padding-left: 35px;
+}
+
+.table-container {
+  padding: 0px 24px 0px 24px !important;
+  gap: 8px !important;
+}
+
+tr th,
+tr td {
+    background-color: var(--background) !important;
+}
+
+tr:hover td, .edit-mode td {
+    background-color: var(--table-hover-color) !important;
+}
+
+.op-0{
+  opacity: 0;
+}
+
+tr:hover .op-0 {
+    opacity: 1;
+}
+
+.text-color {
+  color: var(--form-label-text) !important;
+}
+
+.action-btns {
+  display: flex;
+  gap: 1rem;
+}
+
+.edit-icon, .history-icon, .approve-icon, .reject-icon{
+  height: 2rem;
+  width: 2rem;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.edit-icon:hover, .history-icon:hover, .approve-icon:hover , .reject-icon:hover{
+  border-radius: 50%;
+  background-color: #DCE4E5;
+}
+
+.edit-icon {
+  background-image: var(--edit-icon);
+}
+
+.history-icon {
+  background-image: var(--history-icon);
+}
+
+.approve-icon {
+  background-image: var(--approve-icon);
+}
+
+.reject-icon {
+  background-image: var(--reject-icon);
+}
+
 .form-switch .form-check-input {
   width: 4rem;
   height: 2rem;
 }
 
+.enum-form .ng-select-container {
+  max-width: 7.25rem;
+  height: 2rem;
+}
+
 .ng-select .ng-select-container {
   background-color: var(--white);
-  // border-radius: 10px !important;
-  // outline: none !important;
   color: var(--input-field) !important;
   font-weight: 900 !important;
-  // font-size: 18px !important;
-  // padding: 3px 10px;
   height: 16px !important;
   background-color: var(--ngselect-input);
   align-items: flex-end;
@@ -278,4 +420,9 @@ small {
   100% {
     transform: rotate(360deg);
   }
+}
+
+.disabled {
+  pointer-events: none; /* Disable mouse events */
+  opacity: 0.5; /* Optionally reduce opacity to visually indicate disabled state */
 }

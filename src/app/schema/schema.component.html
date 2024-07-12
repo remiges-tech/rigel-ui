@@ -1,111 +1,87 @@
-<!-- <div class="container mt-2">
-    <div class="row">
-        <div class="col-12">
-            <div class="d-flex">
-                Select App
-                <label i18n="@@selectApp" class="fs-20 fw-600 me-2 text-color">Select App:</label>
-                <ng-select (change)="getModuleList()" [(ngModel)]="selectedData.app" style="width: 250px;" id="app"
-                    i18n-placeholder="@@placeholderApp" placeholder="--Select App--">
-                    <ng-option *ngFor="let app of appList" [value]="app">{{app}}</ng-option>
-                </ng-select>
-                <div class="description" *ngIf="schemaDetails?.description">
-                    App Description
-                    <label class="text-color" id="appDescription" data-toggle="tooltip" data-placement="bottom"
-                        title="{{schemaDetails?.description}}" style="cursor: pointer;">{{schemaDetails?.description?.substr(0,75)}}...</label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6 d-flex">
-                    <div *ngIf="moduleList" class="d-flex mt-3 moduleName">
-                        Select Module
-                        <label i18n="@@selectModule" class="fs-20 fw-600 me-2 text-color">Select Module:</label>
-                        <ng-select (change)="getSchemaDetails()" [(ngModel)]="selectedData.module" style="width: 250px;"
-                            id="module" i18n-placeholder="@@placeholderModule" placeholder="--Select Module--">
-                            <ng-option *ngFor="let module of moduleList" [value]="module">{{module}}</ng-option>
-                        </ng-select>
-                    </div>
-                    <div *ngIf="selectedData.ver" class="mt-3">
-                        Display Version
-                        <label i18n="@@version" class="fs-15 fw-600 m-2 text-color">Version:</label>
-                        <span class="text-color" id="appVersion">{{selectedData?.ver}}</span>
-                    </div>
-                </div>
-            </div>
-            <div *ngIf="configList" class="d-flex mt-3 configName">
-                Select Config
-                <label i18n="@@selectConfig" class="fs-20 fw-600 me-2 text-color">Select Config:</label>
-                <ng-select (change)="getConfigDetail()" [(ngModel)]="selectedData.config" style="width: 250px;"
-                    id="config" i18n-placeholder="@@placeholderConfig" placeholder="--Select Config--">
-                    <ng-option *ngFor="let config of configList" [value]="config">{{config}}</ng-option>
-                </ng-select>
-                <div  style="margin-left: auto;" *ngIf="configList">
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text" id="basic-addon1">&#61442;</span>
-                        </div>
-                        <input type="text" [(ngModel)]="searchInput" name="search" autocomplete="off" class="form-control" placeholder="Search" aria-label="Username" aria-describedby="basic-addon1">
-                      </div>
-                </div>
-            </div>
+<div>
+  <div class="schema-container">
+    <section
+      class="sidebar p-3"
+      [ngClass]="{ disabled: _commonService.getEditMode().isValueChange }"
+    >
+      <!--App-->
+      <label class="fs-20 text-color app-text mb-2">App:</label>
+      <ng-select
+        (change)="getModuleList()"
+        [(ngModel)]="selectedData.app"
+        style="width: 200px"
+        id="app"
+        (change)="handleAppChange()"
+        i18n-placeholder="@@placeholderApp"
+        placeholder="Select"
+      >
+        <ng-option *ngFor="let app of appList" [value]="app">{{
+          app
+        }}</ng-option>
+      </ng-select>
+      <!--description-->
+      <div class="description" *ngIf="schemaDetails?.description">
+        <label
+          class="sidebar-descr fs-8"
+          id="appDescription"
+          data-toggle="tooltip"
+          data-placement="bottom"
+          title="{{ schemaDetails?.description }}"
+          style="cursor: pointer"
+          >{{ schemaDetails?.description?.substr(0, 75) }}...</label
+        >
+      </div>
+      <!--module-->
+      <label class="fs-20 text-color module-text mb-2">Module:</label>
+      <ng-select
+        (change)="getSchemaDetails()"
+        [(ngModel)]="selectedData.module"
+        style="width: 200px"
+        id="app"
+        id="module"
+        i18n-placeholder="@@placeholderModule"
+        placeholder="Select"
+      >
+        <ng-option *ngFor="let module of moduleList" [value]="module">{{
+          module
+        }}</ng-option>
+      </ng-select>
+      <!--version-->
+      <div *ngIf="selectedData.ver" class="mt-1 sidebar-descr">
+        <label i18n="@@version" class="fs-15 fw-600 m-2">Version:</label>
+        <span id="appVersion">{{ selectedData?.ver }}</span>
+      </div>
+      <!--config-->
+      <label class="fs-20 text-color config-text mb-2">Config:</label>
+      <ng-select
+        (change)="getConfigDetail()"
+        [(ngModel)]="selectedData.config"
+        style="width: 200px"
+        id="app"
+        id="config"
+        i18n-placeholder="@@placeholderConfig"
+        placeholder="Select"
+      >
+        <ng-option *ngFor="let config of configList" [value]="config">{{
+          config
+        }}</ng-option>
+      </ng-select>
+    </section>
+    <!--Side Note-->
+    <section class="main-content">
+      <div class="welcome-text p-3" *ngIf="!selectedData.app">
+        <div class="text-color">
+          <i class="fa fa-caret-left small-icon" aria-hidden="true"></i>&nbsp;
+          <span>To begin, select App / Module / Config.</span>
         </div>
-    </div>
-    <div class="mt-5" style="margin-left: 8rem;">
-        Display FieldsList
-        <app-fieldslist *ngIf="schemaDetails" [isShowValues]="isShowConfigValues"
-            [schemaData]="schemaDetails" [searchText]="searchInput"></app-fieldslist>
-    </div>
-</div> -->
-
-
-<div class="container-fluid">
-    <div class="schema-container">
-        <div class="sidebar p-3">
-            <!--App-->
-            <label class="fs-20 text-color app-text mb-2">App:</label>
-            <ng-select (change)="getModuleList()" [(ngModel)]="selectedData.app" style="width: 200px;" id="app" (change)="handleAppChange()"
-                i18n-placeholder="@@placeholderApp" placeholder="Select">
-                <ng-option *ngFor="let app of appList" [value]="app">{{app}}</ng-option>
-            </ng-select>
-            <!--description-->
-            <div class="description" *ngIf="schemaDetails?.description">
-                <label class="sidebar-descr fs-8" id="appDescription" data-toggle="tooltip" data-placement="bottom"
-                    title="{{schemaDetails?.description}}" style="cursor: pointer;">{{schemaDetails?.description?.substr(0,75)}}...</label>
-            </div>
-            <!--module-->
-            <label class="fs-20 text-color module-text mb-2">Module:</label>
-            <ng-select (change)="getSchemaDetails()" [(ngModel)]="selectedData.module" style="width: 200px;" id="app"
-                id="module" i18n-placeholder="@@placeholderModule" placeholder="Select">
-                <ng-option *ngFor="let module of moduleList" [value]="module">{{module}}</ng-option>
-            </ng-select>
-            <!--version-->
-            <div *ngIf="selectedData.ver" class="mt-1 sidebar-descr">
-                <label i18n="@@version" class="fs-15 fw-600 m-2">Version:</label>
-                <span  id="appVersion">{{selectedData?.ver}}</span>
-            </div>
-            <!--config-->
-            <label class="fs-20 text-color config-text mb-2">Config:</label>
-            <ng-select (change)="getConfigDetail()" [(ngModel)]="selectedData.config" style="width: 200px;" id="app"
-                id="config" i18n-placeholder="@@placeholderConfig" placeholder="Select">
-                <ng-option *ngFor="let config of configList" [value]="config">{{config}}</ng-option>
-            </ng-select>
-        </div>
-        <!--Side Note-->
-        <div class="main-content p-3">
-            <div class="welcome-text" *ngIf="!selectedData.app">
-                <div class="text-color">
-                    <i class="fa fa-caret-left small-icon" aria-hidden="true"></i>&nbsp;
-                    <span>To begin, select App / Module / Config.</span>
-                </div>
-            </div>
-            <div class="configs-container">
-                <app-fieldslist *ngIf="schemaDetails" [isShowValues]="isShowConfigValues"
-                    [schemaData]="schemaDetails" [searchText]="searchInput"></app-fieldslist>
-            </div>
-        </div>
-    </div>
+      </div>
+      <div *ngIf="schemaDetails">
+        <app-fieldslist
+          *ngIf="schemaDetails?.config != null"
+          [schemaData]="schemaDetails"
+          [configValues]="configValues"
+        ></app-fieldslist>
+      </div>
+    </section>
+  </div>
 </div>
-
-
-
-
-
