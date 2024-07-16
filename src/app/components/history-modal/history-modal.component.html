@@ -1,0 +1,38 @@
+<div class="overlay"></div>
+<div class="modal-dialog modal-md modal-dialog-centered" role="document">
+  <div class="modal-content">
+    <div class="modal-header justify-content-between">
+      <h5 class="modal-title fw-bold" id="historyLabelModal">Edit History - {{ data.fieldName }}</h5>
+      <button type="button" class="close" (click)="onClose()" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="custom-scrollbar history-container">
+        <ng-container *ngIf="data.fieldHistory.length > 0; else noHistory">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Value</th>
+                <th>Date / Time</th>
+                <th>User</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let history of data.fieldHistory">
+                <td>{{ history.value }}</td>
+                <td>{{ history.dateTime | date: 'dd/MM/yyyy HH:mm:ss' }}</td>
+                <td>{{ history.user }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </ng-container>
+        <ng-template #noHistory>
+          <div class="text-center mt-2">
+            <p>No History Available...</p>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>

@@ -13,6 +13,8 @@ import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoaderComponent } from './components/loader/loader.component';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { HistoryModalComponent } from './components/history-modal/history-modal.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -21,12 +23,14 @@ import {NgxPaginationModule} from 'ngx-pagination';
     SchemaComponent,
     FieldDetailComponent,
     FieldslistComponent,
-    LoaderComponent
+    LoaderComponent,
+    HistoryModalComponent
   ],
   imports: [
     BrowserModule,
     NgSelectModule, 
     NgxPaginationModule,
+    MatDialogModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,

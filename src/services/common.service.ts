@@ -85,8 +85,7 @@ export class CommonService {
         } else {
           if (typeof data[key] !== model[key].type) {
             errorStr.push(
-              `Data property '${key}' must be '${
-                model[key].type
+              `Data property '${key}' must be '${model[key].type
               }' but got '${typeof data[key]}'`
             );
           } else if (model[key].type !== 'array' && !data[key]) {

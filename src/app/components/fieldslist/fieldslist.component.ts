@@ -1,10 +1,12 @@
 import { Component, Input, inject } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { ConfigDetails, Field } from 'src/interfaces/common-interfaces';
 import { ConfigSetResp } from 'src/interfaces/response-interfaces';
 import { CommonService } from 'src/services/common.service';
 import { CONSTANTS } from 'src/services/constants.service';
 import { SchemaService } from 'src/services/schema.service';
+import { HistoryModalComponent } from '../history-modal/history-modal.component';
 
 @Component({
   selector: 'app-fieldslist',
@@ -28,6 +30,10 @@ export class FieldslistComponent {
   pageSizeOptions: number[] = [10, 20, 50, 100];
   currentPage = 1;
   totalPages: number = 1;
+  selectedFieldHistory: any[] = [];
+  selectedFieldName: string = '';
+
+  constructor(public dialog: MatDialog) { }
 
   ngOnInit() {
     this.updatePaginatedData();
@@ -98,7 +104,6 @@ export class FieldslistComponent {
 
   getCommitMsgText() {
     const configChangeCount = this.updatedConfigValuesList.length;
-
     return configChangeCount > 1
       ? `${configChangeCount} values changed.`
       : `${configChangeCount} value changed.`;
@@ -142,6 +147,47 @@ export class FieldslistComponent {
   //   }
   // }
 
+  openHistoryModal(fieldName: string) {
+    this.selectedFieldName = fieldName;
+    this.selectedFieldHistory = this.getFieldHistory(fieldName);
+    this.dialog.open(HistoryModalComponent, {
+      width: '449px',
+      height: '462px',
+      data: {
+        fieldHistory: this.selectedFieldHistory,
+        fieldName: this.selectedFieldName
+      }
+    });
+  }
+
+  getFieldHistory(fieldName: string) {
+    const history = localStorage.getItem('fieldHistory');
+    if (history) {
+      const parsedHistory = JSON.parse(history);
+      return parsedHistory[fieldName] || [];
+    }
+    return [];
+  }
+
+  storeFieldHistory(fieldName: string, newValue: string) {
+    const history = localStorage.getItem('fieldHistory');
+    let parsedHistory = history ? JSON.parse(history) : {};
+    if (!parsedHistory[fieldName]) {
+      parsedHistory[fieldName] = [];
+    }
+
+    const latestEntry = parsedHistory[fieldName][parsedHistory[fieldName].length - 1];
+    if (!latestEntry || latestEntry.value !== newValue) {
+      parsedHistory[fieldName].push({
+        value: newValue,
+        dateTime: new Date(),
+        user: 'Current User'
+      });
+    }
+
+    localStorage.setItem('fieldHistory', JSON.stringify(parsedHistory));
+  }
+
   toggleEditMode(index: number) {
     this.editIndex = index;
   }
@@ -151,6 +197,7 @@ export class FieldslistComponent {
       (value: Field) => value.name == configValue.name
     )!.value = configValue.value;
     this.updatedConfigValuesList.push(configValue);
+    this.storeFieldHistory(configValue.name, configValue.value);
     this.editIndex = null;
     this._commonService.resetEditMode();
   }

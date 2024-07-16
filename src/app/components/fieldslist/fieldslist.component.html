@@ -1,8 +1,5 @@
-<section
-  [ngClass]="{ disabled: _commonService.getEditMode().isValueChange }"
-  *ngIf="updatedConfigValuesList.length > 0"
-  class="commit-nav-container"
->
+<section [ngClass]="{ disabled: _commonService.getEditMode().isValueChange }" *ngIf="updatedConfigValuesList.length > 0"
+  class="commit-nav-container">
   <div class="commit-nav">
     <h6 class="commit-msg">
       {{ getCommitMsgText() }}
@@ -15,17 +12,8 @@
 <section class="configs-container p-3">
   <div class="breadcrumps-container">
     <h4 class="breadcrumps-text">{{ schemaData.config ?? "" }}</h4>
-    <div
-      class="search-input-container"
-      [ngClass]="{ disabled: _commonService.getEditMode().isValueChange }"
-    >
-      <input
-        class="form-control search-box"
-        type="text"
-        [(ngModel)]="searchText"
-        name="search"
-        placeholder="Search"
-      />
+    <div class="search-input-container" [ngClass]="{ disabled: _commonService.getEditMode().isValueChange }">
+      <input class="form-control search-box" type="text" [(ngModel)]="searchText" name="search" placeholder="Search" />
     </div>
   </div>
 
@@ -38,106 +26,69 @@
           <div class="table-responsive">
             <table class="table">
               <thead>
-                <tr>
-                  <th class="fs-20 fw-600 text-color">Configurable Settings</th>
-                  <th class="fs-20 fw-600 text-color">Value Type</th>
-                  <th class="fs-20 fw-600 text-color">Value</th>
-                  <th
-                    *ngIf="this.updatedConfigValuesList.length > 0"
-                    class="fs-20 fw-600 text-color"
-                  >
+                <tr class="fieldlist">
+                  <th class="fs-20 fw-600 text-color fieldlist">Configurable Settings</th>
+                  <th class="fs-20 fw-600 text-color fieldlist">Value Type</th>
+                  <th class="fs-20 fw-600 text-color fieldlist">Value</th>
+                  <th *ngIf="this.updatedConfigValuesList.length > 0" class="fs-20 fw-600 text-color fieldlist">
                     Prev.Value
                   </th>
-                  <th class="fs-20 fw-600 text-color"></th>
+                  <th class="fs-20 fw-600 text-color fieldlist"></th>
                 </tr>
               </thead>
               <tbody>
-                <tr
-                  *ngFor="let field of filterData(); let i = index"
-                  [ngClass]="{
+                <tr *ngFor="let field of filterData(); let i = index"  class="table-row" [ngClass]="{
                     disabled:
                       _commonService.getEditMode().isValueChange &&
                       _commonService.getEditMode().index != i,
                     'edit-mode':
                       _commonService.getEditMode().isValueChange &&
                       _commonService.getEditMode().index == i
-                  }"
-                >
+                  }">
                   <!-- Name and description column -->
-                  <td
-                    class="fs-18 fw-400 text-color"
-                    id="{{ field.name }}-config-parameter"
-                  >
+                  <td class="fs-18 fw-400 text-color fieldlist table-cell" id="{{ field.name }}-config-parameter">
                     <span>{{ field.name }}</span>
                     <div>
                       <small>{{ field.description }}</small>
                     </div>
                   </td>
                   <!-- type column -->
-                  <td
-                    class="fs-18 fw-400 text-color"
-                    id="{{ field.name }}-type"
-                  >
+                  <td class="fs-18 fw-400 text-color fieldlist table-cell" id="{{ field.name }}-type">
                     {{ field.type }}
                   </td>
                   <!-- Value and input box column -->
-                  <td
-                    class="fs-18 fw-400 text-color"
-                    id="{{ field.name }}-value"
-                  >
+                  <td class="fs-18 fw-400 text-color fieldlist table-cell" id="{{ field.name }}-value">
                     <!-- Value -->
                     <ng-container *ngIf="this.editIndex != i">
                       {{ field.value }}
                     </ng-container>
                     <!-- Input box -->
                     <ng-container *ngIf="this.editIndex == i">
-                      <app-field-detail
-                        [fieldDetail]="field"
-                        [value]="field.value"
-                        (UpdateValues)="updateConfig($event, i)"
-                      ></app-field-detail>
+                      <app-field-detail [fieldDetail]="field" [value]="field.value"
+                        (UpdateValues)="updateConfig($event, i)"></app-field-detail>
                     </ng-container>
                   </td>
                   <!-- Prev.value column -->
-                  <td
-                    *ngIf="this.updatedConfigValuesList.length > 0"
-                    class="fs-18 fw-400 text-color"
-                    id="{{ field.name }}-prev.value"
-                  >
-                    {{
-                      field.value != configValues[field.name]
-                        ? configValues[field.name]
-                        : ""
-                    }}
+                  <td *ngIf="this.updatedConfigValuesList.length > 0" class="fs-18 fw-400 text-color fieldlist table-cell"
+                    id="{{ field.name }}-prev.value">
+                    {{ field.value != configValues[field.name] ? configValues[field.name] : "" }}
                   </td>
                   <!-- Action buttons column -->
-                  <td class="fs-18 fw-400 text-color">
+                  <td class="fs-18 fw-400 text-color fieldlist table-cell">
                     <div class="action-btns op-0" *ngIf="this.editIndex != i">
-                      <button
-                        class="btn edit-icon"
-                        (click)="toggleEditMode(i)"
-                      ></button>
-                      <button class="btn history-icon"></button>
+                      <button class="btn edit-icon" (click)="toggleEditMode(i)"></button>
+                      <button class="btn history-icon" (click)="openHistoryModal(field.name)"></button>
                     </div>
-                    <div
-                      class="action-btns"
-                      *ngIf="
+                    <div class="action-btns" *ngIf="
                         _commonService.getEditMode().isValueChange &&
                         _commonService.getEditMode().index == i
-                      "
-                    >
-                      <button
-                        class="btn approve-icon"
-                        (click)="
+                      ">
+                      <button class="btn approve-icon" (click)="
                           approveEdit(_commonService.getEditMode().configData!)
-                        "
-                      ></button>
-                      <button
-                        class="btn reject-icon"
-                        (click)="
+                        "></button>
+                      <button class="btn reject-icon" (click)="
                           rejectEdit(_commonService.getEditMode().configData!)
-                        "
-                      ></button>
+                        "></button>
                     </div>
                   </td>
                 </tr>
@@ -145,56 +96,31 @@
             </table>
 
             <!-- Pagination Part-->
-            <div
-              class="pagination-container d-flex align-items-center justify-content-between"
-              [ngClass]="{
+            <div class="pagination-container d-flex align-items-center justify-content-between" [ngClass]="{
                 disabled: _commonService.getEditMode().isValueChange
-              }"
-            >
+              }">
               <div class="pagination-info text-color">
-                <label for="pageSize" class="fw-400 fs-15"
-                  >Number of rows</label
-                >
-                <select
-                  id="pageSize"
-                  [(ngModel)]="pageSize"
-                  (change)="onPageSizeChange($event)"
-                >
+                <label for="pageSize" class="fw-400 fs-15">Number of rows</label>
+                <select id="pageSize" [(ngModel)]="pageSize" (change)="onPageSizeChange($event)">
                   <option *ngFor="let size of pageSizeOptions" [value]="size">
                     {{ size }}
                   </option>
                 </select>
-                <span class="fs-15 fw-400"
-                  >Total Entries: {{ totalEntities }}</span
-                >
+                <span class="fs-15 fw-400">Total Entries: {{ totalEntities }}</span>
               </div>
               <div class="pagination-controls">
-                <button
-                  (click)="goToFirstPage()"
-                  [disabled]="currentPage === 1"
-                >
+                <button (click)="goToFirstPage()" [disabled]="currentPage === 1">
                   &laquo;
                 </button>
-                <button
-                  (click)="goToPreviousPage()"
-                  [disabled]="currentPage === 1"
-                >
+                <button (click)="goToPreviousPage()" [disabled]="currentPage === 1">
                   &lsaquo;
                 </button>
-                <span
-                  >{{ currentPage | number : "2.0-0" }} /
-                  {{ totalPages | number : "2.0-0" }}</span
-                >
-                <button
-                  (click)="goToNextPage()"
-                  [disabled]="currentPage === totalPages"
-                >
+                <span>{{ currentPage | number : "2.0-0" }} /
+                  {{ totalPages | number : "2.0-0" }}</span>
+                <button (click)="goToNextPage()" [disabled]="currentPage === totalPages">
                   &rsaquo;
                 </button>
-                <button
-                  (click)="goToLastPage()"
-                  [disabled]="currentPage === totalPages"
-                >
+                <button (click)="goToLastPage()" [disabled]="currentPage === totalPages">
                   &raquo;
                 </button>
               </div>
@@ -207,6 +133,8 @@
 
   <!-- On search if no data available -->
   <ng-container *ngIf="filterData().length == 0">
-    <div class="fields-list text-color"><h3>No record found!</h3></div>
+    <div class="fields-list text-color">
+      <h3>No record found!</h3>
+    </div>
   </ng-container>
 </section>
