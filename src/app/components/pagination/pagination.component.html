@@ -1,0 +1,43 @@
+<div
+  class="pagination-container d-flex align-items-center justify-content-between"
+  [ngClass]="{
+    disabled: _commonService.getEditMode().isValueChange
+  }"
+>
+  <div class="pagination-info text-color">
+    <label for="pageSize" class="fw-400 fs-15" i18n="@@paginationNumberRowLabel"
+      >Number of rows</label
+    >
+    <select
+      id="pageSize"
+      class="form-select"
+      [(ngModel)]="pageSize"
+      (change)="onPageSizeChange($event)"
+    >
+      <option *ngFor="let size of pageSizeOptions" [value]="size">
+        {{ size }}
+      </option>
+    </select>
+    <span class="fs-15 fw-400" i18n="@@paginationTotalEntriesLabel"
+      >Total Entries: {{ totalEntities }}</span
+    >
+  </div>
+  <div class="pagination-controls">
+    <button (click)="goToFirstPage()" [disabled]="currentPage === 1">
+      &laquo;
+    </button>
+    <button (click)="goToPreviousPage()" [disabled]="currentPage === 1">
+      &lsaquo;
+    </button>
+    <span
+      >{{ currentPage | number : "2.0-0" }} /
+      {{ totalPages | number : "2.0-0" }}</span
+    >
+    <button (click)="goToNextPage()" [disabled]="currentPage === totalPages">
+      &rsaquo;
+    </button>
+    <button (click)="goToLastPage()" [disabled]="currentPage === totalPages">
+      &raquo;
+    </button>
+  </div>
+</div>

@@ -3,43 +3,63 @@ import {
   EventEmitter,
   Input,
   Output,
-  inject,
   ElementRef,
   Renderer2,
+  HostListener,
 } from '@angular/core';
-import { ToastrService } from 'ngx-toastr';
 import { Field } from 'src/interfaces/common-interfaces';
 import { CONSTANTS } from 'src/services/constants.service';
 import { checkValueType } from 'src/utils/customValidator';
 
 @Component({
-  selector: 'app-field-detail',
-  templateUrl: './field-detail.component.html',
-  styleUrls: ['./field-detail.component.scss'],
+  selector: 'app-input-fields',
+  templateUrl: './input-fields.component.html',
+  styleUrls: ['./input-fields.component.scss'],
 })
-export class FieldDetailComponent {
-  private _toastr = inject(ToastrService);
+export class InputFieldsComponent {
   @Input({ required: true }) fieldDetail!: Field;
-  @Output() UpdateValues = new EventEmitter<Field>();
+  @Output() UpdateValues = new EventEmitter<{
+    data: Field;
+    isEscClicked: boolean;
+  }>();
   @Input({ required: true }) value!: string;
+  error: string | null = null;
+
+  @HostListener('document:keydown', ['$event']) onKeydownHandler(
+    event: KeyboardEvent
+  ) {
+    if (event.key == 'Escape') {
+      this.UpdateValues.emit({ data: this.fieldDetail, isEscClicked: true });
+    } else if (event.key == 'Enter') {
+      this.updateChanges(this.fieldDetail);
+    }
+  }
 
   constructor(private renderer: Renderer2, private el: ElementRef) {}
+
+  ngOnInit() {
+    this.cursorFocus();
+  }
 
   //Validation and updation of values
   updateChanges(data: Field) {
     let verification = checkValueType(data.type, this.value!, data.constraints);
     if (verification?.status === 'INVALID') {
-      this._toastr.warning(verification.msg);
+      this.error = verification.msg;
+      this.value = '';
       return;
     }
+    this.error = null;
     const UpdatedData = { ...data, value: this.value };
-    this.UpdateValues.emit(UpdatedData);
+    this.UpdateValues.emit({ data: UpdatedData, isEscClicked: false });
   }
 
   //cursorFocs function called when clicked on edit icon
-  cursorFocus(id: any) {
+  cursorFocus() {
     setTimeout(() => {
-      const inputElement = this.el.nativeElement.querySelector('#' + id);
+      const inputElement = this.el.nativeElement.querySelector(
+        `#${this.fieldDetail?.name}-input`
+      );
       if (inputElement) {
         this.renderer.selectRootElement(inputElement).focus();
       }

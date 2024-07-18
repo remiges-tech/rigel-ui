@@ -6,29 +6,31 @@ import { TopMenuComponent } from './top-menu/top-menu.component';
 import { SchemaComponent } from './schema/schema.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { FieldDetailComponent } from './components/field-detail/field-detail.component';
+import { HttpClientModule } from '@angular/common/http';
 import { FieldslistComponent } from './components/fieldslist/fieldslist.component';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoaderComponent } from './components/loader/loader.component';
-import {NgxPaginationModule} from 'ngx-pagination';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { HistoryModalComponent } from './components/history-modal/history-modal.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { InputFieldsComponent } from './components/input-fields/input-fields.component';
+import { PaginationComponent } from './components/pagination/pagination.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TopMenuComponent,
     SchemaComponent,
-    FieldDetailComponent,
     FieldslistComponent,
     LoaderComponent,
-    HistoryModalComponent
+    HistoryModalComponent,
+    InputFieldsComponent,
+    PaginationComponent,
   ],
   imports: [
     BrowserModule,
-    NgSelectModule, 
+    NgSelectModule,
     NgxPaginationModule,
     MatDialogModule,
     FormsModule,
@@ -39,6 +41,6 @@ import { MatDialogModule } from '@angular/material/dialog';
     ToastrModule.forRoot(),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

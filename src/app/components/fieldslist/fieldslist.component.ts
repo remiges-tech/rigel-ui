@@ -4,7 +4,6 @@ import { ToastrService } from 'ngx-toastr';
 import { ConfigDetails, Field } from 'src/interfaces/common-interfaces';
 import { ConfigSetResp } from 'src/interfaces/response-interfaces';
 import { CommonService } from 'src/services/common.service';
-import { CONSTANTS } from 'src/services/constants.service';
 import { SchemaService } from 'src/services/schema.service';
 import { HistoryModalComponent } from '../history-modal/history-modal.component';
 
@@ -23,79 +22,31 @@ export class FieldslistComponent {
   searchText: string = '';
   updatedConfigValuesList: Field[] = [];
   editIndex: number | null = null;
-  data: any[] = Array.from({ length: 150 }, (_, k) => ({ position: k + 1 }));
-  paginatedData?: any[];
-  totalEntities = 150;
-  pageSize = 20;
-  pageSizeOptions: number[] = [10, 20, 50, 100];
-  currentPage = 1;
-  totalPages: number = 1;
   selectedFieldHistory: any[] = [];
   selectedFieldName: string = '';
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog) {}
 
-  ngOnInit() {
-    this.updatePaginatedData();
-  }
-
-  onPageSizeChange(event: any) {
-    this.pageSize = +event.target.value;
-    this.currentPage = 1;
-    this.updatePaginatedData();
-  }
-
-  updatePaginatedData() {
-    this.totalPages = Math.ceil(this.totalEntities / this.pageSize);
-    const start = (this.currentPage - 1) * this.pageSize;
-    const end = start + this.pageSize;
-    this.paginatedData = this.data.slice(start, end);
-  }
-
-  goToFirstPage() {
-    this.currentPage = 1;
-    this.updatePaginatedData();
-  }
-
-  goToPreviousPage() {
-    if (this.currentPage > 1) {
-      this.currentPage--;
-      this.updatePaginatedData();
-    }
-  }
-
-  goToNextPage() {
-    if (this.currentPage < this.totalPages) {
-      this.currentPage++;
-      this.updatePaginatedData();
-    }
-  }
-
-  goToLastPage() {
-    this.currentPage = this.totalPages;
-    this.updatePaginatedData();
-  }
-
-  updateConfig(data: Field, index: number) {
-    if (this.isConfigValueChanged(data)) {
+  updateConfig(data: { data: Field; isEscClicked: boolean }, index: number) {
+    if (data.isEscClicked) {
+      this.editIndex = null;
+      this._commonService.resetEditMode();
+    } else if (this.isConfigValueChanged(data.data)) {
       this._commonService.setEditMode({
         isValueChange: true,
         index,
-        configData: data,
+        configData: data.data,
       });
     } else {
       this.schemaData.values.find(
-        (value: Field) => value.name == data.name
-      )!.value = data.value;
+        (value: Field) => value.name == data.data.name
+      )!.value = data.data.value;
       this.updatedConfigValuesList = this.updatedConfigValuesList.filter(
-        (value: Field) => value.name != data.name
+        (value: Field) => value.name != data.data.name
       );
       this.editIndex = null;
       this._commonService.resetEditMode();
     }
-    // this.editIndex = null;
-    // console.log(data.prevData);
-    // this.prevData[`${data.prevData.name}`] = data.prevData.value;
   }
 
   isConfigValueChanged(item: Field) {
@@ -105,8 +56,8 @@ export class FieldslistComponent {
   getCommitMsgText() {
     const configChangeCount = this.updatedConfigValuesList.length;
     return configChangeCount > 1
-      ? `${configChangeCount} values changed.`
-      : `${configChangeCount} value changed.`;
+      ? $localize`:@@106:${configChangeCount} values changed.`
+      : $localize`:@@107:${configChangeCount} value changed.`;
   }
 
   // updateConfig(data: Field, index: number) {
@@ -155,8 +106,8 @@ export class FieldslistComponent {
       height: '462px',
       data: {
         fieldHistory: this.selectedFieldHistory,
-        fieldName: this.selectedFieldName
-      }
+        fieldName: this.selectedFieldName,
+      },
     });
   }
 
@@ -176,12 +127,13 @@ export class FieldslistComponent {
       parsedHistory[fieldName] = [];
     }
 
-    const latestEntry = parsedHistory[fieldName][parsedHistory[fieldName].length - 1];
+    const latestEntry =
+      parsedHistory[fieldName][parsedHistory[fieldName].length - 1];
     if (!latestEntry || latestEntry.value !== newValue) {
       parsedHistory[fieldName].push({
         value: newValue,
         dateTime: new Date(),
-        user: 'Current User'
+        user: 'Current User',
       });
     }
 
@@ -206,11 +158,40 @@ export class FieldslistComponent {
     this.updatedConfigValuesList = this.updatedConfigValuesList.filter(
       (value: Field) => value.name != configValue.name
     );
+    const schemadata = this.schemaData.values.find(
+      (value: Field) => value.name == configValue.name
+    );
+    if (schemadata) {
+      schemadata.value = this.configValues[configValue.name];
+    }
     this.editIndex = null;
     this._commonService.resetEditMode();
   }
 
-  filterData() {
+  commitValuesHandler() {
+    // API call here to update values in the database
+    // After API call happens Successfully success alert msg is shown to user
+    this.editIndex = null;
+    this._commonService.resetEditMode();
+    this.updatedConfigValuesList.forEach((value: Field) => {
+      this.configValues[value.name] = value.value;
+    });
+
+    this._toastr.success(this.getCommitMsgText(), 'Success!');
+
+    this.updatedConfigValuesList = [];
+  }
+
+  discardValuesHandler() {
+    this.editIndex = null;
+    this._commonService.resetEditMode();
+    this.updatedConfigValuesList = [];
+    this.schemaData.values.forEach((value: Field) => {
+      value.value = this.configValues[value.name];
+    });
+  }
+
+  filterValuesBasedOnSearch() {
     let text = this.searchText.toLowerCase();
     return this.schemaData.values.filter(
       (value: Field) =>
