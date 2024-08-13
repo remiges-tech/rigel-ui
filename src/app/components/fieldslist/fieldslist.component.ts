@@ -2,10 +2,13 @@ import { Component, Input, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { ConfigDetails, Field } from 'src/interfaces/common-interfaces';
-import { ConfigSetResp } from 'src/interfaces/response-interfaces';
 import { CommonService } from 'src/services/common.service';
-import { SchemaService } from 'src/services/schema.service';
 import { HistoryModalComponent } from '../history-modal/history-modal.component';
+import { SchemaService } from 'src/services/schema.service';
+import { HttpParams } from '@angular/common/http';
+import { HistoryResp } from 'src/interfaces/response-interfaces';
+import { CONSTANTS } from 'src/services/constants.service';
+
 
 @Component({
   selector: 'app-fieldslist',
@@ -14,9 +17,9 @@ import { HistoryModalComponent } from '../history-modal/history-modal.component'
 })
 export class FieldslistComponent {
   fileName: string = 'FieldslistComponent';
-  private _schemaService = inject(SchemaService);
   private _toastr = inject(ToastrService);
   public _commonService = inject(CommonService);
+  private _schemaService = inject(SchemaService);
   @Input({ required: true }) schemaData!: ConfigDetails;
   @Input({ required: true }) configValues: any = {};
   searchText: string = '';
@@ -25,7 +28,7 @@ export class FieldslistComponent {
   selectedFieldHistory: any[] = [];
   selectedFieldName: string = '';
 
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog) { }
 
   updateConfig(data: { data: Field; isEscClicked: boolean }, index: number) {
     if (data.isEscClicked) {
@@ -60,85 +63,52 @@ export class FieldslistComponent {
       : $localize`:@@107:${configChangeCount} value changed.`;
   }
 
-  // updateConfig(data: Field, index: number) {
-  //   this.schemaData.values[index] = data;
-  //   const modifiedObject = {
-  //     data: {
-  //       app: this.schemaData.app,
-  //       module: this.schemaData.module,
-  //       ver: this.schemaData.ver,
-  //       config: this.schemaData.config,
-  //       key: data.name,
-  //       value: data.value,
-  //     },
-  //   };
-
-  //   try {
-  //     this._schemaService.updateConfigDetails(modifiedObject).subscribe(
-  //       (res: ConfigSetResp) => {
-  //         if (res.status == CONSTANTS.SUCCESS) {
-  //           this._toastr.success(
-  //             `"${data.name}" ` + res.data,
-  //             CONSTANTS.SUCCESS
-  //           );
-  //         } else {
-  //           this._toastr.success(`"${data.name}" ` + res.data, CONSTANTS.ERROR);
-  //         }
-  //       },
-  //       (err: any) => {
-  //         this._toastr.error(err, CONSTANTS.ERROR);
-  //       }
-  //     );
-  //   } catch (err) {
-  //     this._schemaService._commonService.log({
-  //       fileName: this.fileName,
-  //       functionName: 'updateConfig',
-  //       err,
-  //     });
-  //   }
-  // }
-
   openHistoryModal(fieldName: string) {
     this.selectedFieldName = fieldName;
-    this.selectedFieldHistory = this.getFieldHistory(fieldName);
-    this.dialog.open(HistoryModalComponent, {
-      width: '449px',
-      height: '462px',
-      data: {
-        fieldHistory: this.selectedFieldHistory,
-        fieldName: this.selectedFieldName,
-      },
-    });
-  }
-
-  getFieldHistory(fieldName: string) {
-    const history = localStorage.getItem('fieldHistory');
-    if (history) {
-      const parsedHistory = JSON.parse(history);
-      return parsedHistory[fieldName] || [];
-    }
-    return [];
-  }
-
-  storeFieldHistory(fieldName: string, newValue: string) {
-    const history = localStorage.getItem('fieldHistory');
-    let parsedHistory = history ? JSON.parse(history) : {};
-    if (!parsedHistory[fieldName]) {
-      parsedHistory[fieldName] = [];
-    }
-
-    const latestEntry =
-      parsedHistory[fieldName][parsedHistory[fieldName].length - 1];
-    if (!latestEntry || latestEntry.value !== newValue) {
-      parsedHistory[fieldName].push({
-        value: newValue,
-        dateTime: new Date(),
-        user: 'Current User',
+    try {
+      if (this.schemaData.app && this.schemaData.module && this.schemaData.ver && this.schemaData.config) {
+        let data = {
+          params: new HttpParams()
+            .append('app', this.schemaData.app)
+            .append('module', this.schemaData.module)
+            .append('ver', this.schemaData.ver)
+            .append('config', this.schemaData.config)
+            .append('key', fieldName)
+        };
+        this._commonService.showLoader();
+        this._schemaService.getConfigHist(data).subscribe(
+          (res: HistoryResp) => {
+            this._commonService.hideLoader();
+            if (res.status == CONSTANTS.SUCCESS) {
+              this.selectedFieldHistory = res.data.hist;
+              this.dialog.open(HistoryModalComponent, {
+                width: '529px',
+                height: '502px',
+                data: {
+                  fieldHistory: this.selectedFieldHistory,
+                  fieldName: this.selectedFieldName,
+                },
+              });
+            } else {
+              this._toastr.error(res.message, CONSTANTS.ERROR);
+            }
+          },
+          (err: any) => {
+            this._toastr.error(err, CONSTANTS.ERROR);
+          }
+        );
+      } else {
+        this._toastr.error('Invalid schema data', 'Error');
+      }
+    } catch (error) {
+      this._commonService.log({
+        fileName: this.fileName,
+        functionName: 'fetchFieldHistory',
+        msg: error
       });
     }
-
-    localStorage.setItem('fieldHistory', JSON.stringify(parsedHistory));
   }
+
 
   toggleEditMode(index: number) {
     this.editIndex = index;
@@ -149,7 +119,6 @@ export class FieldslistComponent {
       (value: Field) => value.name == configValue.name
     )!.value = configValue.value;
     this.updatedConfigValuesList.push(configValue);
-    this.storeFieldHistory(configValue.name, configValue.value);
     this.editIndex = null;
     this._commonService.resetEditMode();
   }

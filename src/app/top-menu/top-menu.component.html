@@ -1,24 +1,14 @@
 <nav class="navbar top-menu sticky-top">
-  <div
-    class="container-fluid d-flex align-items-center justify-content-between"
-  >
-    <h2 i18n="@@rigelHeading" class="navHeading mb-0">
-      <span class="small-text" style="font-size: 1.25rem">remiges</span><br />
-      <span class="large-text" style="font-size: 2.5rem; font-weight: bold"
-        >Rigel</span
-      >
-    </h2>
-    <div
-      class="d-flex"
-      [ngClass]="{ disabled: _commonService.getEditMode().isValueChange }"
-    >
+  <div class="container-fluid d-flex align-items-center justify-content-between">
+    <div class="mb-0 mt-1 p-2">
+      <img alt="Remiges Business Icon" i18n-alt="@@remigesLogo" src="/assets/img/Logo-Master-Rigel-Reverse.svg"
+        style="width: 140px" height="75px" />
+    </div>
+    <div class="d-flex" [ngClass]="{ disabled: _commonService.getEditMode().isValueChange }">
       <!-- Language change dropdown -->
       <div class="gradient-box">
-        <select
-          class="form-select language-select"
-          [(ngModel)]="selectedLocale"
-          (change)="navigateToLocale(selectedLocale)"
-        >
+        <select class="form-select language-select" [(ngModel)]="selectedLocale"
+          (change)="navigateToLocale(selectedLocale)">
           <option *ngFor="let locale of locales" [value]="locale.localeCode">
             {{ locale.label }}
           </option>
@@ -27,9 +17,7 @@
       <!-- Theme change -->
       <div class="mx-4">
         <button class="btn" id="themeBtn" (click)="changeTheme()">
-          <i
-            [ngClass]="isDarkTheme ? 'fa-regular fa-sun' : 'fa-solid fa-moon'"
-          ></i>
+          <i [ngClass]="isDarkTheme ? 'fa-regular fa-sun' : 'fa-solid fa-moon'"></i>
         </button>
       </div>
     </div>

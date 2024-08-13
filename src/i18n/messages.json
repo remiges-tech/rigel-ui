@@ -8,12 +8,12 @@
     "105": "Value should not be negative",
     "106": "{$PH} values changed.",
     "107": "{$PH} value changed.",
-    "commitBtnText": "Commit",
-    "discardBtnText": "Discard",
-    "tableHeadingConfigurableSetting": "Configurable Settings",
-    "tableHeadingValueType": "Value Type",
-    "tableHeadingValue": "Value",
-    "tableHeadingPrevValue": "Prev.Value",
+    "commitBtnText": " Commit ",
+    "discardBtnText": " Discard ",
+    "tableHeadingConfigurableSetting": " Configurable Settings ",
+    "tableHeadingValueType": " Value Type ",
+    "tableHeadingValue": " Value ",
+    "tableHeadingPrevValue": " Prev.Value ",
     "noRecordFoundMsg": "No record found!",
     "paginationNumberRowLabel": "Number of rows",
     "paginationTotalEntriesLabel": "Total Entries: {$INTERPOLATION}",
@@ -25,6 +25,6 @@
     "ConfigLabel": "Config:",
     "placeholderConfig": "Select",
     "AppStartNote": "To begin, select App / Module / Config.",
-    "rigelHeading": "{$START_TAG_SPAN}remiges{$CLOSE_TAG_SPAN}{$LINE_BREAK}{$START_TAG_SPAN_1}Rigel{$CLOSE_TAG_SPAN}"
+    "remigesLogo": "Remiges Business Icon"
   }
 }

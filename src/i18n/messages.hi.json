@@ -25,6 +25,6 @@
     "ConfigLabel": "कॉन्फ़िग:",
     "placeholderConfig": "चुनना",
     "AppStartNote": "आरंभ करने के लिए, ऐप/मॉड्यूल/कॉन्फ़िगर चुनें।",
-    "rigelHeading": "{$START_TAG_SPAN}रीमिजेस{$CLOSE_TAG_SPAN}{$LINE_BREAK}{$START_TAG_SPAN_1}रिगेल{$CLOSE_TAG_SPAN}"
+     "remigesLogo": "रेमिग्स व्यवसाय आइकन"
   }
 }

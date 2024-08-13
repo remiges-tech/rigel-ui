@@ -31,6 +31,23 @@ export interface ConfigDetails {
   values: Field[];
 }
 
+export interface HistoryDetails {
+  app: string;
+  module: string;
+  ver: number;
+  config: string;
+  name: string;
+  value: number;
+  description: string;
+  hist: History[];
+}
+
+export interface History {
+  who: string;
+  when: string; 
+  val: string; 
+}
+
 export interface Field {
   name: string;
   value?: any;

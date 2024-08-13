@@ -175,6 +175,7 @@ html,
 body {
   height: 100%;
   width: 100%;
+  // overflow: hidden;
   background-color: var(--background);
 }
 
@@ -186,10 +187,6 @@ body {
 .navbar{
   --bs-navbar-padding-y: 0.2rem !important;
   max-height: 6rem;
-}
-
-.navHeading {
-  color: var(--primary-text);
 }
 
 .sidebar {
@@ -474,4 +471,43 @@ small {
 .input-error{
   border: 1px solid rgb(193, 2, 2);
   border-radius: 4px;
+}
+
+.toast-container .ngx-toastr {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  overflow: hidden;
+  margin: 0;
+  padding: 15px;
+  width: 365px;
+  height: 112px; 
+  border-radius: 10px;
+  box-shadow: 0 0 12px #999999;
+  color: #FFFFFF;
+  display: flex;
+  flex-direction: column; 
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.toast-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 20px;
+  margin: 0;
+  margin-right: 170px;
+}
+
+.toast-message {
+  word-wrap: break-word;
+  padding: 0;
+  font-weight: 600;
+  font-size: 16px;
+  margin-top: 5px;
+  margin-right: 125px;
 }

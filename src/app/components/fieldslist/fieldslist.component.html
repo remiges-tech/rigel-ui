@@ -1,24 +1,13 @@
-<section
-  [ngClass]="{ disabled: _commonService.getEditMode().isValueChange }"
-  *ngIf="updatedConfigValuesList.length > 0"
-  class="commit-nav-container"
->
+<section [ngClass]="{ disabled: _commonService.getEditMode().isValueChange }" *ngIf="updatedConfigValuesList.length > 0"
+  class="commit-nav-container">
   <div class="commit-nav">
     <h6 class="commit-msg">
       {{ getCommitMsgText() }}
     </h6>
-    <button
-      class="btn commit-btn"
-      (click)="commitValuesHandler()"
-      i18n="@@commitBtnText"
-    >
+    <button class="btn commit-btn" (click)="commitValuesHandler()" i18n="@@commitBtnText">
       Commit
     </button>
-    <button
-      class="btn discard-btn"
-      (click)="discardValuesHandler()"
-      i18n="@@discardBtnText"
-    >
+    <button class="btn discard-btn" (click)="discardValuesHandler()" i18n="@@discardBtnText">
       Discard
     </button>
   </div>
@@ -27,17 +16,8 @@
 <section class="configs-container p-3">
   <div class="breadcrumps-container">
     <h4 class="breadcrumps-text">{{ schemaData.config ?? "" }}</h4>
-    <div
-      class="search-input-container"
-      [ngClass]="{ disabled: _commonService.getEditMode().isValueChange }"
-    >
-      <input
-        class="form-control search-box"
-        type="text"
-        [(ngModel)]="searchText"
-        name="search"
-        placeholder="Search"
-      />
+    <div class="search-input-container" [ngClass]="{ disabled: _commonService.getEditMode().isValueChange }">
+      <input class="form-control search-box" type="text" [(ngModel)]="searchText" name="search" placeholder="Search" />
     </div>
   </div>
 
@@ -51,37 +31,24 @@
             <table class="table">
               <thead>
                 <tr class="fieldlist">
-                  <th
-                    class="fs-20 fw-600 text-color fieldlist"
-                    i18n="@@tableHeadingConfigurableSetting"
-                  >
+                  <th class="fs-20 fw-600 text-color fieldlist" i18n="@@tableHeadingConfigurableSetting">
                     Configurable Settings
                   </th>
-                  <th
-                    class="fs-20 fw-600 text-color fieldlist"
-                    i18n="@@tableHeadingValueType"
-                  >
+                  <th class="fs-20 fw-600 text-color fieldlist" i18n="@@tableHeadingValueType">
                     Value Type
                   </th>
-                  <th
-                    class="fs-20 fw-600 text-color fieldlist"
-                    i18n="@@tableHeadingValue"
-                  >
+                  <th class="fs-20 fw-600 text-color fieldlist" i18n="@@tableHeadingValue">
                     Value
                   </th>
-                  <th
-                    *ngIf="this.updatedConfigValuesList.length > 0"
-                    class="fs-20 fw-600 text-color fieldlist"
-                    i18n="@@tableHeadingPrevValue"
-                  >
+                  <th *ngIf="this.updatedConfigValuesList.length > 0" class="fs-20 fw-600 text-color fieldlist"
+                    i18n="@@tableHeadingPrevValue">
                     Prev.Value
                   </th>
                   <th class="fs-20 fw-600 text-color fieldlist"></th>
                 </tr>
               </thead>
               <tbody>
-                <tr
-                  *ngFor="
+                <tr *ngFor="
                     let field of filterValuesBasedOnSearch()
                       | paginate
                         : {
@@ -89,120 +56,77 @@
                             currentPage: pagination.currentPage
                           };
                     let i = index
-                  "
-                  class="table-row"
-                  [ngClass]="{
+                  " class="table-row" [ngClass]="{
                     disabled:
                       _commonService.getEditMode().isValueChange &&
                       _commonService.getEditMode().index != i,
                     'edit-mode':
                       _commonService.getEditMode().isValueChange &&
                       _commonService.getEditMode().index == i
-                  }"
-                >
+                  }">
                   <!-- Name and description column -->
-                  <td
-                    class="fs-18 fw-400 text-color fieldlist table-cell"
-                    id="{{ field.name }}-config-parameter"
-                  >
+                  <td class="fs-18 fw-400 text-color fieldlist table-cell" id="{{ field.name }}-config-parameter">
                     <span>{{ field.name }}</span>
                     <div>
                       <small>{{ field.description }}</small>
                     </div>
                   </td>
                   <!-- type column -->
-                  <td
-                    class="fs-18 fw-400 text-color fieldlist table-cell"
-                    id="{{ field.name }}-type"
-                  >
+                  <td class="fs-18 fw-400 text-color fieldlist table-cell" id="{{ field.name }}-type">
                     {{ field.type }}
                   </td>
                   <!-- Value and input box column -->
-                  <td
-                    class="fs-18 fw-400 text-color fieldlist table-cell"
-                    id="{{ field.name }}-value"
-                  >
+                  <td class="fs-18 fw-400 text-color fieldlist table-cell" id="{{ field.name }}-value">
                     <!-- Value -->
                     <ng-container *ngIf="this.editIndex != i">
                       {{ field.value }}
                     </ng-container>
                     <!-- Input box -->
                     <ng-container *ngIf="this.editIndex == i">
-                      <app-input-fields
-                        [fieldDetail]="field"
-                        [value]="field.value"
-                        (UpdateValues)="updateConfig($event, i)"
-                      ></app-input-fields>
+                      <app-input-fields [fieldDetail]="field" [value]="field.value"
+                        (UpdateValues)="updateConfig($event, i)"></app-input-fields>
                     </ng-container>
                   </td>
                   <!-- Prev.value column -->
-                  <td
-                    *ngIf="this.updatedConfigValuesList.length > 0"
-                    class="fs-18 fw-400 text-color fieldlist table-cell"
-                    id="{{ field.name }}-prev.value"
-                  >
+                  <td *ngIf="this.updatedConfigValuesList.length > 0"
+                    class="fs-18 fw-400 text-color fieldlist table-cell" id="{{ field.name }}-prev.value">
                     {{
-                      field.value != configValues[field.name]
-                        ? configValues[field.name]
-                        : ""
+                    field.value != configValues[field.name]
+                    ? configValues[field.name]
+                    : ""
                     }}
                   </td>
                   <!-- Action buttons column -->
                   <td class="fs-18 fw-400 text-color fieldlist table-cell">
                     <div class="action-btns op-0" *ngIf="this.editIndex != i">
-                      <button
-                        class="btn edit-icon"
-                        (click)="toggleEditMode(i)"
-                        title="Edit"
-                      ></button>
-                      <button
-                        class="btn history-icon"
-                        title="History"
-                        (click)="openHistoryModal(field.name)"
-                      ></button>
+                      <button class="btn edit-icon" (click)="toggleEditMode(i)" title="Edit"></button>
+                      <button class="btn history-icon" title="History" (click)="openHistoryModal(field.name)"></button>
                     </div>
-                    <div
-                      class="action-btns"
-                      *ngIf="
+                    <div class="action-btns" *ngIf="
                         _commonService.getEditMode().isValueChange &&
                         _commonService.getEditMode().index == i
-                      "
-                    >
-                      <button
-                        class="btn approve-icon"
-                        title="Approve"
-                        (click)="
+                      ">
+                      <button class="btn approve-icon" title="Approve" (click)="
                           approveEdit(_commonService.getEditMode().configData!)
-                        "
-                      ></button>
-                      <button
-                        class="btn reject-icon"
-                        title="Reject"
-                        (click)="
+                        "></button>
+                      <button class="btn reject-icon" title="Reject" (click)="
                           rejectEdit(_commonService.getEditMode().configData!)
-                        "
-                      ></button>
+                        "></button>
                     </div>
                   </td>
                 </tr>
                 <!-- On search if no data available -->
                 <tr *ngIf="filterValuesBasedOnSearch().length == 0">
-                  <td
-                    colspan="4"
-                    class="fs-18 fw-400 text-color fieldlist table-cell text-center"
-                  >
-                    <span i18n="@@noRecordFoundMsg">No record found!</span>
+                  <td colspan="4" class="fs-18 fw-400 text-color fieldlist table-cell text-center">
+                    <span i18n="@@noRecordFoundMsg">No records found!</span>
                   </td>
                 </tr>
               </tbody>
             </table>
 
             <!-- Pagination Part-->
-            <app-pagination
-              #pagination
-              [data]="filterValuesBasedOnSearch()"
-              [totalEntities]="filterValuesBasedOnSearch().length"
-            ></app-pagination>
+            <app-pagination #pagination [data]="filterValuesBasedOnSearch()"
+              [totalEntities]="filterValuesBasedOnSearch().length"></app-pagination>
           </div>
         </div>
       </div>

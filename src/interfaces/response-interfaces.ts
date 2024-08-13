@@ -1,4 +1,4 @@
-import { ConfigDetails, ConfigList, SchemaDetails, SchemaList } from "./common-interfaces";
+import { ConfigDetails, ConfigList, HistoryDetails, SchemaDetails, SchemaList } from "./common-interfaces";
 
 export interface SchemaListResp {
     data : SchemaList[]
@@ -36,3 +36,11 @@ export interface ConfigSetResp {
     statucCode: string;
     message: any;
 }
+
+export interface HistoryResp {
+    data : HistoryDetails;
+    status: string;
+    statucCode: string;
+    message: any;
+}
+  

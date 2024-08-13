@@ -2,7 +2,7 @@
 <div class="modal-dialog modal-md modal-dialog-centered" role="document">
   <div class="modal-content">
     <div class="modal-header justify-content-between">
-      <h5 class="modal-title fw-bold" id="historyLabelModal">Edit History - {{ data.fieldName }}</h5>
+      <h5 class="modal-title fw-bold" id="historyLabelModal">{{ constants.EDIT_HISTORY}} - {{ data.fieldName }}</h5>
       <button type="button" class="close" (click)="onClose()" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -20,9 +20,9 @@
             </thead>
             <tbody>
               <tr *ngFor="let history of data.fieldHistory">
-                <td>{{ history.value }}</td>
-                <td>{{ history.dateTime | date: 'dd/MM/yyyy HH:mm:ss' }}</td>
-                <td>{{ history.user }}</td>
+                <td>{{ history.val }}</td>
+                <td>{{ history.when | date: 'dd/MM/yyyy HH:mm:ss' }}</td>
+                <td>{{ history.who }}</td>
               </tr>
             </tbody>
           </table>

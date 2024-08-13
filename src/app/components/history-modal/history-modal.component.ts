@@ -1,5 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { CONSTANTS } from 'src/services/constants.service';
 
 @Component({
   selector: 'app-history-modal',
@@ -7,6 +8,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
   styleUrls: ['./history-modal.component.scss']
 })
 export class HistoryModalComponent {
+  constants = CONSTANTS;
 
   constructor(
     public dialogRef: MatDialogRef<HistoryModalComponent>,

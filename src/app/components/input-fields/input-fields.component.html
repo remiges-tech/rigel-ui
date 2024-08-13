@@ -5,84 +5,44 @@
         <div *ngSwitchCase="'bool'">
           <!-- Boolean Input  -->
           <div class="form-check form-switch">
-            <input
-              class="form-check-input"
-              [ngClass]="{ 'input-error': this.error != null }"
-              type="checkbox"
-              role="switch"
-              (change)="updateChanges(fieldDetail)"
-              (blur)="updateChanges(fieldDetail)"
-              id="{{ fieldDetail.name }}-input"
-              [(ngModel)]="value"
-              name="{{ fieldDetail.name }}-value"
-            />
+            <input class="form-check-input" [ngClass]="{ 'input-error': this.error != null }" type="checkbox"
+              role="switch" (change)="updateChanges(fieldDetail)" (blur)="updateChanges(fieldDetail)"
+              id="{{ fieldDetail.name }}-input" [(ngModel)]="value" name="{{ fieldDetail.name }}-value" />
           </div>
         </div>
-        <div
-          *ngSwitchCase="
+        <div *ngSwitchCase="
             fieldDetail.type === 'float' ||
             fieldDetail.type === 'int' ||
             fieldDetail.type === 'integer'
               ? fieldDetail.type
               : ''
-          "
-        >
+          ">
           <!-- Number Input  -->
-          <input
-            type="text"
-            class="form-control input-box"
-            [ngClass]="{ 'input-error': this.error != null }"
-            id="{{ fieldDetail.name }}-input"
-            name="{{ fieldDetail.name }}-value"
-            name="field-type"
-            [value]="value"
-            [(ngModel)]="value"
-            (blur)="updateChanges(fieldDetail)"
-            (keypress)="decimalFilter($event)"
-            step="0.01"
-          />
+          <input type="text" class="form-control input-box" [ngClass]="{ 'input-error': this.error != null }"
+            id="{{ fieldDetail.name }}-input" name="{{ fieldDetail.name }}-value" name="field-type" [value]="value"
+            [(ngModel)]="value" (blur)="updateChanges(fieldDetail)" (keypress)="decimalFilter($event)" step="0.01" />
         </div>
         <div *ngSwitchDefault>
           <!-- Default Input  -->
           <div *ngIf="fieldDetail.constraints?.enum">
             <!-- Enum Selection  -->
-            <ng-select
-              (change)="updateChanges(fieldDetail)"
-              (blur)="updateChanges(fieldDetail)"
-              id="{{ fieldDetail.name }}"
-              [(ngModel)]="value"
-              class="enum-form"
-              [ngClass]="{ 'input-error': this.error != null }"
-              autofocus
-            >
-              <ng-option
-                *ngFor="let option of fieldDetail.constraints?.enum"
-                [value]="option"
-                >{{ option }}</ng-option
-              >
+            <ng-select (change)="updateChanges(fieldDetail)" (blur)="updateChanges(fieldDetail)"
+              id="{{ fieldDetail.name }}" [(ngModel)]="value" class="enum-form"
+              [ngClass]="{ 'input-error': this.error != null }" autofocus>
+              <ng-option *ngFor="let option of fieldDetail.constraints?.enum" [value]="option">{{ option }}</ng-option>
             </ng-select>
           </div>
           <div *ngIf="!fieldDetail.constraints?.enum">
             <!-- Text Input  -->
-            <input
-              type="text"
-              class="form-control input-box"
-              [ngClass]="{ 'input-error': this.error != null }"
-              id="{{ fieldDetail.name }}-input"
-              name="{{ fieldDetail.name }}-value"
-              maxlength="255"
-              [value]="value"
-              [(ngModel)]="value"
-              (blur)="updateChanges(fieldDetail)"
-            />
+            <input type="text" class="form-control input-box" [ngClass]="{ 'input-error': this.error != null }"
+              id="{{ fieldDetail.name }}-input" name="{{ fieldDetail.name }}-value" maxlength="255" [value]="value"
+              [(ngModel)]="value" (blur)="updateChanges(fieldDetail)" />
           </div>
         </div>
       </ng-container>
     </div>
     <div class="col-6">
-      <span class="error-text" *ngIf="this.error != null"
-        >ERROR! {{ this.error }}</span
-      >
+      <span class="error-text" *ngIf="this.error != null">ERROR! {{ this.error }}</span>
     </div>
   </div>
 </section>
