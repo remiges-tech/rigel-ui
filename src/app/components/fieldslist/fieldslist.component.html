@@ -17,7 +17,7 @@
   <div class="breadcrumps-container">
     <h4 class="breadcrumps-text">{{ schemaData.config ?? "" }}</h4>
     <div class="search-input-container" [ngClass]="{ disabled: _commonService.getEditMode().isValueChange }">
-      <input class="form-control search-box" type="text" [(ngModel)]="searchText" name="search" placeholder="Search" />
+      <input class="form-control search-box" type="text" [(ngModel)]="searchText" name="search" placeholder="Search"  i18n-placeholder="@@placeholderSearch" />
     </div>
   </div>
 
@@ -25,7 +25,7 @@
 
   <section>
     <div class="row">
-      <div class="col-10">
+      <div class="col-xxl-10 col-xl-10 col-md-12">
         <div class="table-container">
           <div class="table-responsive">
             <table class="table">
@@ -48,15 +48,8 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="
-                    let field of filterValuesBasedOnSearch()
-                      | paginate
-                        : {
-                            itemsPerPage: pagination.pageSize,
-                            currentPage: pagination.currentPage
-                          };
-                    let i = index
-                  " class="table-row" [ngClass]="{
+                <tr *ngFor="let field of filterValuesBasedOnSearch()| paginate : { itemsPerPage: pagination.pageSize, currentPage: pagination.currentPage};let i = index" class="table-row" 
+                      [ngClass]="{
                     disabled:
                       _commonService.getEditMode().isValueChange &&
                       _commonService.getEditMode().index != i,

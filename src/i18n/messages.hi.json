@@ -10,11 +10,18 @@
     "107": "{$PH} मान बदल गया.",
     "commitBtnText": "प्रतिबद्ध",
     "discardBtnText": "खारिज करे",
+    "placeholderSearch": "खोजें",
     "tableHeadingConfigurableSetting": "कॉन्फ़िगर करने योग्य सेटिंग्स",
     "tableHeadingValueType": "मान प्रकार",
     "tableHeadingValue": "मूल्य",
     "tableHeadingPrevValue": "पिछला.मूल्य",
     "noRecordFoundMsg": "कोई रिकॉर्ड नहीं मिला!",
+    "EditHistoryLabel": "संपादित इतिहास - {$INTERPOLATION_1}",
+    "HistoryValue": "मान",
+    "HistoryDateTime": "दिनांक / समय",
+    "HistoryUser": "उपयोगकर्ता",
+    "NoHistoryAvailable": "कोई इतिहास उपलब्ध नहीं...",
+    "Loader": "कृपया प्रतीक्षा करें, आपका डेटा प्रोसेस किया जा रहा है",
     "paginationNumberRowLabel": "पंक्तियों की संख्या",
     "paginationTotalEntriesLabel": "कुल प्रविष्टियाँ: {$INTERPOLATION}",
     "AppLabel": "अनुप्रयोग:",
@@ -25,6 +32,6 @@
     "ConfigLabel": "कॉन्फ़िग:",
     "placeholderConfig": "चुनना",
     "AppStartNote": "आरंभ करने के लिए, ऐप/मॉड्यूल/कॉन्फ़िगर चुनें।",
-     "remigesLogo": "रेमिग्स व्यवसाय आइकन"
+    "remigesLogo": "रेमिग्स व्यवसाय आइकन"
   }
 }

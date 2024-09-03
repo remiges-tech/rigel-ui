@@ -55,6 +55,7 @@ $rigel-ui-theme: mat.define-light-theme((color: (primary: $rigel-ui-primary,
   --history-icon: url('./assets/img/history-icon.svg');
   --approve-icon: url('./assets/img/approve-icon.svg');
   --reject-icon: url('./assets/img/reject-icon.svg');
+  --remiges-logo: url('./assets/img/Logo-Master-Rigel-Reverse.svg');
 }
 
 [data-theme="dark"] {
@@ -77,6 +78,7 @@ $rigel-ui-theme: mat.define-light-theme((color: (primary: $rigel-ui-primary,
   --history-icon: url('./assets/img/history-dark.svg');
   --approve-icon: url('./assets/img/approve-icon.svg');
   --reject-icon: url('./assets/img/reject-icon.svg');
+  --remiges-logo: url('./assets/img/Logo-Master-Rigel-Reverse.svg');
 }
 
 @font-face {
@@ -175,7 +177,7 @@ html,
 body {
   height: 100%;
   width: 100%;
-  // overflow: hidden;
+  overflow: auto;
   background-color: var(--background);
 }
 
@@ -350,6 +352,14 @@ small {
   background-color: var(--icon-hover-color);
 }
 
+.remiges-logo{
+  background-image: var(--remiges-logo);
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 140px;
+  height: 75px;
+}
+
 .edit-icon {
   background-image: var(--edit-icon);
 }
@@ -510,4 +520,11 @@ small {
   font-size: 16px;
   margin-top: 5px;
   margin-right: 125px;
+}
+
+// Medium devices (Ipads, less than 1200px)
+@media  (min-width: 768px) and (max-width: 1199.98px) {
+  .search-box{
+    width: 12.5rem;
+  }
 }
