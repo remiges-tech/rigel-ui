@@ -53,6 +53,7 @@ export interface Field {
   value?: any;
   type: string;
   description: string;
+  impactAlert: string;
   constraints?: Constraints;
 }
 

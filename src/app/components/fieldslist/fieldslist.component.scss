@@ -5,3 +5,27 @@
 .text-center{
   text-align: center;
 }
+
+.modal-header {
+  background-color: var(--primary);
+  color: white;
+  height: 50px !important;
+}
+
+.close {
+  outline: none;
+  color: var(--ngselect-input);
+  background: none;
+  border: none;
+  font-size: 2rem;
+  font-weight:600;
+}
+
+.modal-footer {
+  justify-content: right !important;
+}
+
+.button{
+  background-color: var(--primary) !important;
+  color: white;
+}

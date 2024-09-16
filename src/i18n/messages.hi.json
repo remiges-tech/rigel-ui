@@ -16,6 +16,8 @@
     "tableHeadingValue": "मूल्य",
     "tableHeadingPrevValue": "पिछला.मूल्य",
     "noRecordFoundMsg": "कोई रिकॉर्ड नहीं मिला!",
+    "Yes": "हाँ",
+    "No": "नहीं",
     "EditHistoryLabel": "संपादित इतिहास - {$INTERPOLATION_1}",
     "HistoryValue": "मान",
     "HistoryDateTime": "दिनांक / समय",

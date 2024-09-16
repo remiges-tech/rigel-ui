@@ -16,6 +16,8 @@
     "tableHeadingValue": "મૂલ્ય",
     "tableHeadingPrevValue": "પહેલાનું મૂલ્ય",
     "noRecordFoundMsg": "કોઈ રેકોર્ડ મળ્યો નથી!",
+    "Yes": "હા",
+    "No": "ના",
     "EditHistoryLabel": "એડિટ ઇતિહાસ - {$INTERPOLATION_1}",
     "HistoryValue": "મૂલ્ય",
     "HistoryDateTime": "તારીખ / સમય",

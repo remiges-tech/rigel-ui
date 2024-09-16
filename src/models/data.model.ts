@@ -21,6 +21,7 @@ export const schemaDetailsModel = {
             name: { type: 'string', isRequired: false },
             type: { type: 'string', isRequired: true },
             description: { type: 'string', isRequired: true },
+            impactAlert: { type: 'string', isRequired: true},
             constraints: { type: 'string', isRequired: false },
         }
     },

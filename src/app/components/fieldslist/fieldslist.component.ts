@@ -27,10 +27,12 @@ export class FieldslistComponent {
   editIndex: number | null = null;
   selectedFieldHistory: any[] = [];
   selectedFieldName: string = '';
+  impactAlertMsg: string = '';
 
   constructor(public dialog: MatDialog) { }
 
   updateConfig(data: { data: Field; isEscClicked: boolean }, index: number) {
+    this.impactAlertMsg = data.data.impactAlert
     if (data.isEscClicked) {
       this.editIndex = null;
       this._commonService.resetEditMode();

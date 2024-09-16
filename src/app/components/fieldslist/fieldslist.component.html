@@ -17,7 +17,8 @@
   <div class="breadcrumps-container">
     <h4 class="breadcrumps-text">{{ schemaData.config ?? "" }}</h4>
     <div class="search-input-container" [ngClass]="{ disabled: _commonService.getEditMode().isValueChange }">
-      <input class="form-control search-box" type="text" [(ngModel)]="searchText" name="search" placeholder="Search"  i18n-placeholder="@@placeholderSearch" />
+      <input class="form-control search-box" type="text" [(ngModel)]="searchText" name="search" placeholder="Search"
+        i18n-placeholder="@@placeholderSearch" />
     </div>
   </div>
 
@@ -48,8 +49,9 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let field of filterValuesBasedOnSearch()| paginate : { itemsPerPage: pagination.pageSize, currentPage: pagination.currentPage};let i = index" class="table-row" 
-                      [ngClass]="{
+                <tr
+                  *ngFor="let field of filterValuesBasedOnSearch()| paginate : { itemsPerPage: pagination.pageSize, currentPage: pagination.currentPage};let i = index"
+                  class="table-row" [ngClass]="{
                     disabled:
                       _commonService.getEditMode().isValueChange &&
                       _commonService.getEditMode().index != i,
@@ -99,9 +101,8 @@
                         _commonService.getEditMode().isValueChange &&
                         _commonService.getEditMode().index == i
                       ">
-                      <button class="btn approve-icon" title="Approve" (click)="
-                          approveEdit(_commonService.getEditMode().configData!)
-                        "></button>
+                      <button class="btn approve-icon" title="Approve" (click)="selectedFieldName = field.name" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop"></button>
                       <button class="btn reject-icon" title="Reject" (click)="
                           rejectEdit(_commonService.getEditMode().configData!)
                         "></button>
@@ -126,3 +127,30 @@
     </div>
   </section>
 </section>
+
+<!-- Impact alert modal for each config parameters -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title fw-bold" id="staticBackdropLabel">{{selectedFieldName}}</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"
+          (click)="rejectEdit(_commonService.getEditMode().configData!)">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="mt-2 fw-400">
+         {{impactAlertMsg}}
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn button" data-bs-dismiss="modal"
+          (click)=" approveEdit(_commonService.getEditMode().configData!)" i18n="@@Yes">Yes</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+          (click)="rejectEdit(_commonService.getEditMode().configData!)" i18n="@@No">No</button>
+      </div>
+    </div>
+  </div>
+</div>

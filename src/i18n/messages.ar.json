@@ -16,6 +16,8 @@
     "tableHeadingValue": "قيمة",
     "tableHeadingPrevValue": "السابق.القيمة",
     "noRecordFoundMsg": "لا يوجد سجلات!",
+    "Yes": "نعم",
+    "No": "لا",
     "EditHistoryLabel": "تعديل التاريخ - {$INTERPOLATION_1}",
     "HistoryValue": "القيمة",
     "HistoryDateTime": "التاريخ / الوقت",

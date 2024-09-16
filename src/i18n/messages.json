@@ -16,6 +16,8 @@
     "tableHeadingValue": " Value ",
     "tableHeadingPrevValue": " Prev.Value ",
     "noRecordFoundMsg": "No records found!",
+    "Yes": "Yes",
+    "No": "No",
     "EditHistoryLabel": "{$INTERPOLATION} - {$INTERPOLATION_1}",
     "HistoryValue": "Value",
     "HistoryDateTime": "Date / Time",
@@ -31,7 +33,6 @@
     "version": "Version:",
     "ConfigLabel": "Config:",
     "placeholderConfig": "Select",
-    "AppStartNote": "To begin, select App / Module / Config.",
-    "remigesLogo": "Remiges Business Icon"
+    "AppStartNote": "To begin, select App / Module / Config."
   }
 }

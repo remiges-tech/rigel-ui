@@ -397,7 +397,8 @@ small {
   font-weight: 900 !important;
   height: 16px !important;
   background-color: var(--ngselect-input);
-  align-items: flex-end;
+  // align-items: flex-end;
+  align-items: center;
 }
 
 .ng-select-dropdown {
