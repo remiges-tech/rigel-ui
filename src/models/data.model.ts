@@ -36,7 +36,7 @@ export const configListmodel = {
             module: { type: 'string', isRequired: true },
             ver: { type: 'number', isRequired: true },
             config: { type: 'string', isRequired: true },
-            description: { type: 'string', isRequired: true }
+            description: { type: 'string', isRequired: false }
         }
     }
 }
