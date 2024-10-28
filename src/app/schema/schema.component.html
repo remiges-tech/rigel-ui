@@ -45,7 +45,7 @@
           <span i18n="@@AppStartNote">To begin, select App / Module / Config.</span>
         </div>
       </div>
-      <div *ngIf="schemaDetails">
+      <div *ngIf="schemaDetails && isDisplayDetails">
         <app-fieldslist *ngIf="schemaDetails?.config != null" [schemaData]="schemaDetails"
           [configValues]="configValues"></app-fieldslist>
       </div>

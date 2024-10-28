@@ -43,6 +43,7 @@ export class SchemaComponent {
     ver: null,
     config: null,
   };
+  isDisplayDetails:boolean = false; 
   configValues: any = {};
   schemaDetails?: ConfigDetails;
 
@@ -238,6 +239,7 @@ export class SchemaComponent {
         (res: ConfigDetailResp) => {
           this._commonService.hideLoader();
           if (res.status == CONSTANTS.SUCCESS) {
+            this.isDisplayDetails = true
             // this.isShowConfigValues = true;
             if (res.data.values && res.data.config) {
               // console.log(res.data.values);
@@ -248,6 +250,7 @@ export class SchemaComponent {
               );
             }
           } else {
+            this.isDisplayDetails = false
             this._toastr.error(res.message, CONSTANTS.ERROR);
           }
         },
@@ -307,6 +310,7 @@ export class SchemaComponent {
   clearCache() {
     this.moduleList = undefined;
     this.selectedData.ver = null;
+    this.selectedData.config = null;
     this.configList = undefined;
     this.schemaDetails = undefined;
   }
