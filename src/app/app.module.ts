@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
@@ -16,6 +16,9 @@ import { HistoryModalComponent } from './components/history-modal/history-modal.
 import { MatDialogModule } from '@angular/material/dialog';
 import { InputFieldsComponent } from './components/input-fields/input-fields.component';
 import { PaginationComponent } from './components/pagination/pagination.component';
+import { AppRoutingModule } from './app-routing.module';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -27,6 +30,7 @@ import { PaginationComponent } from './components/pagination/pagination.componen
     HistoryModalComponent,
     InputFieldsComponent,
     PaginationComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -39,8 +43,11 @@ import { PaginationComponent } from './components/pagination/pagination.componen
     FormsModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
+    AppRoutingModule,
   ],
-  providers: [],
+  providers: [
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -56,6 +56,7 @@ $rigel-ui-theme: mat.define-light-theme((color: (primary: $rigel-ui-primary,
   --approve-icon: url('./assets/img/approve-icon.svg');
   --reject-icon: url('./assets/img/reject-icon.svg');
   --remiges-logo: url('./assets/img/Logo-Master-Rigel-Reverse.svg');
+  --hamburger-icon: url('./assets/img/burger-menu-svgrepo-com.svg');
 }
 
 [data-theme="dark"] {
@@ -79,6 +80,7 @@ $rigel-ui-theme: mat.define-light-theme((color: (primary: $rigel-ui-primary,
   --approve-icon: url('./assets/img/approve-icon.svg');
   --reject-icon: url('./assets/img/reject-icon.svg');
   --remiges-logo: url('./assets/img/Logo-Master-Rigel-Reverse.svg');
+  --hamburger-icon: url('./assets/img/burger-menu-svgrepo-com.svg');
 }
 
 @font-face {
@@ -195,6 +197,17 @@ body {
   min-height: calc(100vh - 6rem);
   width: 15rem;
   background-color: var(--sidebar-color);
+}
+
+.sidebar.collapsed {
+  width: 0;
+  margin-left: -35px;
+  overflow: hidden;
+}
+
+.offcanvas {
+  background-color: var(--primary);
+  width: 80% !important;
 }
 
 .fa-sun {
@@ -360,6 +373,10 @@ small {
   height: 75px;
 }
 
+.hamburger-icon {
+  background-image: var(--hamburger-icon);
+}
+
 .edit-icon {
   background-image: var(--edit-icon);
 }
@@ -416,6 +433,10 @@ small {
   overflow: hidden !important;
   text-overflow: ellipsis !important;
   white-space: initial !important;
+}
+
+.fs-27 {
+  font-size: 27px;
 }
 
 .fs-20 {
@@ -502,6 +523,7 @@ small {
   align-items: center;
   justify-content: center;
   text-align: center;
+  margin: 30px 0px;
 }
 
 .toast-title {
@@ -523,9 +545,48 @@ small {
   margin-right: 125px;
 }
 
+.page-not-found {
+  text-align: center;
+  margin: 30px 0px;
+}
+
+.error {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  cursor: pointer;
+}
+
+.modal-backdrop.show {
+  opacity: 0 !important;
+}
+
+.offcanvas-backdrop.show {
+  opacity: 0 !important;
+}
+
+.modal-backdrop {
+  z-index: 0 !important;
+}
+
+.offcanvas.offcanvas-end {
+  width: 50% !important;
+  border-radius: 30px;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+
 // Medium devices (Ipads, less than 1200px)
-@media  (min-width: 768px) and (max-width: 1199.98px) {
-  .search-box{
+@media (min-width: 765px) and (max-width: 1199.98px) {
+  .search-box {
     width: 12.5rem;
+  }
+
+  .configs-container-collapsed {
+    width: 48rem;
   }
 }
