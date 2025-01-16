@@ -206,41 +206,48 @@
 describe('Dynamic Rigel Workflow', () => {
   beforeEach(() => {
     cy.visit('/');
+    cy.wait(1000); // Wait after visiting the page for UI to load
   });
 
   it('Dynamically handles app, module, config, and parameters', () => {
     // Step 1: Dynamically select an App from the dropdown
     cy.get('#app').should('be.visible').click();
+    cy.wait(1000); // Wait after clicking the app dropdown
     cy.get('.ng-dropdown-panel .ng-option')
       .first()
       .invoke('text')
       .then((app) => {
         cy.get('#app').click();
+        cy.wait(500); // Wait before selecting the option
         cy.get('.ng-dropdown-panel .ng-option').contains(app.trim()).click();
       });
-    cy.wait(500);
+    cy.wait(1000); // Wait after selecting an app
 
     // Step 2: Dynamically select a Module
     cy.get('#module').should('be.visible').click();
+    cy.wait(1000); // Wait after clicking the module dropdown
     cy.get('.ng-dropdown-panel .ng-option')
       .first()
       .invoke('text')
       .then((module) => {
         cy.get('#module').click();
+        cy.wait(500); // Wait before selecting the option
         cy.get('.ng-dropdown-panel .ng-option').contains(module.trim()).click();
       });
-    cy.wait(500);
+    cy.wait(1000); // Wait after selecting a module
 
     // Step 3: Dynamically select a Config
     cy.get('#config').should('be.visible').click();
+    cy.wait(1000); // Wait after clicking the config dropdown
     cy.get('.ng-dropdown-panel .ng-option')
       .first()
       .invoke('text')
       .then((config) => {
         cy.get('#config').click();
+        cy.wait(500); // Wait before selecting the option
         cy.get('.ng-dropdown-panel .ng-option').contains(config.trim()).click();
       });
-    cy.wait(500);
+    cy.wait(1000); // Wait after selecting a config
 
     // Step 4: Dynamically fetch and handle configuration parameters
     cy.get('[id$="-config-parameter"]').each(($parameter) => {
@@ -249,11 +256,13 @@ describe('Dynamic Rigel Workflow', () => {
 
       // Hover and click edit icon
       cy.wrap($parameter)
-        .trigger('mouseover')
+        .trigger('mouseover');
+      cy.wait(500); // Wait after hovering over the parameter
+      cy.wrap($parameter)
         .parent()
         .find('.edit-icon')
         .click();
-      cy.wait(500);
+      cy.wait(1000); // Wait after clicking the edit icon
 
       // Identify input type dynamically
       cy.wrap($parameter).parent().within(() => {
@@ -263,25 +272,41 @@ describe('Dynamic Rigel Workflow', () => {
             cy.wrap($input)
               .find('input[type="checkbox"]')
               .click({ force: true });
+            cy.wait(1000); // Wait after clicking the checkbox
           } else if ($input && $input.find('input').length > 0 && !$input.find('.ng-select').length) {
             // Handle number input types (int or float)
             const inputValue = $input.find('input').val();
             const isFloat = inputValue && String(inputValue).includes('.'); // Check if the value contains a decimal point
             const valueToType = isFloat ? '51.5' : '31'; // Float or integer value dynamically
-            cy.wrap($input)
-              .find('input')
-              .clear()
-              .type(valueToType)
-              .blur();
+            const higherValue = isFloat ? '100.5' : '130';
+
+            cy.wrap($input).find('input').clear().type(higherValue).blur();
+            cy.wait(1000); // Wait after typing the higher value
+
+            // Check for error-text and handle validation
+            cy.document().then((doc) => {
+              const errorElement = doc.querySelector('.error-text');
+              if (errorElement) {
+                cy.wrap($input).find('input').clear().blur(); // Leave input empty to trigger error
+                cy.wait(1000); // Wait after clearing the input
+                cy.get('.error-text').should('exist');
+                cy.wrap($input).find('input').type(valueToType).blur();
+                cy.wait(1000); // Wait after typing the valid value
+              } else {
+                cy.wrap($input).find('input').clear().type(higherValue).blur();
+                cy.wait(1000); // Wait after re-typing the higher value
+              }
+            });
           } else if ($input && $input.find('.ng-select').length > 0) {
             // Handle dropdown (enum)
             cy.wrap($input)
               .find('.ng-select')
-              .click(); 
-            cy.wait(500);
+              .click();
+            cy.wait(500); // Wait after clicking the dropdown
             cy.get('.ng-dropdown-panel .ng-option')
               .eq(1) // Select the second option dynamically
               .click();
+            cy.wait(1000); // Wait after selecting the dropdown option
           } else {
             cy.log('Unknown input type for parameter:', parameterName);
           }
@@ -291,25 +316,25 @@ describe('Dynamic Rigel Workflow', () => {
         cy.get('.approve-icon')
           .should('be.visible')
           .click({ force: true });
-        cy.wait(500);
+        cy.wait(1000); // Wait after approving the change
       });
 
       // Handle the modal dialog dynamically
       cy.get('#staticBackdrop').should('be.visible').within(() => {
         cy.get('#staticBackdropLabel').should('contain.text', parameterName);
-        // Extract dynamic message from modal body
+        cy.wait(500); // Wait before extracting the modal text
         cy.get('.modal-body')
-          .invoke('text') 
+          .invoke('text')
           .then((modalBodyText) => {
-            expect(modalBodyText.trim().length).to.be.greaterThan(0);  
+            expect(modalBodyText.trim().length).to.be.greaterThan(0);
             cy.get('button').contains('Yes').click();
+            cy.wait(1000); // Wait after clicking Yes
           });
       });
     });
 
     // Commit all changes
     cy.get('.commit-btn').contains('Commit').click();
+    cy.wait(2000); // Wait after committing the changes
   });
 });
-
-
