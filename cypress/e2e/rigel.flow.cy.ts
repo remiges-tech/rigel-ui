@@ -300,13 +300,24 @@ describe('Dynamic Rigel Workflow', () => {
           } else if ($input && $input.find('.ng-select').length > 0) {
             // Handle dropdown (enum)
             cy.wrap($input)
-              .find('.ng-select')
-              .click();
-            cy.wait(500); // Wait after clicking the dropdown
-            cy.get('.ng-dropdown-panel .ng-option')
-              .eq(1) // Select the second option dynamically
-              .click();
-            cy.wait(1000); // Wait after selecting the dropdown option
+              .find('.ng-select') // Target the ng-select element
+              .then(($ngSelect) => {
+                if ($ngSelect.find('.ng-clear-wrapper').length > 0) {
+                  cy.wrap($ngSelect).find('.ng-clear-wrapper').click(); // Click the clear button
+                  cy.wait(500);
+                }
+                cy.get('.error-text').should('exist');
+                // Re-open the dropdown to select a new value
+                cy.wrap($ngSelect).click();
+                cy.wait(500); // Wait for the dropdown to open
+
+                // Select a new option dynamically
+                cy.get('.ng-dropdown-panel .ng-option')
+                  .eq(1)
+                  .click();
+                cy.wait(1000);
+              });
+
           } else {
             cy.log('Unknown input type for parameter:', parameterName);
           }
