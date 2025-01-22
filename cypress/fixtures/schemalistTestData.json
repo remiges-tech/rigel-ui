@@ -1,0 +1,11 @@
+{
+    "baseUrl": "http://localhost:3002",
+    "endpoint": "/api/v1/schemalist",
+    "expectedResponse": {
+      "status": "success",
+      "statusCode": 200,
+      "message": "Data Fetched Successfully"
+    },
+    "validationKeys": ["app", "module", "ver", "description"]
+  }
+  
