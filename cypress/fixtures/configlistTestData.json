@@ -1,0 +1,16 @@
+{
+    "baseUrl": "http://localhost:3002",
+    "endpoint": "/api/v1/configlist",
+    "queryParams": {
+      "app": "FinanceApp",
+      "module": "PaymentGateway",
+      "ver": 2
+    },
+    "expectedResponse": {
+      "statusCode": 200,
+      "status": "success",
+      "message": "Data Fetched Successfully"
+    },
+    "validationKeys": ["app", "module", "ver", "config", "description"]
+  }
+  
