@@ -1,0 +1,15 @@
+{
+    "baseUrl": "http://localhost:3002/api/v1",
+    "schemaEndpoint": "/getschema",
+    "schemaPayload": {
+      "app": "FinanceApp",
+      "module": "PaymentGateway",
+      "ver": 2
+    },
+    "expectedSchemaResponse": {
+      "statusCode": 200,
+      "status": "success",
+      "message": "Data Fetched Successfully"
+    }
+  }
+  
