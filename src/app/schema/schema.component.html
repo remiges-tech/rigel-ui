@@ -1,6 +1,6 @@
 <div>
   <div class="schema-container">
-    <section class="col-lg-3 col-md-4 col-sm-12 sidebar p-3" [ngClass]="{ disabled: _commonService.getEditMode().isValueChange }">
+    <section class="col-lg-3 col-md-4 col-sm-12 sidebar p-3"[ngClass]="{'collapsed': isSidebarCollapsed, disabled: _commonService.getEditMode().isValueChange}" >
       <!--App-->
       <label class="fs-20 text-color app-text mb-2" i18n="@@AppLabel">App:</label>
       <ng-select (change)="getModuleList()" [(ngModel)]="selectedData.app" style="width: 200px" id="app"
@@ -17,7 +17,7 @@
       </div>
       <!--module-->
       <label class="fs-20 text-color module-text mb-2" i18n="@@ModuleLabel">Module:</label>
-      <ng-select (change)="getSchemaDetails()" [(ngModel)]="selectedData.module" style="width: 200px" id="app"
+      <ng-select (change)="getSchemaDetails()" [(ngModel)]="selectedData.module" style="width: 200px" 
         id="module" i18n-placeholder="@@placeholderModule" placeholder="Select">
         <ng-option *ngFor="let module of moduleList" [value]="module">{{
           module
@@ -30,7 +30,7 @@
       </div>
       <!--config-->
       <label class="fs-20 text-color config-text mb-2" i18n="@@ConfigLabel">Config:</label>
-      <ng-select (change)="getConfigDetail()" [(ngModel)]="selectedData.config" style="width: 200px" id="app"
+      <ng-select (change)="getConfigDetail()" [(ngModel)]="selectedData.config" style="width: 200px" 
         id="config" i18n-placeholder="@@placeholderConfig" placeholder="Select">
         <ng-option *ngFor="let config of configList" [value]="config">{{
           config

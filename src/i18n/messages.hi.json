@@ -24,6 +24,8 @@
     "HistoryUser": "उपयोगकर्ता",
     "NoHistoryAvailable": "कोई इतिहास उपलब्ध नहीं...",
     "Loader": "कृपया प्रतीक्षा करें, आपका डेटा प्रोसेस किया जा रहा है",
+    "PageNotFound": "404: पेज नहीं मिला!",
+    "PageNotFoundMsg": "जिस पेज को आप ढूंढ रहे हैं वह नहीं मिल रहा है या आपके पास इस पेज तक पहुंच नहीं है",
     "paginationNumberRowLabel": "पंक्तियों की संख्या",
     "paginationTotalEntriesLabel": "कुल प्रविष्टियाँ: {$INTERPOLATION}",
     "AppLabel": "अनुप्रयोग:",

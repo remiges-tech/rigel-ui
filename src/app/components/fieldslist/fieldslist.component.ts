@@ -28,6 +28,14 @@ export class FieldslistComponent {
   selectedFieldHistory: any[] = [];
   selectedFieldName: string = '';
   impactAlertMsg: string = '';
+  isSidebarCollapsed = false;
+
+
+  ngOnInit(){
+    this._commonService.isCollapsed.subscribe(isCollapsed => {
+      this.isSidebarCollapsed = isCollapsed;
+    });
+  }
 
   constructor(public dialog: MatDialog) { }
 

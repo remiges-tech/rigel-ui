@@ -1,4 +1,5 @@
 import { Component, LOCALE_ID, Inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { CommonService } from 'src/services/common.service';
 
 interface Locale {
@@ -25,8 +26,10 @@ export class TopMenuComponent {
 
   constructor(
     @Inject(LOCALE_ID) public locale: string,
-    public _commonService: CommonService
-  ) {}
+    public _commonService: CommonService,
+    private router: Router,
+    private collapseService: CommonService
+  ) { }
 
   ngOnInit() {
     this.currentTheme();
@@ -34,7 +37,7 @@ export class TopMenuComponent {
 
   navigateToLocale(localeCode: string): void {
     this.selectedLocale = this.locale;
-    const url = `/${localeCode}`;
+    const url = `/${localeCode}/#/${this.router.url}`;
     window.location.href = url; // Change the window location directly
   }
 
@@ -57,5 +60,9 @@ export class TopMenuComponent {
       localStorage.setItem('THEME', 'dark');
       document.documentElement.setAttribute('data-theme', 'dark');
     }
+  }
+
+  onHamburgerClick() {
+    this.collapseService.toggleSidebar();
   }
 }

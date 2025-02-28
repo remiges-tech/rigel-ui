@@ -24,6 +24,8 @@
     "HistoryUser": "User",
     "NoHistoryAvailable": "No History Available...",
     "Loader": "{$INTERPOLATION}",
+    "PageNotFound": "404: Page Not Found!",
+    "PageNotFoundMsg": "The page you are looking for cannot be found or you do not have access to this page",
     "paginationNumberRowLabel": "Number of rows",
     "paginationTotalEntriesLabel": "Total Entries: {$INTERPOLATION}",
     "AppLabel": "App:",

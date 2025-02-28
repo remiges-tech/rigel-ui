@@ -13,7 +13,7 @@
   </div>
 </section>
 
-<section class="configs-container p-3">
+<section class="configs-container p-3" [ngClass]="{'configs-container-collapsed': isSidebarCollapsed}">
   <div class="breadcrumps-container">
     <h4 class="breadcrumps-text">{{ schemaData.config ?? "" }}</h4>
     <div class="search-input-container" [ngClass]="{ disabled: _commonService.getEditMode().isValueChange }">
@@ -120,6 +120,7 @@
 
             <!-- Pagination Part-->
             <app-pagination #pagination [data]="filterValuesBasedOnSearch()"
+              [ngClass]="{ disabled: _commonService.getEditMode().isValueChange }"
               [totalEntities]="filterValuesBasedOnSearch().length"></app-pagination>
           </div>
         </div>
@@ -129,7 +130,7 @@
 </section>
 
 <!-- Impact alert modal for each config parameters -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" #staticBackdrop 
   aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-md modal-dialog-centered">
     <div class="modal-content">
@@ -146,7 +147,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn button" data-bs-dismiss="modal"
+        <button type="button" class="btn button" data-bs-dismiss="modal" id="yes"
           (click)=" approveEdit(_commonService.getEditMode().configData!)" i18n="@@Yes">Yes</button>
         <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
           (click)="rejectEdit(_commonService.getEditMode().configData!)" i18n="@@No">No</button>

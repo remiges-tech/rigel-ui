@@ -3,6 +3,10 @@
   "include": ["**/*.ts"],
   "compilerOptions": {
     "sourceMap": false,
-    "types": ["cypress"]
+    "types": ["cypress", "node"],
+    "baseUrl": "../",
+    "paths": {
+      "excelHelper": ["cypress/support/excelHelper"]
+    }
   }
 }

@@ -46,9 +46,14 @@ export class SchemaComponent {
   isDisplayDetails:boolean = false; 
   configValues: any = {};
   schemaDetails?: ConfigDetails;
+  isSidebarCollapsed: boolean = false;
 
   ngOnInit() {
     this.getSchemaList();
+    this._commonService.isCollapsed.subscribe(isCollapsed => {
+      this.isSidebarCollapsed = isCollapsed;
+      console.log("Sidebar collapsed",isCollapsed)
+    });
   }
 
   // get the list of schemas

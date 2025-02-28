@@ -5,6 +5,7 @@
 // ***********************************************
 declare namespace Cypress {
   interface Chainable<Subject = any> {
+    catch(arg0: (error: any) => never): unknown;
     selectValueFromDropdown(selector:string, value:string): typeof selectValueFromDropdown;
     getSchemaList(): typeof getSchemaList;
   }

@@ -24,6 +24,8 @@
     "HistoryUser": "المستخدم",
     "NoHistoryAvailable": "لا يوجد تاريخ متاح...",
     "Loader": "يرجى الانتظار، جارٍ معالجة بياناتك ",
+    "PageNotFound": "404: الصفحة غير موجودة!",
+    "PageNotFoundMsg": "الصفحة التي تبحث عنها غير موجودة أو ليس لديك صلاحية الوصول إلى هذه الصفحة",
     "paginationNumberRowLabel": "عدد الصفوف",
     "paginationTotalEntriesLabel": "إجمالي الإدخالات: {$INTERPOLATION}",
     "AppLabel": "برنامج:",

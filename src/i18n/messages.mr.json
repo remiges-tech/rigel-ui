@@ -24,6 +24,8 @@
     "HistoryUser": "वापरकर्ता",
     "NoHistoryAvailable": "इतिहास उपलब्ध नाही...",
     "Loader": "कृपया थांबा, आपला डेटा प्रक्रिया केला जात आहे",
+    "PageNotFound": "४०४: पृष्ठ सापडले नाही!",
+    "PageNotFoundMsg": "आपण शोधत असलेले पृष्ठ आढळले नाही किंवा आपल्याला या पृष्ठावर प्रवेश नाही.",
     "paginationNumberRowLabel": "पंक्तींची संख्या",
     "paginationTotalEntriesLabel": "एकूण नोंदी: {$INTERPOLATION}",
     "AppLabel": "अॅप:",

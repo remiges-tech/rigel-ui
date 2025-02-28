@@ -20,6 +20,8 @@ export class CommonService {
   private production: boolean = environment.production;
   isLoading: boolean = false;
   private _toastr = inject(ToastrService);
+  public isCollapsed = new BehaviorSubject<boolean>(false);
+
 
   log(value: any, type?: string) {
     if (!this.production) {
@@ -59,7 +61,7 @@ export class CommonService {
   checkValidJsonSchema(data: any, model: any): boolean {
     let errorStr: string[] = [];
 
-    if (data == null || data.length == 0 || data == undefined) {
+    if (data == null || data.length == 0 || data == undefined || !data) {
       this._toastr.error('Data is empty.', 'ERROR');
       return false;
     }
@@ -86,7 +88,7 @@ export class CommonService {
           if (typeof data[key] !== model[key].type) {
             errorStr.push(
               `Data property '${key}' must be '${model[key].type
-              }' but got '${typeof data[key]}'`
+              }' but got '${ data[key]}'`
             );
           } else if (model[key].type !== 'array' && !data[key]) {
             errorStr.push(`Data property '${key}' has empty data`);
@@ -140,5 +142,9 @@ export class CommonService {
 
   getEditMode(): ValueChangeInterface {
     return this.valueChangeSubject.value;
+  }
+
+  toggleSidebar() {
+    this.isCollapsed.next(!this.isCollapsed.value);
   }
 }

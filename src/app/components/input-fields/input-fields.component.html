@@ -19,7 +19,7 @@
           ">
           <!-- Number Input  -->
           <input type="text" class="form-control input-box" [ngClass]="{ 'input-error': this.error != null }"
-            id="{{ fieldDetail.name }}-input" name="{{ fieldDetail.name }}-value" name="field-type" [value]="value"
+            id="{{ fieldDetail.name }}-input" name="{{ fieldDetail.name }}-value"  [value]="value"
             [(ngModel)]="value" (blur)="updateChanges(fieldDetail)" (keypress)="decimalFilter($event)" step="0.01" />
         </div>
         <div *ngSwitchDefault>
@@ -27,8 +27,8 @@
           <div *ngIf="fieldDetail.constraints?.enum">
             <!-- Enum Selection  -->
             <ng-select (change)="updateChanges(fieldDetail)" (blur)="updateChanges(fieldDetail)"
-              id="{{ fieldDetail.name }}" [(ngModel)]="value" class="enum-form"
-              [ngClass]="{ 'input-error': this.error != null }" autofocus>
+              id="{{ fieldDetail.name }}" [(ngModel)]="value" class="enum-form"  name="{{ fieldDetail.name }}-value"
+              [ngClass]="{ 'input-error': this.error != null }" autofocus> 
               <ng-option *ngFor="let option of fieldDetail.constraints?.enum" [value]="option">{{ option }}</ng-option>
             </ng-select>
           </div>

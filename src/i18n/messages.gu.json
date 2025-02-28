@@ -24,6 +24,8 @@
     "HistoryUser": "વપરાશકર્તા",
     "NoHistoryAvailable": "કોઈ ઇતિહાસ ઉપલબ્ધ નથી...",
     "Loader": "કૃપા કરીને રાહ જુઓ, તમારા ડેટાને પ્રક્રિયા કરી રહી છે",
+    "PageNotFound": "૪૦૪: પૃષ્ઠ મળ્યું નથી!",
+    "PageNotFoundMsg": "તમે શોધી રહ્યા છો તે પૃષ્ઠ મળી શક્યું નથી અથવા તમને આ પૃષ્ઠ પર પ્રવેશ નથી.",
     "paginationNumberRowLabel": "પંક્તિઓની સંખ્યા",
     "paginationTotalEntriesLabel": "કુલ એન્ટ્રીઓ: {$INTERPOLATION}",
     "AppLabel": "એપ્લિકેશન:",
